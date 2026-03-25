@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sta. Ana National High School - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #003087;
+      --light: #e6f0ff;
+      --text: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin: 0; 
+      background-image: url('background.png');   
+      background-size: cover;                    
+      background-position: center;               
+      background-repeat: no-repeat;              
+      background-attachment: fixed;              
+      color: var(--text); 
+      min-height: 100vh;                         
+      line-height: 1.6;
+    }
+
+    header { 
+      background: var(--primary); 
+      color: white; 
+      padding: 10px; 
+      text-align: center;
+    }
+
+    /* ────────────── RESPONSIVE NAV ────────────── */
+    nav {
+      background: var(--primary);
+      padding: 1rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 30px;
+      height: 4px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Dropdown menu (mobile) */
+    .dropdown-menu {
+      display: none;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      flex-direction: column;
+      padding: 1rem 0;
+      z-index: 100;
+    }
+
+    .dropdown-menu a {
+      padding: 1rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    /* Checkbox hack for pure CSS toggle */
+    #menu-toggle {
+      display: none;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    #menu-toggle:checked ~ .dropdown-menu {
+      display: flex;
+    }
+
+    /* ────────────── MAIN CONTENT ────────────── */
+    .container { 
+      max-width: 1200px; 
+      margin: 20px auto; 
+      padding: 0 20px; 
+    }
+
+    .section { 
+      background: rgba(255, 255, 255, 0.5);   
+      padding: 25px; 
+      margin: 25px 0; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);   
+      backdrop-filter: blur(4px);              
+    }
+
+    h1, h2, h3 { 
+      color: var(--primary); 
+      margin-top: 0;
+    }
+
+    /* Paragraph styling: indent first line + justified */
+    .section p {
+      text-align: justify;
+      text-indent: 2em;           /* first-line indent */
+      margin: 1em 0;
+      hyphens: auto;              /* better word breaking in justified text */
+    }
+
+    /* Remove indent from first paragraph after heading (common style) */
+    .section h2 {
+      text-indent: 0;
+    }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+      gap: 20px; 
+    }
+
+    .card { 
+      background: var(--light); 
+      padding: 15px; 
+      border-radius: 8px; 
+      text-align: center; 
+    }
+
+    .card a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* ────────────── VIDEO MODAL ────────────── */
+    .video-modal {
+      display: none;
+      position: fixed;
+      z-index: 9998;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      overflow: auto;
+    }
+
+    .video-modal-content {
+      margin: 5% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 960px;
+      position: relative;
+    }
+
+    .video-close {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 9999;
+    }
+
+    .video-close:hover,
+    .video-close:focus {
+      color: #bbb;
+      text-decoration: none;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ────────────── SPLASH & VISITOR ────────────── */
+    #role-splash {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 48, 135, 0.95); color: white;
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+      text-align: center;
+    }
+
+    #role-splash .box {
+      background: white; color: var(--primary); padding: 40px; border-radius: 15px; max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .role-btn {
+      background: var(--primary); color: white; border: none; padding: 18px 30px; margin: 15px;
+      font-size: 1.2em; border-radius: 8px; cursor: pointer; width: 280px; max-width: 90%;
+    }
+
+    .role-btn:hover { background: #0056d2; }
+
+    .visitor-count {
+      background: var(--primary); color: white; padding: 12px; text-align: center; font-size: 1.1em;
+      margin-top: 20px;
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+
+    footer .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer img {
+      height: 60px;
+      width: auto;
+      border: 2px solid white;
+      border-radius: 8px;
+      padding: 4px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* ────────────── MEDIA QUERIES ────────────── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      header {
+        padding: 15px;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      .role-btn {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .video-modal-content {
+        margin: 10% auto;
+        padding: 10px;
+      }
+
+      .video-close {
+        font-size: 35px;
+        right: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 15px;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header style="background-image: url('logo.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 30px; text-align: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.6);">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;"></div>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <input type="checkbox" id="menu-toggle">
+    
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+
+    <div class="dropdown-menu">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="section">
+    <h2>Review Materials</h2>
+    <p>Review videos in preparation for upcoming Examinations (Grades 7–10).</p>
+  </div>
+
+  <div class="section">
+    <h3>Grade 7</h3>
+    <div class="grid">
+      <div class="card">Math Review Q1 Set 1 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/GzDKuN8ELKU'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 2 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0f4Nbrr2EPo'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 2 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0IQgvu7D8Hs'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 2 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/dPo_rHr4el0'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 2 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/zk7cR8iu9m0'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 3 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/TX-8XsYNV30'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/G8MF1l4fEnI'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ensLDQMgJSk'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/5PVInQdh7YY'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Fm7pWNCki28'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 2 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/f0KXxNkrrFc'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/i6HDg8u8oz4'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/N7rmy-qRgyk'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/woG-Vz0ZfqM'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/CQdJRbS_uFw'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 2 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/blp9LKF-vzc'); return false;">Watch</a></div>
+      <div class="card">Math Review Prefinals Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/r0g1jt0AwXI'); return false;">Watch</a></div>
+      <div class="card">Math Review Prefinals Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/RitD9ehgono'); return false;">Watch</a></div>
+      <div class="card">Math Review Prefinals Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/lfKcL8t-r8w'); return false;">Watch</a></div>
+      <div class="card">Math Review Prefinals Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/bSrIsEC9eQo'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 1 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/vWRZw5Ht4fU'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/z_ojp5V_mcQ'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/swiYiLgGLSw'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/J220zCsEWQk'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/YDCXnnsbItg'); return false;">Watch</a></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Grade 8</h3>
+    <div class="grid">
+      <div class="card">Math Review Q1 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/XYuMy8b1wUc'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/JycbrxDHQng'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/oBua_w2njBc'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/taSpyW7b3L0'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/rB8nMhwxDNM'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/wUZgunNmfYI'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/auSHfz2Fk8g'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/DGUUv98Oi54'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 2 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/aW-EXEAM3zI'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/EKRQd3DIzVE'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ozThiZoQ7K8'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/YGCSGv7yb-k'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/lGsp__xXKxI'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 2 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/LYmBEvu2MNE'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 1 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/NFDZ8eHeTsc'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/B4E13Jpz3uk'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/SHXdGu4TwT4'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/hxOcLD9UUMg'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Mjm2A6sg2nw'); return false;">Watch</a></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Grade 9</h3>
+    <div class="grid">
+      <div class="card">Math Review Q1 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/FVuHzPyRO-I'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Ln1nFTmSLr8'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/_jQ2unngM88'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/OTlBi34fYl0'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 2 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/keN1kVynfXE'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 3 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Q79T0ABJHlY'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/R2oPtxc8SA0'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/5MudXmMHvdM'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/QiXdT0_36cg'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Ffp8bbmEU2A'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 2 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/QctG-6g4_2U'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 2 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/OZCYSEYW1nk'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 2 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/r_CRJ5bMNEA'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 2 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/SNnjZk3zjUA'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 3 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/LMWI2CM9M_w'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 1 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/OzilEB51MoI'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/9mhUhgDUJ8M'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/p1TsFHKFznM'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/KlBIay64r7I'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 2 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/TBBP_iKZ8xs'); return false;">Watch</a></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Grade 10</h3>
+    <div class="grid">
+      <div class="card">Math Review Q1 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/c48aAag-o7U'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/r-FSluRGppw'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/557ZkHHzdTI'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/lx9i7VpLz0k'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 2 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/rx89CC6z9Ew'); return false;">Watch</a></div>
+      <div class="card">Math Review Q1 Set 3 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/HqBM7BAPbsw'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/y7p2jwt9nek'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/rnCK7JFn3bQ'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/4rybeKEyVMo'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0OF4my6t4wY'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 2 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/7P773mJqxvE'); return false;">Watch</a></div>
+      <div class="card">Math Review Q2 Set 3 FULL: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ZuPiL168wVY'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ZkaseY8XRwY'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/DYK4W-e39Yg'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/47JiTBG6AIw'); return false;">Watch</a></div>
+      <div class="card">Math Review Q3 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/NiezKH96sLQ'); return false;">Watch</a></div>
+      <div class="card">Math Review Prefinals Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Fnx4dNY0G1w'); return false;">Watch</a></div>
+      <div class="card">Math Review Prefinals Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/lZhiQgmYlJs'); return false;">Watch</a></div>
+      <div class="card">Math Review Prefinals Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/pWdzMfNXIIs'); return false;">Watch</a></div>
+      <div class="card">Math Review Prefinals Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/9X5bdRZf2cQ'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 1 Part 1: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/c4fBq7K7ctg'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 1 Part 2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0J9V-zHPHY0'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 1 Part 3: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0CjDUWHqL08'); return false;">Watch</a></div>
+      <div class="card">Math Review Q4 Set 1 Part 4: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/AOxmnFnIMnk'); return false;">Watch</a></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Video Modal Popup -->
+<div id="videoModal" class="video-modal">
+  <div class="video-modal-content">
+    <span class="video-close" onclick="closeVideo()">&times;</span>
+    <div class="video-wrapper">
+      <iframe 
+        id="videoIframe" 
+        src="" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div style="text-align: left; line-height: 1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    
+    <div style="display: flex; gap: 25px; align-items: center;">
+      <img src="pinas.png" alt="Philippines Logo" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+      <img src="seal.png" alt="DepEd Seal" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+      <img src="school.png" alt="School Logo" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+    </div>
+  </div>
+
+  <div class="visitor-count" id="visitor-footer">
+    Teachers: <span id="teacher-count">0</span>  |   
+    Learners: <span id="learner-count">0</span>
+  </div>
+</footer>
+
+<script>
+// Video modal functions
+function openVideo(url) {
+  // Force youtube-nocookie domain and clean URL
+  let videoId = url.split('v=')[1] || url.split('/').pop();
+  if (videoId) {
+    videoId = videoId.split('&')[0]; // remove extra params like ?t= or &list=
+  } else {
+    // fallback for youtu.be/short links
+    videoId = url.split('/').pop().split('?')[0];
+  }
+
+  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+
+  document.getElementById("videoIframe").src = embedUrl;
+  document.getElementById("videoModal").style.display = "block";
+}
+
+function closeVideo() {
+  document.getElementById("videoModal").style.display = "none";
+  document.getElementById("videoIframe").src = "";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("videoModal");
+  if (event.target === modal) {
+    closeVideo();
+  }
+}
+// (copy the exact same <script> block from above, starting from const TEACHER_KEY = ... to the end)
+const TEACHER_KEY = "sanha-teachers-2026";
+const LEARNER_KEY = "sanha-learners-2026";
+const BASE = "https://countapi.mileshilliard.com/api/v1";
+
+async function updateVisitorCounts() {
+  try {
+    const tRes = await fetch(`${BASE}/get/${TEACHER_KEY}`);
+    const tData = await tRes.json();
+    document.getElementById("teacher-count").textContent = tData.value || 0;
+
+    const lRes = await fetch(`${BASE}/get/${LEARNER_KEY}`);
+    const lData = await lRes.json();
+    document.getElementById("learner-count").textContent = lData.value || 0;
+  } catch(e) {}
+}
+window.onload = updateVisitorCounts;
+</script>
+
+</body>
+</html>

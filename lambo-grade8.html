@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAMBO - Grade 8 | Sta. Ana NHS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin:0; 
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color:#333; 
+      min-height: 100vh;
+    }
+    .container { 
+      max-width: 1000px; 
+      margin: 30px auto; 
+      padding: 30px; 
+      background: rgba(255,255,255,0.7); 
+      border-radius: 12px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25); 
+    }
+    h1 { 
+      text-align: center; 
+      color: #003087; 
+      margin-bottom: 40px; 
+      font-size: 2.4em; 
+    }
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 35px;
+    }
+    .subject-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .subject-title {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #006400;
+      margin-bottom: 25px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #006400;
+    }
+    .quarters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .quarter-column {
+      text-align: center;
+    }
+    .quarter-title {
+      font-weight: bold;
+      color: #003087;
+      margin-bottom: 15px;
+      font-size: 1em;
+    }
+    .las-list a {
+      display: block;
+      margin: 6px 0;
+      color: #b22222;
+      text-decoration: underline;
+      font-size: 1em;
+    }
+    .las-list a:hover {
+      color: #8b0000;
+    }
+    .back {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1.15em;
+    }
+    .back a {
+      color: #003087;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .back a:hover {
+      text-decoration: underline;
+    }
+    /* ────────────── PDF MODAL ────────────── */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      z-index: 9998;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      overflow: auto;
+    }
+    .pdf-modal-content {
+      margin: 4% auto;
+      padding: 20px;
+      width: 94%;
+      max-width: 1100px;
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .pdf-close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      color: #333;
+      font-size: 42px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .pdf-close:hover {
+      color: var(--primary);
+    }
+    .pdf-wrapper {
+      width: 100%;
+      height: 75vh;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+    .pdf-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .pdf-download {
+      display: block;
+      margin: 15px auto 0;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .pdf-download:hover {
+      background: #0056d2;
+    }
+    @media (max-width: 1000px) {
+      .quarters-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .quarters-grid {
+        grid-template-columns: 1fr;
+      }
+      .pdf-modal-content { margin: 8% auto; padding: 12px; width: 96%; }
+      .pdf-close { font-size: 36px; right: 15px; }
+      .pdf-wrapper { height: 65vh; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>LAMBO MATERIALS - GRADE 8</h1>
+
+  <div class="subjects-grid">
+
+    <!-- Subject 1: Filipino -->
+    <div class="subject-card">
+      <div class="subject-title">Filipino</div>
+      <div class="quarters-grid">
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LVnU03vruPTgL70ilt0UW9SoBU7OvvqW/preview', 'https://drive.google.com/uc?export=download&id=1LVnU03vruPTgL70ilt0UW9SoBU7OvvqW'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tKtu-THhxJayqULUrTcXMr0SDZ-f6CEu/preview', 'https://drive.google.com/uc?export=download&id=1tKtu-THhxJayqULUrTcXMr0SDZ-f6CEu'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/145_ZnwljfCMixm30XaYDzBqcj2DY5ayy/preview', 'https://drive.google.com/uc?export=download&id=145_ZnwljfCMixm30XaYDzBqcj2DY5ayy'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hFFO0iRbmkHtjJC9ve4En0_cFnx6sBfo/preview', 'https://drive.google.com/uc?export=download&id=1hFFO0iRbmkHtjJC9ve4En0_cFnx6sBfo'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19mgO2tUqENWfAeIu92QJTYTlFcqoodSc/preview', 'https://drive.google.com/uc?export=download&id=19mgO2tUqENWfAeIu92QJTYTlFcqoodSc'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cypSk005-b_xOPcF_vJ6JIN1f2K1VjTG/preview', 'https://drive.google.com/uc?export=download&id=1cypSk005-b_xOPcF_vJ6JIN1f2K1VjTG'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1GiOapfa62eXh7FkEYhkodWjosTAaUzAY/preview', 'https://drive.google.com/uc?export=download&id=1GiOapfa62eXh7FkEYhkodWjosTAaUzAY'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16Cf2ZcHZ-wnbmX89KBHSgWQdmjxnDqZo/preview', 'https://drive.google.com/uc?export=download&id=16Cf2ZcHZ-wnbmX89KBHSgWQdmjxnDqZo'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_rbvPDzkMutkCSQT5rX58Isxbn-pJ9-A/preview', 'https://drive.google.com/uc?export=download&id=1_rbvPDzkMutkCSQT5rX58Isxbn-pJ9-A'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PRaENkodzwJXjPyvk-NI-qPdAuDgtphx/preview', 'https://drive.google.com/uc?export=download&id=1PRaENkodzwJXjPyvk-NI-qPdAuDgtphx'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1lIwRqAXc8Wl6yutdr-zUf35AT4u-X6hd/preview', 'https://drive.google.com/uc?export=download&id=1lIwRqAXc8Wl6yutdr-zUf35AT4u-X6hd'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1GDsHWOJCI8iaxS5dn6FPyI3rpwlI68bh/preview', 'https://drive.google.com/uc?export=download&id=1GDsHWOJCI8iaxS5dn6FPyI3rpwlI68bh'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_ppmifBVn85aKPqNtE-PgzJnXDetSEY8/preview', 'https://drive.google.com/uc?export=download&id=1_ppmifBVn85aKPqNtE-PgzJnXDetSEY8'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rRRIvqcNk5WBgLyZK6OoiwHEDggGDazx/preview', 'https://drive.google.com/uc?export=download&id=1rRRIvqcNk5WBgLyZK6OoiwHEDggGDazx'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1m2sPjgdncPFMHA6k402oTW6y58dvoubq/preview', 'https://drive.google.com/uc?export=download&id=1m2sPjgdncPFMHA6k402oTW6y58dvoubq'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WvGWlPmFocy_AfscaCzT8N4fK0-mj7xv/preview', 'https://drive.google.com/uc?export=download&id=1WvGWlPmFocy_AfscaCzT8N4fK0-mj7xv'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cid46kwWdkEnZb15f1itX20lZFVo4iPC/preview', 'https://drive.google.com/uc?export=download&id=1cid46kwWdkEnZb15f1itX20lZFVo4iPC'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Z716ttkTGo2r5TfKcx62GcMCXxlSS-q0/preview', 'https://drive.google.com/uc?export=download&id=1Z716ttkTGo2r5TfKcx62GcMCXxlSS-q0'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1C1TrFgMQKSPLkuGao5I50U4V2Nqa-J12/preview', 'https://drive.google.com/uc?export=download&id=1C1TrFgMQKSPLkuGao5I50U4V2Nqa-J12'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UdlKUOMU83uju2JIu1ZDJ52pbDUx8jdP/preview', 'https://drive.google.com/uc?export=download&id=1UdlKUOMU83uju2JIu1ZDJ52pbDUx8jdP'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mi9H561b0S3S0Wrj4Pgrz9O6J3dDx2Sa/preview', 'https://drive.google.com/uc?export=download&id=1mi9H561b0S3S0Wrj4Pgrz9O6J3dDx2Sa'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XutAty9Epdt1YRz3GldkaqDs93oR_o6O/preview', 'https://drive.google.com/uc?export=download&id=1XutAty9Epdt1YRz3GldkaqDs93oR_o6O'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1t30NVjHpMsqs5eVaMW0N-MD1Q5BCULYw/preview', 'https://drive.google.com/uc?export=download&id=1t30NVjHpMsqs5eVaMW0N-MD1Q5BCULYw'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1p1yLmpgL_xF-x-vtCicPzOp6JA1WGusl/preview', 'https://drive.google.com/uc?export=download&id=1p1yLmpgL_xF-x-vtCicPzOp6JA1WGusl'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hGAatg_90vIVoGOyngKzgJ-PvH6AZYre/preview', 'https://drive.google.com/uc?export=download&id=1hGAatg_90vIVoGOyngKzgJ-PvH6AZYre'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19BvTAQ5q8p85ZJjeG2sny4_ihiHymkCd/preview', 'https://drive.google.com/uc?export=download&id=19BvTAQ5q8p85ZJjeG2sny4_ihiHymkCd'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19_iIYniWW5sPpT1N7jnVNC_VJRmjJW9n/preview', 'https://drive.google.com/uc?export=download&id=19_iIYniWW5sPpT1N7jnVNC_VJRmjJW9n'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Hx2pH5w052gU9-Bew8a7_zgWZCDS0KSN/preview', 'https://drive.google.com/uc?export=download&id=1Hx2pH5w052gU9-Bew8a7_zgWZCDS0KSN'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1eG6r8bQ4rYU8YTyjIgVENQnWo_lP3JRU/preview', 'https://drive.google.com/uc?export=download&id=1eG6r8bQ4rYU8YTyjIgVENQnWo_lP3JRU'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Upsgd8aBmkt_JttMbgIOXXj40Dmgr6UE/preview', 'https://drive.google.com/uc?export=download&id=1Upsgd8aBmkt_JttMbgIOXXj40Dmgr6UE'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1yoOGh9BaNG16Eo2IiaDxxRUYV0z-gQCi/preview', 'https://drive.google.com/uc?export=download&id=1yoOGh9BaNG16Eo2IiaDxxRUYV0z-gQCi'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZTFMUniZKWOfyx84YLIe7TeOcIw2Wog_/preview', 'https://drive.google.com/uc?export=download&id=1ZTFMUniZKWOfyx84YLIe7TeOcIw2Wog_'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1019jPx2Ood1MUHTOYjvR43FYhfwDImb6/preview', 'https://drive.google.com/uc?export=download&id=1019jPx2Ood1MUHTOYjvR43FYhfwDImb6'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IF0lilVxrDklIva0pZQ29R8uMKD1WFmK/preview', 'https://drive.google.com/uc?export=download&id=1IF0lilVxrDklIva0pZQ29R8uMKD1WFmK'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hnYyMej4W2wTdv_hl7KQfWVgln0sjqLP/preview', 'https://drive.google.com/uc?export=download&id=1hnYyMej4W2wTdv_hl7KQfWVgln0sjqLP'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NNbhE_vTdDG80ViQ_-H2602dXcHDAuRN/preview', 'https://drive.google.com/uc?export=download&id=1NNbhE_vTdDG80ViQ_-H2602dXcHDAuRN'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OCgb1SKgLGH-ip6r2g5mAbbSiWHQapwW/preview', 'https://drive.google.com/uc?export=download&id=1OCgb1SKgLGH-ip6r2g5mAbbSiWHQapwW'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1m2pTth1OKVBGmAQMy2vBe_UFKOscgPb-/preview', 'https://drive.google.com/uc?export=download&id=1m2pTth1OKVBGmAQMy2vBe_UFKOscgPb-'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NA0KeHX9rSlrW-fbGIjh9BhKYJ6YGsgx/preview', 'https://drive.google.com/uc?export=download&id=1NA0KeHX9rSlrW-fbGIjh9BhKYJ6YGsgx'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Yz2jKzN-McX7zcB4IFkwlnSAsgClVnik/preview', 'https://drive.google.com/uc?export=download&id=1Yz2jKzN-McX7zcB4IFkwlnSAsgClVnik'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bSrUzSLJlZVvVbZVce4J49Cnzm7HDiCj/preview', 'https://drive.google.com/uc?export=download&id=1bSrUzSLJlZVvVbZVce4J49Cnzm7HDiCj'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wY17K_E7Lotb12RsEItrAZMNY2bfDZDQ/preview', 'https://drive.google.com/uc?export=download&id=1wY17K_E7Lotb12RsEItrAZMNY2bfDZDQ'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mAgsALdboa0WyT1YGzX096vWzYbIcPHH/preview', 'https://drive.google.com/uc?export=download&id=1mAgsALdboa0WyT1YGzX096vWzYbIcPHH'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1O-CVQdbxSda1nn_u2GJ-_Z5aFn3ygvO3/preview', 'https://drive.google.com/uc?export=download&id=1O-CVQdbxSda1nn_u2GJ-_Z5aFn3ygvO3'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rYNuPsyyJRwJ59pnzl28qibKarFRlDB2/preview', 'https://drive.google.com/uc?export=download&id=1rYNuPsyyJRwJ59pnzl28qibKarFRlDB2'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1J3NtYrE8AbQngbFAmQxhDZHgCfTmFUIp/preview', 'https://drive.google.com/uc?export=download&id=1J3NtYrE8AbQngbFAmQxhDZHgCfTmFUIp'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15n3iUWId4OMM_ot-6PDNi0Qn3wpOEUmV/preview', 'https://drive.google.com/uc?export=download&id=15n3iUWId4OMM_ot-6PDNi0Qn3wpOEUmV'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1muhiM25lY1B09ACYlp51FaaYePZl1KzB/preview', 'https://drive.google.com/uc?export=download&id=1muhiM25lY1B09ACYlp51FaaYePZl1KzB'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QsAOhZf-5a0z2ueHksdpec-yPHc4_-lx/preview', 'https://drive.google.com/uc?export=download&id=1QsAOhZf-5a0z2ueHksdpec-yPHc4_-lx'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Nq3_gGy9psP7fSkpc1MyZFwrqtaE_Dga/preview', 'https://drive.google.com/uc?export=download&id=1Nq3_gGy9psP7fSkpc1MyZFwrqtaE_Dga'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1lKMv7cqrJOAZFNLKjbR8jnkb-5DfFTu9/preview', 'https://drive.google.com/uc?export=download&id=1lKMv7cqrJOAZFNLKjbR8jnkb-5DfFTu9'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1T5qhsAXIMfiJNZbM3-5QoNk9sLGtBp4Q/preview', 'https://drive.google.com/uc?export=download&id=1T5qhsAXIMfiJNZbM3-5QoNk9sLGtBp4Q'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Kx8Kf1_8I2P-TvyysNZMZ7Bs1YuMtVEc/preview', 'https://drive.google.com/uc?export=download&id=1Kx8Kf1_8I2P-TvyysNZMZ7Bs1YuMtVEc'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-t3zjU1Q4sd9Ri-K7QwQqCoDPrNUps99/preview', 'https://drive.google.com/uc?export=download&id=1-t3zjU1Q4sd9Ri-K7QwQqCoDPrNUps99'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1s3Y_Fj86JkFiIQy2BnyZYPCyVfUI98vd/preview', 'https://drive.google.com/uc?export=download&id=1s3Y_Fj86JkFiIQy2BnyZYPCyVfUI98vd'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rwWn_X1GD7ZexqObSSV2ca5-zofzpHMA/preview', 'https://drive.google.com/uc?export=download&id=1rwWn_X1GD7ZexqObSSV2ca5-zofzpHMA'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1agay2o_QJpivAKb5NX_uXdkwUHqczmdJ/preview', 'https://drive.google.com/uc?export=download&id=1agay2o_QJpivAKb5NX_uXdkwUHqczmdJ'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16JAjO5uEovQXEGzY4L1nktyOGPSQnHy8/preview', 'https://drive.google.com/uc?export=download&id=16JAjO5uEovQXEGzY4L1nktyOGPSQnHy8'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mjfomMJKRm7q27aDeZ71HEJok_-qQ-7h/preview', 'https://drive.google.com/uc?export=download&id=1mjfomMJKRm7q27aDeZ71HEJok_-qQ-7h'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jcEwfWqeteUGb0WRfb-syme_AIjTnhm-/preview', 'https://drive.google.com/uc?export=download&id=1jcEwfWqeteUGb0WRfb-syme_AIjTnhm-'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1h7wMtyT4cJDreBQ0YI-3bf3Ewvs-NjfV/preview', 'https://drive.google.com/uc?export=download&id=1h7wMtyT4cJDreBQ0YI-3bf3Ewvs-NjfV'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HhDIFr2cMsV8fcPaLVlupQ1cIjP1gYzU/preview', 'https://drive.google.com/uc?export=download&id=1HhDIFr2cMsV8fcPaLVlupQ1cIjP1gYzU'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YKh0NHy70pXIUB4dP_eQ7JARumxnRcqq/preview', 'https://drive.google.com/uc?export=download&id=1YKh0NHy70pXIUB4dP_eQ7JARumxnRcqq'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-JYjrLI85mR9OMn9Mo2O8d9NVB3-E9SE/preview', 'https://drive.google.com/uc?export=download&id=1-JYjrLI85mR9OMn9Mo2O8d9NVB3-E9SE'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Mn3OH_UUvHF82MUbBfBiJczmJhv4T-Fw/preview', 'https://drive.google.com/uc?export=download&id=1Mn3OH_UUvHF82MUbBfBiJczmJhv4T-Fw'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1P4BpruyN31PHse75AHP3f4sa4it2JQ7w/preview', 'https://drive.google.com/uc?export=download&id=1P4BpruyN31PHse75AHP3f4sa4it2JQ7w'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1z0Kr8JQqOu0T7cyP2BqpR1yH3BqNQ0nW/preview', 'https://drive.google.com/uc?export=download&id=1z0Kr8JQqOu0T7cyP2BqpR1yH3BqNQ0nW'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jEu8teANmhqK-fe_lr3YPFrDpFFighig/preview', 'https://drive.google.com/uc?export=download&id=1jEu8teANmhqK-fe_lr3YPFrDpFFighig'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-CMPFXob2GeexT_Jhp84g-gMWv-sBoSh/preview', 'https://drive.google.com/uc?export=download&id=1-CMPFXob2GeexT_Jhp84g-gMWv-sBoSh'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1T7ws0wW22tNF3O_f8y7zsuOd130mLJKT/preview', 'https://drive.google.com/uc?export=download&id=1T7ws0wW22tNF3O_f8y7zsuOd130mLJKT'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ivJ7HpMTgB3xliqWckfXPg23F2p4W0mW/preview', 'https://drive.google.com/uc?export=download&id=1ivJ7HpMTgB3xliqWckfXPg23F2p4W0mW'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LwusMgTKyeqUHplQ4T0DNlydgssS4-Pd/preview', 'https://drive.google.com/uc?export=download&id=1LwusMgTKyeqUHplQ4T0DNlydgssS4-Pd'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1H7raShb0Dmj86xuKuR2zk5w1sl0w1CbA/preview', 'https://drive.google.com/uc?export=download&id=1H7raShb0Dmj86xuKuR2zk5w1sl0w1CbA'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Ix5Zv6m_-9DGc4XBaB296oPeTGwvSw49/preview', 'https://drive.google.com/uc?export=download&id=1Ix5Zv6m_-9DGc4XBaB296oPeTGwvSw49'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pxg1GnXuSs3iR5ntjX1mZOd1hQg2Imby/preview', 'https://drive.google.com/uc?export=download&id=1pxg1GnXuSs3iR5ntjX1mZOd1hQg2Imby'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WL_-06g-wEeCrmJaW3UUcxb-Cnd24JQJ/preview', 'https://drive.google.com/uc?export=download&id=1WL_-06g-wEeCrmJaW3UUcxb-Cnd24JQJ'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1b7BA9-dbyexJbqWMu8Qt3iFYlphV2DaY/preview', 'https://drive.google.com/uc?export=download&id=1b7BA9-dbyexJbqWMu8Qt3iFYlphV2DaY'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/199yRjJODiwmfioSyNfJe-MvdI7g2pXcm/preview', 'https://drive.google.com/uc?export=download&id=199yRjJODiwmfioSyNfJe-MvdI7g2pXcm'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bxlnARgfiEG5GPaaUnxoMnWaiJatIrEr/preview', 'https://drive.google.com/uc?export=download&id=1bxlnARgfiEG5GPaaUnxoMnWaiJatIrEr'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MpF_fa3H-Q9HeasXo0r1S-fuatRtCPME/preview', 'https://drive.google.com/uc?export=download&id=1MpF_fa3H-Q9HeasXo0r1S-fuatRtCPME'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject 2: English -->
+    <div class="subject-card">
+      <div class="subject-title">English</div>
+      <div class="quarters-grid">
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CFjJa6N9WUG8IPzbBoidl5Xw9s-J4DaJ/preview', 'https://drive.google.com/uc?export=download&id=1CFjJa6N9WUG8IPzbBoidl5Xw9s-J4DaJ'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1vroLhf2UadIQiOJ9PWuFgNtqTGUJQCGZ/preview', 'https://drive.google.com/uc?export=download&id=1vroLhf2UadIQiOJ9PWuFgNtqTGUJQCGZ'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1j835mq-N7GA51blHlUGwoE5AFcTkKLFN/preview', 'https://drive.google.com/uc?export=download&id=1j835mq-N7GA51blHlUGwoE5AFcTkKLFN'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dD-7YH78cHtIlh12HNWYqKJzmudDN03g/preview', 'https://drive.google.com/uc?export=download&id=1dD-7YH78cHtIlh12HNWYqKJzmudDN03g'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LMfrLPNqeX0IQKBND2YFJ5LEKoltp7ub/preview', 'https://drive.google.com/uc?export=download&id=1LMfrLPNqeX0IQKBND2YFJ5LEKoltp7ub'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sqcg1DzK33TA2E-ORSquvv_ti81Xh4o4/preview', 'https://drive.google.com/uc?export=download&id=1sqcg1DzK33TA2E-ORSquvv_ti81Xh4o4'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YhvsR8wfYCehiAYNAuZDC_WuWq3FLHBg/preview', 'https://drive.google.com/uc?export=download&id=1YhvsR8wfYCehiAYNAuZDC_WuWq3FLHBg'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NNbNcVm85DjPWnj6KRxucLiXMaQdS-af/preview', 'https://drive.google.com/uc?export=download&id=1NNbNcVm85DjPWnj6KRxucLiXMaQdS-af'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1eAcFBeXfwC7RtZLLVOx9aEzrb8_lki96/preview', 'https://drive.google.com/uc?export=download&id=1eAcFBeXfwC7RtZLLVOx9aEzrb8_lki96'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1H1UPTbdPL_vK47idoBCa6TiyE_yQElU7/preview', 'https://drive.google.com/uc?export=download&id=1H1UPTbdPL_vK47idoBCa6TiyE_yQElU7'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1C8j0REQqqxpcCpYM3ltRa-hTKZJBdbrr/preview', 'https://drive.google.com/uc?export=download&id=1C8j0REQqqxpcCpYM3ltRa-hTKZJBdbrr'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BgRsavlTeE0ZsnkcUo95paAQjIZAp5fn/preview', 'https://drive.google.com/uc?export=download&id=1BgRsavlTeE0ZsnkcUo95paAQjIZAp5fn'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12JJD7Lnj0_VCGI6pEmL8g2ds7wT2N9iS/preview', 'https://drive.google.com/uc?export=download&id=12JJD7Lnj0_VCGI6pEmL8g2ds7wT2N9iS'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ttDU9Q17L_qHe_rLZwd201s0JJZW0vG5/preview', 'https://drive.google.com/uc?export=download&id=1ttDU9Q17L_qHe_rLZwd201s0JJZW0vG5'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Wn8ZIzsYTTe4FFmuw1KReZXvJ3mhbR6a/preview', 'https://drive.google.com/uc?export=download&id=1Wn8ZIzsYTTe4FFmuw1KReZXvJ3mhbR6a'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_Hzf9BrJJiB_GY4SABAJywkMk5VyFaC5/preview', 'https://drive.google.com/uc?export=download&id=1_Hzf9BrJJiB_GY4SABAJywkMk5VyFaC5'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1zFgvoF3L5VDAJBMWG6N5ZeYsXgorDHq7/preview', 'https://drive.google.com/uc?export=download&id=1zFgvoF3L5VDAJBMWG6N5ZeYsXgorDHq7'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1njZTPclHombha067p4Cl5cj1wPn5MN1N/preview', 'https://drive.google.com/uc?export=download&id=1njZTPclHombha067p4Cl5cj1wPn5MN1N'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1H8ySx6xVXz1EKoNdADDL_5GyziXRWJhg/preview', 'https://drive.google.com/uc?export=download&id=1H8ySx6xVXz1EKoNdADDL_5GyziXRWJhg'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mudWWKMZyjTm5rPtJo9Q-d5AkAC-TFO3/preview', 'https://drive.google.com/uc?export=download&id=1mudWWKMZyjTm5rPtJo9Q-d5AkAC-TFO3'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12yX-1UBwUDnhSiZzSAjHNhmx4cbd8NRt/preview', 'https://drive.google.com/uc?export=download&id=12yX-1UBwUDnhSiZzSAjHNhmx4cbd8NRt'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1f4fXDjKSbzpn67G2woHEQpHNSfDHKaSD/preview', 'https://drive.google.com/uc?export=download&id=1f4fXDjKSbzpn67G2woHEQpHNSfDHKaSD'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-CCfBf6vWZWINMQbqnfOqTRRw--jILLq/preview', 'https://drive.google.com/uc?export=download&id=1-CCfBf6vWZWINMQbqnfOqTRRw--jILLq'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jmGRmfpsGegBWJnATqTvwl6e5Xe92oJn/preview', 'https://drive.google.com/uc?export=download&id=1jmGRmfpsGegBWJnATqTvwl6e5Xe92oJn'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1GbDbjS_YK_A7n9Zn30jDwSAwDI-2HGFQ/preview', 'https://drive.google.com/uc?export=download&id=1GbDbjS_YK_A7n9Zn30jDwSAwDI-2HGFQ'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1F1IYDNth03Yl024SkEGNg5DmdEuJ9LAV/preview', 'https://drive.google.com/uc?export=download&id=1F1IYDNth03Yl024SkEGNg5DmdEuJ9LAV'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15RSRN_tCFSU_fooj_zlrGwq4_s5Gutio/preview', 'https://drive.google.com/uc?export=download&id=15RSRN_tCFSU_fooj_zlrGwq4_s5Gutio'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XW5YgyKz3GQi4WVpZY2FL3g4BV9jPmqp/preview', 'https://drive.google.com/uc?export=download&id=1XW5YgyKz3GQi4WVpZY2FL3g4BV9jPmqp'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15u0mVzFd5wu6ax38L64jfeO2uXYKoS_T/preview', 'https://drive.google.com/uc?export=download&id=15u0mVzFd5wu6ax38L64jfeO2uXYKoS_T'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FxN8zphv_Jkm2aHOIXGKYSEbX11bOAoP/preview', 'https://drive.google.com/uc?export=download&id=1FxN8zphv_Jkm2aHOIXGKYSEbX11bOAoP'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kPXhGbVhncH25MB_ncVW7OC5wjccdHuY/preview', 'https://drive.google.com/uc?export=download&id=1kPXhGbVhncH25MB_ncVW7OC5wjccdHuY'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1P8bVerwJVKYGCWglRXHkZUInF0TopLIh/preview', 'https://drive.google.com/uc?export=download&id=1P8bVerwJVKYGCWglRXHkZUInF0TopLIh'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jEfdr2xkndkcZRv4yYJHofoB6Fcp8QLQ/preview', 'https://drive.google.com/uc?export=download&id=1jEfdr2xkndkcZRv4yYJHofoB6Fcp8QLQ'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1z6HGgVKlQptQB3KUYmNIGcYPFKln93Ss/preview', 'https://drive.google.com/uc?export=download&id=1z6HGgVKlQptQB3KUYmNIGcYPFKln93Ss'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YJWIraPMhoQAc8nVgxLDyUh61OkvHMMD/preview', 'https://drive.google.com/uc?export=download&id=1YJWIraPMhoQAc8nVgxLDyUh61OkvHMMD'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CkWiAj8627HYRCYbFU9VFb721CNzLWSw/preview', 'https://drive.google.com/uc?export=download&id=1CkWiAj8627HYRCYbFU9VFb721CNzLWSw'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1nzfQpHMs9BnRubnL2FARiOYjx7NbUWkr/preview', 'https://drive.google.com/uc?export=download&id=1nzfQpHMs9BnRubnL2FARiOYjx7NbUWkr'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1500l1QWfpM3qyQ869SrVRlMh_Jbh8iyd/preview', 'https://drive.google.com/uc?export=download&id=1500l1QWfpM3qyQ869SrVRlMh_Jbh8iyd'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1o6f2VIhITK_Wn2yGCpUPi9z7HnBcyXBr/preview', 'https://drive.google.com/uc?export=download&id=1o6f2VIhITK_Wn2yGCpUPi9z7HnBcyXBr'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bplBqrA0FQcyrhNxmoYlwesjBhKZYKAd/preview', 'https://drive.google.com/uc?export=download&id=1bplBqrA0FQcyrhNxmoYlwesjBhKZYKAd'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WYWGh3XprFJCI2ISzRpdfTBomjhWeQCI/preview', 'https://drive.google.com/uc?export=download&id=1WYWGh3XprFJCI2ISzRpdfTBomjhWeQCI'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_sHBHwSs3ScTs1q9UNoM3LJuqjQ9wVLA/preview', 'https://drive.google.com/uc?export=download&id=1_sHBHwSs3ScTs1q9UNoM3LJuqjQ9wVLA'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PEIHgmOFTBb5McnMCjH3DYJtH1dOwpSR/preview', 'https://drive.google.com/uc?export=download&id=1PEIHgmOFTBb5McnMCjH3DYJtH1dOwpSR'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fV3v0CZZ-Uo6aF1HIwyuRAJ2xyhV1vey/preview', 'https://drive.google.com/uc?export=download&id=1fV3v0CZZ-Uo6aF1HIwyuRAJ2xyhV1vey'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1yt3xAtuiuWUoREf3UCLUv3M3i4ndJLDR/preview', 'https://drive.google.com/uc?export=download&id=1yt3xAtuiuWUoREf3UCLUv3M3i4ndJLDR'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10we1SwpgFYutKMD2dWRF3c2AJxR41o7V/preview', 'https://drive.google.com/uc?export=download&id=10we1SwpgFYutKMD2dWRF3c2AJxR41o7V'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18poVjMZhmvlfjXWMfkVGlAMTmS0VlPGN/preview', 'https://drive.google.com/uc?export=download&id=18poVjMZhmvlfjXWMfkVGlAMTmS0VlPGN'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/151aitFn1OSFfw93cx5MzhM3iEDDb74aV/preview', 'https://drive.google.com/uc?export=download&id=151aitFn1OSFfw93cx5MzhM3iEDDb74aV'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OB56ccDpCpKmINFLGTzoqEYBe1T9GT8q/preview', 'https://drive.google.com/uc?export=download&id=1OB56ccDpCpKmINFLGTzoqEYBe1T9GT8q'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-1qPETECzJUrlBuo5SsihT6gxDar4euQ/preview', 'https://drive.google.com/uc?export=download&id=1-1qPETECzJUrlBuo5SsihT6gxDar4euQ'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WP7eHUVOTheSHFFofPQygcx1t1Tlv26H/preview', 'https://drive.google.com/uc?export=download&id=1WP7eHUVOTheSHFFofPQygcx1t1Tlv26H'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QfUN_0lpfuG1ypzrZJwOm660KYtzUwmX/preview', 'https://drive.google.com/uc?export=download&id=1QfUN_0lpfuG1ypzrZJwOm660KYtzUwmX'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1B27WFduucR6xuLQLvwOGitCPVR4RMu12/preview', 'https://drive.google.com/uc?export=download&id=1B27WFduucR6xuLQLvwOGitCPVR4RMu12'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZTSfKkon8rnMwBX-EQlh-jkVJrFWlp2K/preview', 'https://drive.google.com/uc?export=download&id=1ZTSfKkon8rnMwBX-EQlh-jkVJrFWlp2K'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SLt0g-ZBJeJMy8ZRqSuY481vt3N3x84L/preview', 'https://drive.google.com/uc?export=download&id=1SLt0g-ZBJeJMy8ZRqSuY481vt3N3x84L'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NYJzDat63JLA-kELpsYa2b7PplZlgzfY/preview', 'https://drive.google.com/uc?export=download&id=1NYJzDat63JLA-kELpsYa2b7PplZlgzfY'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VVBI68OSf_vsYgLe0OXJhrlekWPeDLRE/preview', 'https://drive.google.com/uc?export=download&id=1VVBI68OSf_vsYgLe0OXJhrlekWPeDLRE'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1KoO0CORbEsj6z530x00fXy1SL6EcsgNp/preview', 'https://drive.google.com/uc?export=download&id=1KoO0CORbEsj6z530x00fXy1SL6EcsgNp'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1u6HeObQG7rshLGz2oumoTo1lUFX1c4RC/preview', 'https://drive.google.com/uc?export=download&id=1u6HeObQG7rshLGz2oumoTo1lUFX1c4RC'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1s1h-65BXS_uM3W1mwdfEqybQLFAGwPzn/preview', 'https://drive.google.com/uc?export=download&id=1s1h-65BXS_uM3W1mwdfEqybQLFAGwPzn'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BW12IWlYOPjrguH-QYSPymJq2C18ejxT/preview', 'https://drive.google.com/uc?export=download&id=1BW12IWlYOPjrguH-QYSPymJq2C18ejxT'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1R4Lm-lTorCNIgRFbeRufhWY3lCeV97Lt/preview', 'https://drive.google.com/uc?export=download&id=1R4Lm-lTorCNIgRFbeRufhWY3lCeV97Lt'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19BC-p6TVi2OWxYtXyhFz6RPDJk-9aSme/preview', 'https://drive.google.com/uc?export=download&id=19BC-p6TVi2OWxYtXyhFz6RPDJk-9aSme'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SlnSi6CyRC6rXTcmRcv2fJghi64Q0TYq/preview', 'https://drive.google.com/uc?export=download&id=1SlnSi6CyRC6rXTcmRcv2fJghi64Q0TYq'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11gPA4YV03TVhOCnHIlN21vzZdVKATTEg/preview', 'https://drive.google.com/uc?export=download&id=11gPA4YV03TVhOCnHIlN21vzZdVKATTEg'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1nvFrqN9YfhJB76zKCXlm5Se3o2Qe5o25/preview', 'https://drive.google.com/uc?export=download&id=1nvFrqN9YfhJB76zKCXlm5Se3o2Qe5o25'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10lBcW2aRMM_9Mc-6N9XmXnJAB0I_pB8W/preview', 'https://drive.google.com/uc?export=download&id=10lBcW2aRMM_9Mc-6N9XmXnJAB0I_pB8W'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wCZqwYDB8mhqarM6SCHQkqaQLKg7ItFL/preview', 'https://drive.google.com/uc?export=download&id=1wCZqwYDB8mhqarM6SCHQkqaQLKg7ItFL'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JiRW7U2aF6TPcYf1enc3HxAhEtQb6xQq/preview', 'https://drive.google.com/uc?export=download&id=1JiRW7U2aF6TPcYf1enc3HxAhEtQb6xQq'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wxFlYyNL74Fa4epM7gFQoePhzGr8jCMQ/preview', 'https://drive.google.com/uc?export=download&id=1wxFlYyNL74Fa4epM7gFQoePhzGr8jCMQ'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hnrFYNLYYCJJh2SoecF8uq9gSGQ5Dm74/preview', 'https://drive.google.com/uc?export=download&id=1hnrFYNLYYCJJh2SoecF8uq9gSGQ5Dm74'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1u_PjMufJEREOWX5gFjni6g-t5443bj54/preview', 'https://drive.google.com/uc?export=download&id=1u_PjMufJEREOWX5gFjni6g-t5443bj54'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rdJ-jUN57aSRS0bF1rVORMrdtkgqkgab/preview', 'https://drive.google.com/uc?export=download&id=1rdJ-jUN57aSRS0bF1rVORMrdtkgqkgab'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bN7COxmixFGE1GLeS1BKKxeW0UM_iX-G/preview', 'https://drive.google.com/uc?export=download&id=1bN7COxmixFGE1GLeS1BKKxeW0UM_iX-G'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1K10Dc91Fu0z4H4QCG__9K9RrTdpyfR87/preview', 'https://drive.google.com/uc?export=download&id=1K10Dc91Fu0z4H4QCG__9K9RrTdpyfR87'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WxL67pUgctDgsnq-hg14n4n31fPz7lqE/preview', 'https://drive.google.com/uc?export=download&id=1WxL67pUgctDgsnq-hg14n4n31fPz7lqE'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FdlXILcuvxC18xn4O7Jrbp3lWlPSCzlL/preview', 'https://drive.google.com/uc?export=download&id=1FdlXILcuvxC18xn4O7Jrbp3lWlPSCzlL'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uWSAFLNR6rVUza2MbHXZ7P6FoSvh4ED8/preview', 'https://drive.google.com/uc?export=download&id=1uWSAFLNR6rVUza2MbHXZ7P6FoSvh4ED8'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EWl7HzeJ4oAUCwJX2PzQtnfgpCjEZ8zw/preview', 'https://drive.google.com/uc?export=download&id=1EWl7HzeJ4oAUCwJX2PzQtnfgpCjEZ8zw'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZhwaG9pXCqbM89WFCjBDidvQ3eB8cCxt/preview', 'https://drive.google.com/uc?export=download&id=1ZhwaG9pXCqbM89WFCjBDidvQ3eB8cCxt'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject 3: Mathematics -->
+    <div class="subject-card">
+      <div class="subject-title">Mathematics</div>
+      <div class="quarters-grid">
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-aXLBI52Teipz_5FI93Xp_7LW5jJHIOF/preview', 'https://drive.google.com/uc?export=download&id=1-aXLBI52Teipz_5FI93Xp_7LW5jJHIOF'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-wuBnr6-1iN7SoFi5i1KQ3O4fci_6NdA/preview', 'https://drive.google.com/uc?export=download&id=1-wuBnr6-1iN7SoFi5i1KQ3O4fci_6NdA'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16w9dEylAbtucagjHF67ui4SEvR6uuZiy/preview', 'https://drive.google.com/uc?export=download&id=16w9dEylAbtucagjHF67ui4SEvR6uuZiy'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1q68SIU4Qvq6LYEia6hdN-RE7ecZU12h2/preview', 'https://drive.google.com/uc?export=download&id=1q68SIU4Qvq6LYEia6hdN-RE7ecZU12h2'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oxk4f3APWPSa0amLXCmq8gKXDg9pjHzR/preview', 'https://drive.google.com/uc?export=download&id=1oxk4f3APWPSa0amLXCmq8gKXDg9pjHzR'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RZNB-Y15IyahT2wlnJp2MRIqScI8lFEN/preview', 'https://drive.google.com/uc?export=download&id=1RZNB-Y15IyahT2wlnJp2MRIqScI8lFEN'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14ZGcJNuCcUSBKzrCNifviAkQHLjofKGm/preview', 'https://drive.google.com/uc?export=download&id=14ZGcJNuCcUSBKzrCNifviAkQHLjofKGm'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19ok7a0KXBm4RK1MyI-mqsO987ePOH1SS/preview', 'https://drive.google.com/uc?export=download&id=19ok7a0KXBm4RK1MyI-mqsO987ePOH1SS'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BmViyYOOulvQwXd44ORAZr5IkRXMxXWs/preview', 'https://drive.google.com/uc?export=download&id=1BmViyYOOulvQwXd44ORAZr5IkRXMxXWs'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_TthtZki1zMSj5peCcUvm80ZMwhcxitz/preview', 'https://drive.google.com/uc?export=download&id=1_TthtZki1zMSj5peCcUvm80ZMwhcxitz'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Zi-YiLtPN4Kyoxe79HbMA34PEV5rITkz/preview', 'https://drive.google.com/uc?export=download&id=1Zi-YiLtPN4Kyoxe79HbMA34PEV5rITkz'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13UHhUHKQCkss1-2Bd_kTNUr6ivMf1MZe/preview', 'https://drive.google.com/uc?export=download&id=13UHhUHKQCkss1-2Bd_kTNUr6ivMf1MZe'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1lC58QUXAoLGm2Zw5XlCkYBODTU-sYvv9/preview', 'https://drive.google.com/uc?export=download&id=1lC58QUXAoLGm2Zw5XlCkYBODTU-sYvv9'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UZwrsRiiDITcd6-06hJSwW2ONWsdWCIK/preview', 'https://drive.google.com/uc?export=download&id=1UZwrsRiiDITcd6-06hJSwW2ONWsdWCIK'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1zx6Nx7JYLoWMp7KtJ52ojBkCz3D2SrZf/preview', 'https://drive.google.com/uc?export=download&id=1zx6Nx7JYLoWMp7KtJ52ojBkCz3D2SrZf'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QfFpPkEasWxvEKoTDhkpODLLLwWLWUUP/preview', 'https://drive.google.com/uc?export=download&id=1QfFpPkEasWxvEKoTDhkpODLLLwWLWUUP'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iJH_kM0FT_X6gEu2USvRZo1wCuXZhpwd/preview', 'https://drive.google.com/uc?export=download&id=1iJH_kM0FT_X6gEu2USvRZo1wCuXZhpwd'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OXi5SXkRKVbe_vXknBsWfjX8GTXvfeSj/preview', 'https://drive.google.com/uc?export=download&id=1OXi5SXkRKVbe_vXknBsWfjX8GTXvfeSj'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gQNDkFqb7HuZtL6J_jB5Ot6T5ijZfHaq/preview', 'https://drive.google.com/uc?export=download&id=1gQNDkFqb7HuZtL6J_jB5Ot6T5ijZfHaq'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1li47mTUjORAfvFy524ZVh3VNfW0ENqFe/preview', 'https://drive.google.com/uc?export=download&id=1li47mTUjORAfvFy524ZVh3VNfW0ENqFe'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1f6I9NY_k9-EfmZ_gjtjEKFFe-v1VL5X8/preview', 'https://drive.google.com/uc?export=download&id=1f6I9NY_k9-EfmZ_gjtjEKFFe-v1VL5X8'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Nk4PtlfQsJSs9LNhBVvvsLEpLX8huH64/preview', 'https://drive.google.com/uc?export=download&id=1Nk4PtlfQsJSs9LNhBVvvsLEpLX8huH64'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1v95bxW3sCG5KWHjzgUAYTDPZM2QYzIAT/preview', 'https://drive.google.com/uc?export=download&id=1v95bxW3sCG5KWHjzgUAYTDPZM2QYzIAT'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hSi6_lJIJbV1_jmadHf-PymnkTlFXNSx/preview', 'https://drive.google.com/uc?export=download&id=1hSi6_lJIJbV1_jmadHf-PymnkTlFXNSx'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cPLq7bDErzigu2U2un6yFEqGyw-FqkQA/preview', 'https://drive.google.com/uc?export=download&id=1cPLq7bDErzigu2U2un6yFEqGyw-FqkQA'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1aIRaG_81g1mFFhp-mQaEKY2JhBjms9rK/preview', 'https://drive.google.com/uc?export=download&id=1aIRaG_81g1mFFhp-mQaEKY2JhBjms9rK'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_c6KwvBpxf0Bek1YcYxUGVThxgg7iJwA/preview', 'https://drive.google.com/uc?export=download&id=1_c6KwvBpxf0Bek1YcYxUGVThxgg7iJwA'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/102GHriYASXhul58tWuvkNQh3WrnhIkX3/preview', 'https://drive.google.com/uc?export=download&id=102GHriYASXhul58tWuvkNQh3WrnhIkX3'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1H9gTCYJFXPPSuCILpoWqvEtU1PFXfewY/preview', 'https://drive.google.com/uc?export=download&id=1H9gTCYJFXPPSuCILpoWqvEtU1PFXfewY'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dch1fbuH170WJzKSZIo7k98g252lJ7hX/preview', 'https://drive.google.com/uc?export=download&id=1dch1fbuH170WJzKSZIo7k98g252lJ7hX'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1u4S57O-EK8wQykxqtlKFt0g-uoN7-ET7/preview', 'https://drive.google.com/uc?export=download&id=1u4S57O-EK8wQykxqtlKFt0g-uoN7-ET7'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JtpVdIW6M51J-WN_YMG6aaD2_Pmmnokl/preview', 'https://drive.google.com/uc?export=download&id=1JtpVdIW6M51J-WN_YMG6aaD2_Pmmnokl'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BHVE_81a1h5Ue9xZnoQVG-qk8DdEWklq/preview', 'https://drive.google.com/uc?export=download&id=1BHVE_81a1h5Ue9xZnoQVG-qk8DdEWklq'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1S8caGJngAP3C9mjtyjeLlQmgCcPoMU9v/preview', 'https://drive.google.com/uc?export=download&id=1S8caGJngAP3C9mjtyjeLlQmgCcPoMU9v'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1nPaH6k47Ozg35O5dBzehzupaTfJWUUZg/preview', 'https://drive.google.com/uc?export=download&id=1nPaH6k47Ozg35O5dBzehzupaTfJWUUZg'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xQqI-iM6BTBHMas9MpyLSmQs7KMuUVIf/preview', 'https://drive.google.com/uc?export=download&id=1xQqI-iM6BTBHMas9MpyLSmQs7KMuUVIf'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MlZ6Mdt6YDJ0TJ77joADCbYI8phq-MGL/preview', 'https://drive.google.com/uc?export=download&id=1MlZ6Mdt6YDJ0TJ77joADCbYI8phq-MGL'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1C54de3yvmYx8nmiQYQnrCQxy_LX7ry0b/preview', 'https://drive.google.com/uc?export=download&id=1C54de3yvmYx8nmiQYQnrCQxy_LX7ry0b'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1K-G_no47LNFEJAmHjvEhG_wUp2gCY0bd/preview', 'https://drive.google.com/uc?export=download&id=1K-G_no47LNFEJAmHjvEhG_wUp2gCY0bd'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1g7jLH7dyfJB1IUIwqwiYRSq_JeeCD_E9/preview', 'https://drive.google.com/uc?export=download&id=1g7jLH7dyfJB1IUIwqwiYRSq_JeeCD_E9'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject 4: Science -->
+    <div class="subject-card">
+      <div class="subject-title">Science</div>
+      <div class="quarters-grid">
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uamUvRWzOPvUr0EoYKxtnsZY3O4I1MQU/preview', 'https://drive.google.com/uc?export=download&id=1uamUvRWzOPvUr0EoYKxtnsZY3O4I1MQU'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sNz6-LKuV_WXXDTg5Q071lFeE4zEzkGo/preview', 'https://drive.google.com/uc?export=download&id=1sNz6-LKuV_WXXDTg5Q071lFeE4zEzkGo'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10QLZcOutPbboyhpD2Bcxoknk4KKeK9dG/preview', 'https://drive.google.com/uc?export=download&id=10QLZcOutPbboyhpD2Bcxoknk4KKeK9dG'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1zwAni9aeKshP18N9FoVgUTQF3MppTV-s/preview', 'https://drive.google.com/uc?export=download&id=1zwAni9aeKshP18N9FoVgUTQF3MppTV-s'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HeiAYHGXGVNEBXBbz1wNDL7DpunmJSbd/preview', 'https://drive.google.com/uc?export=download&id=1HeiAYHGXGVNEBXBbz1wNDL7DpunmJSbd'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13krdCS5zB4CL_27kjwd3Ft_x2TS3w56z/preview', 'https://drive.google.com/uc?export=download&id=13krdCS5zB4CL_27kjwd3Ft_x2TS3w56z'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1o2BtC-79p8pXcj6XrauCICJs7cqbK5Ss/preview', 'https://drive.google.com/uc?export=download&id=1o2BtC-79p8pXcj6XrauCICJs7cqbK5Ss'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13_liK9xq8cDas4CrM7Ru_PAaP081kG7U/preview', 'https://drive.google.com/uc?export=download&id=13_liK9xq8cDas4CrM7Ru_PAaP081kG7U'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BA-E3Qbrfqfav6UkVXqoMSba4FhZtJLT/preview', 'https://drive.google.com/uc?export=download&id=1BA-E3Qbrfqfav6UkVXqoMSba4FhZtJLT'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1muipI1OPnqZDnLIC8yokfs7HVkuLLisn/preview', 'https://drive.google.com/uc?export=download&id=1muipI1OPnqZDnLIC8yokfs7HVkuLLisn'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1At9bZ3lsc2CYq0SWhGFfMTynBqUQtSqe/preview', 'https://drive.google.com/uc?export=download&id=1At9bZ3lsc2CYq0SWhGFfMTynBqUQtSqe'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uRARE478zi9_Q1OgKSEtDujrs6GDwzzW/preview', 'https://drive.google.com/uc?export=download&id=1uRARE478zi9_Q1OgKSEtDujrs6GDwzzW'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1J5LT6OrFsziNdb_wy_XDXpqRyd2Uev6w/preview', 'https://drive.google.com/uc?export=download&id=1J5LT6OrFsziNdb_wy_XDXpqRyd2Uev6w'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12-e4VhWs6WW3Xpsf57Yks-zRZR79AFJG/preview', 'https://drive.google.com/uc?export=download&id=12-e4VhWs6WW3Xpsf57Yks-zRZR79AFJG'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RGxkGRX4PuJ5n9Y5KFOoVvNdNdaIZ5X3/preview', 'https://drive.google.com/uc?export=download&id=1RGxkGRX4PuJ5n9Y5KFOoVvNdNdaIZ5X3'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1m9NnAt-4F-1NLGMLYknflm7jlRLT5T7-/preview', 'https://drive.google.com/uc?export=download&id=1m9NnAt-4F-1NLGMLYknflm7jlRLT5T7-'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1smYlXHW2tqyG7oKWbJfjdBN6OyAybsMe/preview', 'https://drive.google.com/uc?export=download&id=1smYlXHW2tqyG7oKWbJfjdBN6OyAybsMe'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_3viwtn9lukdWebP2ygIXUFtzAHjttNx/preview', 'https://drive.google.com/uc?export=download&id=1_3viwtn9lukdWebP2ygIXUFtzAHjttNx'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hVMU797oJIcwWbhGhjbPitpmKV529vuA/preview', 'https://drive.google.com/uc?export=download&id=1hVMU797oJIcwWbhGhjbPitpmKV529vuA'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11FC9N6PKH_hCeyhC2flsr06HxxZ0EbSK/preview', 'https://drive.google.com/uc?export=download&id=11FC9N6PKH_hCeyhC2flsr06HxxZ0EbSK'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1y-X52errhZidCzYje9iGTpqhJ4ec0RuF/preview', 'https://drive.google.com/uc?export=download&id=1y-X52errhZidCzYje9iGTpqhJ4ec0RuF'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pMx0zDnVtWkgvVRzkWvaRTMgwaZP5phc/preview', 'https://drive.google.com/uc?export=download&id=1pMx0zDnVtWkgvVRzkWvaRTMgwaZP5phc'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CfRdxRZHXtDfVIpdS8TH5FKoVk2UwfgJ/preview', 'https://drive.google.com/uc?export=download&id=1CfRdxRZHXtDfVIpdS8TH5FKoVk2UwfgJ'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uyyzve3HYBd8JQ_-cLvWRwsrFTng3zUy/preview', 'https://drive.google.com/uc?export=download&id=1uyyzve3HYBd8JQ_-cLvWRwsrFTng3zUy'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZLGBHtvNEFUOFGJcoUx6Yr5o4yOk3VwT/preview', 'https://drive.google.com/uc?export=download&id=1ZLGBHtvNEFUOFGJcoUx6Yr5o4yOk3VwT'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VwLICRbB2waky1Bu2LHu72Z4I3ggugJM/preview', 'https://drive.google.com/uc?export=download&id=1VwLICRbB2waky1Bu2LHu72Z4I3ggugJM'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jQiZFB8HyM9XbHLul9TYO8kldYbo1xqC/preview', 'https://drive.google.com/uc?export=download&id=1jQiZFB8HyM9XbHLul9TYO8kldYbo1xqC'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1m3g5qzosBs9BGUXYzy22vYOFx5e17Vxk/preview', 'https://drive.google.com/uc?export=download&id=1m3g5qzosBs9BGUXYzy22vYOFx5e17Vxk'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sBr4bkdJUkw3y0520m_5jsjPWJFjSecx/preview', 'https://drive.google.com/uc?export=download&id=1sBr4bkdJUkw3y0520m_5jsjPWJFjSecx'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11SDNdMx4vIVG348BMHGKtwqJQKDZOQxg/preview', 'https://drive.google.com/uc?export=download&id=11SDNdMx4vIVG348BMHGKtwqJQKDZOQxg'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PhLt62j1F96YlZ3i7E26ibomLBWVAF_E/preview', 'https://drive.google.com/uc?export=download&id=1PhLt62j1F96YlZ3i7E26ibomLBWVAF_E'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BoNNWC_o0pelniFOZHlTrTMEYCpNhD9j/preview', 'https://drive.google.com/uc?export=download&id=1BoNNWC_o0pelniFOZHlTrTMEYCpNhD9j'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1s_aKKboMxckANIOSd7tyVkrOa8xlSwvP/preview', 'https://drive.google.com/uc?export=download&id=1s_aKKboMxckANIOSd7tyVkrOa8xlSwvP'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11RBrKgLPyxDAFT265nMuNoDeBQskSGNH/preview', 'https://drive.google.com/uc?export=download&id=11RBrKgLPyxDAFT265nMuNoDeBQskSGNH'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oQyDu-UXisiGWOxSEEZ6-RY-IHuSYPr1/preview', 'https://drive.google.com/uc?export=download&id=1oQyDu-UXisiGWOxSEEZ6-RY-IHuSYPr1'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xfEMl9JTLqEYM7LG47xrchM92rdyECdH/preview', 'https://drive.google.com/uc?export=download&id=1xfEMl9JTLqEYM7LG47xrchM92rdyECdH'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JRZmf2jPlFR2yNSQYsCFmXBDJXmb03Dw/preview', 'https://drive.google.com/uc?export=download&id=1JRZmf2jPlFR2yNSQYsCFmXBDJXmb03Dw'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1J6tcV6O_4S4ys7sSAXexpuz-1SXwFEuy/preview', 'https://drive.google.com/uc?export=download&id=1J6tcV6O_4S4ys7sSAXexpuz-1SXwFEuy'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LSKGOUavGtSMVdeDP4xUn_vkhIpU7iNX/preview', 'https://drive.google.com/uc?export=download&id=1LSKGOUavGtSMVdeDP4xUn_vkhIpU7iNX'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EQQEMPckRcc8TPCH28jWzsW5CdLMlwHl/preview', 'https://drive.google.com/uc?export=download&id=1EQQEMPckRcc8TPCH28jWzsW5CdLMlwHl'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/112IIVsVgCfRJpMUIWLSsyj9oY7hTZqbY/preview', 'https://drive.google.com/uc?export=download&id=112IIVsVgCfRJpMUIWLSsyj9oY7hTZqbY'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Oo6YPol3ByuuUB4aKYzwz2PoRjUvs1V_/preview', 'https://drive.google.com/uc?export=download&id=1Oo6YPol3ByuuUB4aKYzwz2PoRjUvs1V_'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1w0mOfMHkYhXwplkF_PdCT-fta3g6cN1F/preview', 'https://drive.google.com/uc?export=download&id=1w0mOfMHkYhXwplkF_PdCT-fta3g6cN1F'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1V027rvQt8Rp2tMKjFvi2NX-SG9S30o5i/preview', 'https://drive.google.com/uc?export=download&id=1V027rvQt8Rp2tMKjFvi2NX-SG9S30o5i'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13qONtCeQ7xCP8ZIkxh0qI--5ypzFVY1C/preview', 'https://drive.google.com/uc?export=download&id=13qONtCeQ7xCP8ZIkxh0qI--5ypzFVY1C'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1lLAftG6mxXmjqEF-jntc5PUFPK8Jemfb/preview', 'https://drive.google.com/uc?export=download&id=1lLAftG6mxXmjqEF-jntc5PUFPK8Jemfb'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qKHhnRl22FGZZzgWFg8CMnuofgcflq3J/preview', 'https://drive.google.com/uc?export=download&id=1qKHhnRl22FGZZzgWFg8CMnuofgcflq3J'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pC5Zz_vFUQKDfZFIx2b7yvdY_avrhNMs/preview', 'https://drive.google.com/uc?export=download&id=1pC5Zz_vFUQKDfZFIx2b7yvdY_avrhNMs'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NnycW-bi-uEDcoDpv4C-ADNmqZmD2hpS/preview', 'https://drive.google.com/uc?export=download&id=1NnycW-bi-uEDcoDpv4C-ADNmqZmD2hpS'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1N0scwZVIf0J38ObZ9IwXLD-DsGq9e3HZ/preview', 'https://drive.google.com/uc?export=download&id=1N0scwZVIf0J38ObZ9IwXLD-DsGq9e3HZ'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mp9oPyBru5o3bTAw4sDrpfMB-Fdv4lMq/preview', 'https://drive.google.com/uc?export=download&id=1mp9oPyBru5o3bTAw4sDrpfMB-Fdv4lMq'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1h4_-cHWVOaG0LCkerBSCE4eOHqTlqi3E/preview', 'https://drive.google.com/uc?export=download&id=1h4_-cHWVOaG0LCkerBSCE4eOHqTlqi3E'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZEBtboYDTQxEMbSNzSO0UF1v81Vt0BNr/preview', 'https://drive.google.com/uc?export=download&id=1ZEBtboYDTQxEMbSNzSO0UF1v81Vt0BNr'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/17xe1TyS_5TpHofSY87uRgh_dlBWJRlXC/preview', 'https://drive.google.com/uc?export=download&id=17xe1TyS_5TpHofSY87uRgh_dlBWJRlXC'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1j1QlbxvvliyDk4844hzz-dF12N62DeKu/preview', 'https://drive.google.com/uc?export=download&id=1j1QlbxvvliyDk4844hzz-dF12N62DeKu'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1AB21fucxqFMnQDK_TIK0Q5f6BSWdFKiB/preview', 'https://drive.google.com/uc?export=download&id=1AB21fucxqFMnQDK_TIK0Q5f6BSWdFKiB'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EUwXwdrCd02XaFGENMXLYhMnuKQqsS-8/preview', 'https://drive.google.com/uc?export=download&id=1EUwXwdrCd02XaFGENMXLYhMnuKQqsS-8'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wBGP913By1RYW3OQME87ZUKXwBxoc9vt/preview', 'https://drive.google.com/uc?export=download&id=1wBGP913By1RYW3OQME87ZUKXwBxoc9vt'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12AGH1hDS-Is5wFckz517qxMwQJqfqOVS/preview', 'https://drive.google.com/uc?export=download&id=12AGH1hDS-Is5wFckz517qxMwQJqfqOVS'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YsHkYR8RGUf4N4_bKc5ihi-zEkRFpmic/preview', 'https://drive.google.com/uc?export=download&id=1YsHkYR8RGUf4N4_bKc5ihi-zEkRFpmic'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-WZ4YbLhj4uDX0wAbFYCDDVhl4gBB5BB/preview', 'https://drive.google.com/uc?export=download&id=1-WZ4YbLhj4uDX0wAbFYCDDVhl4gBB5BB'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Mpf4hglO8tZQWCUZ-ljcmdqZAQ6sCCDM/preview', 'https://drive.google.com/uc?export=download&id=1Mpf4hglO8tZQWCUZ-ljcmdqZAQ6sCCDM'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19YImlL650H9lyuuAJQEHZo3Q1UVOwk-G/preview', 'https://drive.google.com/uc?export=download&id=19YImlL650H9lyuuAJQEHZo3Q1UVOwk-G'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wNPaH913d-jcmcTRzqCJWWZve91w1TnC/preview', 'https://drive.google.com/uc?export=download&id=1wNPaH913d-jcmcTRzqCJWWZve91w1TnC'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Ghe0a8ZqFwADhlL50tlmvbRiW9wFcmpg/preview', 'https://drive.google.com/uc?export=download&id=1Ghe0a8ZqFwADhlL50tlmvbRiW9wFcmpg'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1c9R8vobOlDhBnPa2LXx7tD0oSmdoz2Rv/preview', 'https://drive.google.com/uc?export=download&id=1c9R8vobOlDhBnPa2LXx7tD0oSmdoz2Rv'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1lmau5BBCQH8EZaStE1RIRqLjz3NAa6OY/preview', 'https://drive.google.com/uc?export=download&id=1lmau5BBCQH8EZaStE1RIRqLjz3NAa6OY'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YIQ-LmatbDvTSZtMLDATQW4h2DZ9zmuN/preview', 'https://drive.google.com/uc?export=download&id=1YIQ-LmatbDvTSZtMLDATQW4h2DZ9zmuN'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16qv15HcnF2g2Q1Q-iA6_QfJLf83F3qfX/preview', 'https://drive.google.com/uc?export=download&id=16qv15HcnF2g2Q1Q-iA6_QfJLf83F3qfX'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1n9pZMlkPi5ryl_ANAwAYaaOcZDHZta4Q/preview', 'https://drive.google.com/uc?export=download&id=1n9pZMlkPi5ryl_ANAwAYaaOcZDHZta4Q'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LjBc-9tyAsrhjEIaKajDuTbNRdPC21Ap/preview', 'https://drive.google.com/uc?export=download&id=1LjBc-9tyAsrhjEIaKajDuTbNRdPC21Ap'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QpgOEd31sHAGgU9WZFTD1kQnBWSxW-B9/preview', 'https://drive.google.com/uc?export=download&id=1QpgOEd31sHAGgU9WZFTD1kQnBWSxW-B9'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-_7f6FIu6XqVduupJ0OLY4SE_pTxlEbn/preview', 'https://drive.google.com/uc?export=download&id=1-_7f6FIu6XqVduupJ0OLY4SE_pTxlEbn'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gSMwFj69WgErnXd__l9cOHQEgpzkR3sb/preview', 'https://drive.google.com/uc?export=download&id=1gSMwFj69WgErnXd__l9cOHQEgpzkR3sb'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MCjHOxQwe49Diec6T2CdeBTYvwRz9dI9/preview', 'https://drive.google.com/uc?export=download&id=1MCjHOxQwe49Diec6T2CdeBTYvwRz9dI9'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WaXrAk-l1xAeXY3S6IPvXl2Dh78LTLYj/preview', 'https://drive.google.com/uc?export=download&id=1WaXrAk-l1xAeXY3S6IPvXl2Dh78LTLYj'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QrBgXqLb6eXcLtGruy_khbiQyaTQyzgX/preview', 'https://drive.google.com/uc?export=download&id=1QrBgXqLb6eXcLtGruy_khbiQyaTQyzgX'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kzs86GXsCdKLhrGw2zxvfF-kvs_49VF9/preview', 'https://drive.google.com/uc?export=download&id=1kzs86GXsCdKLhrGw2zxvfF-kvs_49VF9'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qT3Ytd0uVfEmDclwfHAAokw2WJxBF_uB/preview', 'https://drive.google.com/uc?export=download&id=1qT3Ytd0uVfEmDclwfHAAokw2WJxBF_uB'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jdRipJML8hBjT6ka_U3gTQLTzSTrTGYs/preview', 'https://drive.google.com/uc?export=download&id=1jdRipJML8hBjT6ka_U3gTQLTzSTrTGYs'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject 5: Val. Ed / ESP -->
+    <div class="subject-card">
+      <div class="subject-title">Val. Ed / ESP</div>
+      <div class="quarters-grid">
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PYaH7AJ8FfVRL36KMqZLzr2XHIam2BVf/preview', 'https://drive.google.com/uc?export=download&id=1PYaH7AJ8FfVRL36KMqZLzr2XHIam2BVf'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bQbcApy8FvcW79_IAdDTbIdbUougxjTl/preview', 'https://drive.google.com/uc?export=download&id=1bQbcApy8FvcW79_IAdDTbIdbUougxjTl'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IdCdqp0-vEIOvGQGqSqneVhCGNLl-154/preview', 'https://drive.google.com/uc?export=download&id=1IdCdqp0-vEIOvGQGqSqneVhCGNLl-154'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xNXFwOCKQQjBsc3YqjG-a0tr2-GOInuE/preview', 'https://drive.google.com/uc?export=download&id=1xNXFwOCKQQjBsc3YqjG-a0tr2-GOInuE'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FlQMmL8F8zAUwSuXhXhGt0ZIwlnxIOie/preview', 'https://drive.google.com/uc?export=download&id=1FlQMmL8F8zAUwSuXhXhGt0ZIwlnxIOie'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1u2y9TId6Uau69BKFZDeFeq5KyXWs3z-8/preview', 'https://drive.google.com/uc?export=download&id=1u2y9TId6Uau69BKFZDeFeq5KyXWs3z-8'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CIz0X1mZJFUtgErs4acPm9hcWYUoStwX/preview', 'https://drive.google.com/uc?export=download&id=1CIz0X1mZJFUtgErs4acPm9hcWYUoStwX'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bo_EgOJLPn5QGvr2-1gjtnUc89UVFDWg/preview', 'https://drive.google.com/uc?export=download&id=1bo_EgOJLPn5QGvr2-1gjtnUc89UVFDWg'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14M_3jMBGyUAv_7pJd-oD162RWuKocgpd/preview', 'https://drive.google.com/uc?export=download&id=14M_3jMBGyUAv_7pJd-oD162RWuKocgpd'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IONGAmKm6huLF0iELwabIcV_TnO8xSAH/preview', 'https://drive.google.com/uc?export=download&id=1IONGAmKm6huLF0iELwabIcV_TnO8xSAH'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PZ_ou17_x6UpwVSbZWOln-BHibGOgGrJ/preview', 'https://drive.google.com/uc?export=download&id=1PZ_ou17_x6UpwVSbZWOln-BHibGOgGrJ'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sRmHmM9PcJPiDqtyQKt8xBl3-laulALK/preview', 'https://drive.google.com/uc?export=download&id=1sRmHmM9PcJPiDqtyQKt8xBl3-laulALK'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tCtRaMVT13zOLnjXI2oXNMYi2kNpUiSc/preview', 'https://drive.google.com/uc?export=download&id=1tCtRaMVT13zOLnjXI2oXNMYi2kNpUiSc'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MrmsuXFQ2sFsOdGcIdwhW3mGq1bQ3yGA/preview', 'https://drive.google.com/uc?export=download&id=1MrmsuXFQ2sFsOdGcIdwhW3mGq1bQ3yGA'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hghcYP4_f-ErChKL_c6neggJqx69th11/preview', 'https://drive.google.com/uc?export=download&id=1hghcYP4_f-ErChKL_c6neggJqx69th11'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BMkg13oH9b6fXzfkm-QSTnD1uSuluPnG/preview', 'https://drive.google.com/uc?export=download&id=1BMkg13oH9b6fXzfkm-QSTnD1uSuluPnG'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13AnKroLHjp4OCufEBpIkI3d3E-bJvp4y/preview', 'https://drive.google.com/uc?export=download&id=13AnKroLHjp4OCufEBpIkI3d3E-bJvp4y'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VUrJWPxQ5BBQs9G-bNHVHgt77y9j6Uja/preview', 'https://drive.google.com/uc?export=download&id=1VUrJWPxQ5BBQs9G-bNHVHgt77y9j6Uja'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1u7R4hWp8cuTvDtoPagobX7pSoMtINR1x/preview', 'https://drive.google.com/uc?export=download&id=1u7R4hWp8cuTvDtoPagobX7pSoMtINR1x'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-kdVKQrLBkE72W8pYsCBTEupCYgM-b47/preview', 'https://drive.google.com/uc?export=download&id=1-kdVKQrLBkE72W8pYsCBTEupCYgM-b47'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-rISHFxFdeo1QEFjFsINnbVgsRIdrw1j/preview', 'https://drive.google.com/uc?export=download&id=1-rISHFxFdeo1QEFjFsINnbVgsRIdrw1j'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YYKoMWKQ8nBlQF_hwj7rG-r4uqFafyo2/preview', 'https://drive.google.com/uc?export=download&id=1YYKoMWKQ8nBlQF_hwj7rG-r4uqFafyo2'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bAvOpIxqdt5o0_dH7_ni48wgnIO2mtB7/preview', 'https://drive.google.com/uc?export=download&id=1bAvOpIxqdt5o0_dH7_ni48wgnIO2mtB7'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18kldb3D0nh7BTapDJqbzGBfOEIi40dyg/preview', 'https://drive.google.com/uc?export=download&id=18kldb3D0nh7BTapDJqbzGBfOEIi40dyg'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FVuaMNnte7KOYrDdKaWrqh_uG_u_KUzE/preview', 'https://drive.google.com/uc?export=download&id=1FVuaMNnte7KOYrDdKaWrqh_uG_u_KUzE'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jHI2i1i95EN2YUQtuylnzKOGqj8AUfcI/preview', 'https://drive.google.com/uc?export=download&id=1jHI2i1i95EN2YUQtuylnzKOGqj8AUfcI'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1KpeM1_pXpLSSjqiiRg4JtTwN3nBOxiLA/preview', 'https://drive.google.com/uc?export=download&id=1KpeM1_pXpLSSjqiiRg4JtTwN3nBOxiLA'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/121Opg4Tua3sDaquIFBuXay9wbfOesSUf/preview', 'https://drive.google.com/uc?export=download&id=121Opg4Tua3sDaquIFBuXay9wbfOesSUf'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SDsKrMeWU7-OzezUUi9w3B603SHhgT4J/preview', 'https://drive.google.com/uc?export=download&id=1SDsKrMeWU7-OzezUUi9w3B603SHhgT4J'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19YjmIL0YEP8SRKJcB0vloLC8G4TCQNpd/preview', 'https://drive.google.com/uc?export=download&id=19YjmIL0YEP8SRKJcB0vloLC8G4TCQNpd'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WbiRr44Xk0R1bUuSnAR0imlWNo4d2upV/preview', 'https://drive.google.com/uc?export=download&id=1WbiRr44Xk0R1bUuSnAR0imlWNo4d2upV'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15soeSHoVuELtXQuZOp2It2jT6pIpIUIX/preview', 'https://drive.google.com/uc?export=download&id=15soeSHoVuELtXQuZOp2It2jT6pIpIUIX'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iSPAszD5wvhNbjOv-WbKPn-Z8d_Xi2Dr/preview', 'https://drive.google.com/uc?export=download&id=1iSPAszD5wvhNbjOv-WbKPn-Z8d_Xi2Dr'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Y4_vncflVhkYEeJ5g88huMWpTcuQas3A/preview', 'https://drive.google.com/uc?export=download&id=1Y4_vncflVhkYEeJ5g88huMWpTcuQas3A'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TNRnEQbeDjZkJt6Y9V1OKMDcbNgnSsTT/preview', 'https://drive.google.com/uc?export=download&id=1TNRnEQbeDjZkJt6Y9V1OKMDcbNgnSsTT'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Y47YZyiMP4gA9pc2jBVdCjR_zWhWk4lL/preview', 'https://drive.google.com/uc?export=download&id=1Y47YZyiMP4gA9pc2jBVdCjR_zWhWk4lL'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16BGiufr29elFBnUoidxWM0O4jNAXGysp/preview', 'https://drive.google.com/uc?export=download&id=16BGiufr29elFBnUoidxWM0O4jNAXGysp'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DO4sbuVfRa3qIymq5ToeKR5_Q35HC4WS/preview', 'https://drive.google.com/uc?export=download&id=1DO4sbuVfRa3qIymq5ToeKR5_Q35HC4WS'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1c308ap0GCSIhjB3p8caH_sHeXAy64TE3/preview', 'https://drive.google.com/uc?export=download&id=1c308ap0GCSIhjB3p8caH_sHeXAy64TE3'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1S2s5PjGfzauOIk7yvGeu0YKCQZaHMa3d/preview', 'https://drive.google.com/uc?export=download&id=1S2s5PjGfzauOIk7yvGeu0YKCQZaHMa3d'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ttXghlM7aNZ_OTD-JBMn9GocgEe46ijN/preview', 'https://drive.google.com/uc?export=download&id=1ttXghlM7aNZ_OTD-JBMn9GocgEe46ijN'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1r7TOMMfnFbLwCiGpJ-ndvT2h3efwwyAD/preview', 'https://drive.google.com/uc?export=download&id=1r7TOMMfnFbLwCiGpJ-ndvT2h3efwwyAD'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1byQLuxl3Enr3f5hVRrxVF7NImfcFKPfu/preview', 'https://drive.google.com/uc?export=download&id=1byQLuxl3Enr3f5hVRrxVF7NImfcFKPfu'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LxJJ1LcVRFx3rOGdD7HjEvLld9asVxaX/preview', 'https://drive.google.com/uc?export=download&id=1LxJJ1LcVRFx3rOGdD7HjEvLld9asVxaX'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MSZ8kP1DpaykoXO8QaJUDemtDD9i8ujr/preview', 'https://drive.google.com/uc?export=download&id=1MSZ8kP1DpaykoXO8QaJUDemtDD9i8ujr'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Sj7wAKqq5snSr5aAAfvWx_wXhG1rZYUg/preview', 'https://drive.google.com/uc?export=download&id=1Sj7wAKqq5snSr5aAAfvWx_wXhG1rZYUg'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YqYsVUEcAIc8wpuqt7eM22GSE-BmOm-h/preview', 'https://drive.google.com/uc?export=download&id=1YqYsVUEcAIc8wpuqt7eM22GSE-BmOm-h'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1u_Hyb3eEJzX_DxzJETc5MyiFn4bAKE_9/preview', 'https://drive.google.com/uc?export=download&id=1u_Hyb3eEJzX_DxzJETc5MyiFn4bAKE_9'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uqvEtd75uMT1ROcyfTW6TrYiTqsV-lPJ/preview', 'https://drive.google.com/uc?export=download&id=1uqvEtd75uMT1ROcyfTW6TrYiTqsV-lPJ'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13J-lCLIjI9xsHzn-nFBGs0A3-anH1iUl/preview', 'https://drive.google.com/uc?export=download&id=13J-lCLIjI9xsHzn-nFBGs0A3-anH1iUl'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18T6Gl3S3y_OX1XatRHQfDl2fNGIoZ1Gi/preview', 'https://drive.google.com/uc?export=download&id=18T6Gl3S3y_OX1XatRHQfDl2fNGIoZ1Gi'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pKDHTUjXmZPgeXIeEEOhP9veWj31Enpj/preview', 'https://drive.google.com/uc?export=download&id=1pKDHTUjXmZPgeXIeEEOhP9veWj31Enpj'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hUH0pWcnQL0eIIWe6rSeBYiFFmN1Ssry/preview', 'https://drive.google.com/uc?export=download&id=1hUH0pWcnQL0eIIWe6rSeBYiFFmN1Ssry'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LlgkTF5445s2u64vS16Tvvh89Xuu22_3/preview', 'https://drive.google.com/uc?export=download&id=1LlgkTF5445s2u64vS16Tvvh89Xuu22_3'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YSVih3jHB2-jdsjZx7mgY5uZwSxXOJ4c/preview', 'https://drive.google.com/uc?export=download&id=1YSVih3jHB2-jdsjZx7mgY5uZwSxXOJ4c'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IqME_e5MDzKILRf98aRfSbcORkCQdCg2/preview', 'https://drive.google.com/uc?export=download&id=1IqME_e5MDzKILRf98aRfSbcORkCQdCg2'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Xk4LqQc37btbutGlSLIKdvHtrUhpPGLu/preview', 'https://drive.google.com/uc?export=download&id=1Xk4LqQc37btbutGlSLIKdvHtrUhpPGLu'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1njuMru9KxorwvZOe62HGNGhHrde2QlsX/preview', 'https://drive.google.com/uc?export=download&id=1njuMru9KxorwvZOe62HGNGhHrde2QlsX'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EANISQsitfIEWsslSr9UwMBFIoV3XTw6/preview', 'https://drive.google.com/uc?export=download&id=1EANISQsitfIEWsslSr9UwMBFIoV3XTw6'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WvAe1u9grdehHh9ckb2fyw1QSfzGpIxo/preview', 'https://drive.google.com/uc?export=download&id=1WvAe1u9grdehHh9ckb2fyw1QSfzGpIxo'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Xy-74utXnr90A-LOSjH5Hwk4SIfqVylJ/preview', 'https://drive.google.com/uc?export=download&id=1Xy-74utXnr90A-LOSjH5Hwk4SIfqVylJ'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LRkxiiZoV1wS7zMghijye15SwZGyOSfH/preview', 'https://drive.google.com/uc?export=download&id=1LRkxiiZoV1wS7zMghijye15SwZGyOSfH'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1nr3LqhoRv7p2VLNGxiJSH9DXI4xrTlGB/preview', 'https://drive.google.com/uc?export=download&id=1nr3LqhoRv7p2VLNGxiJSH9DXI4xrTlGB'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1V1kQtLAShey7umwc8d96BBmgPJ65VuHG/preview', 'https://drive.google.com/uc?export=download&id=1V1kQtLAShey7umwc8d96BBmgPJ65VuHG'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1y96BFMC61UU_nR3ng_IvhWourrNzRD0h/preview', 'https://drive.google.com/uc?export=download&id=1y96BFMC61UU_nR3ng_IvhWourrNzRD0h'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZuRAcev7ZPEZZAA_CpHMf5RYbzPVQF4a/preview', 'https://drive.google.com/uc?export=download&id=1ZuRAcev7ZPEZZAA_CpHMf5RYbzPVQF4a'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sRLNfVmN35bNSmZwl16IKYdJJ1SSBOoq/preview', 'https://drive.google.com/uc?export=download&id=1sRLNfVmN35bNSmZwl16IKYdJJ1SSBOoq'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1b6xJrkunz-NTxfzSoQ1V5tjhO3AIpzse/preview', 'https://drive.google.com/uc?export=download&id=1b6xJrkunz-NTxfzSoQ1V5tjhO3AIpzse'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12xm5ERHitkCinWwzl5jLpfZiiCUdYPzk/preview', 'https://drive.google.com/uc?export=download&id=12xm5ERHitkCinWwzl5jLpfZiiCUdYPzk'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/179rZh4fTivpB_yKCvi5xn7STc9LoGp6D/preview', 'https://drive.google.com/uc?export=download&id=179rZh4fTivpB_yKCvi5xn7STc9LoGp6D'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ES4qEBe65THQ-YZ0p2sGM-R2pQF--5yg/preview', 'https://drive.google.com/uc?export=download&id=1ES4qEBe65THQ-YZ0p2sGM-R2pQF--5yg'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hU58uXsS0Fk603vhcZLQYnL8JyaAe2kr/preview', 'https://drive.google.com/uc?export=download&id=1hU58uXsS0Fk603vhcZLQYnL8JyaAe2kr'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kHG-RaUUjCvneXVt-UycYi5ZsQv3Ljr-/preview', 'https://drive.google.com/uc?export=download&id=1kHG-RaUUjCvneXVt-UycYi5ZsQv3Ljr-'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ENfcBZkrK-mvq97JJfRp30C7zvAMwwSY/preview', 'https://drive.google.com/uc?export=download&id=1ENfcBZkrK-mvq97JJfRp30C7zvAMwwSY'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sC8rGRdjQwDfsrECnSq9FywcFCBfQtEY/preview', 'https://drive.google.com/uc?export=download&id=1sC8rGRdjQwDfsrECnSq9FywcFCBfQtEY'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xQfQWq0eBl-ykkyCJnSFMQY31z5gyxZZ/preview', 'https://drive.google.com/uc?export=download&id=1xQfQWq0eBl-ykkyCJnSFMQY31z5gyxZZ'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Sfk4bWdpRFXOUOSCSjqGpbB86rqKmHNx/preview', 'https://drive.google.com/uc?export=download&id=1Sfk4bWdpRFXOUOSCSjqGpbB86rqKmHNx'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TqqWk9e8GUb8HH1vTqzM36JH95m-jtMT/preview', 'https://drive.google.com/uc?export=download&id=1TqqWk9e8GUb8HH1vTqzM36JH95m-jtMT'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VpFVuYseeCbNBASpRw4z8uXLzj_7hjUf/preview', 'https://drive.google.com/uc?export=download&id=1VpFVuYseeCbNBASpRw4z8uXLzj_7hjUf'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hrkluSYJDjpFTiMNRyrW9PXTpGLqtEqK/preview', 'https://drive.google.com/uc?export=download&id=1hrkluSYJDjpFTiMNRyrW9PXTpGLqtEqK'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject 6: Araling Panlipunan -->
+    <div class="subject-card">
+      <div class="subject-title">Araling Panlipunan</div>
+      <div class="quarters-grid">
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/17-dSkJwc2u5qfTUEcfnljlxADEcMCrMY/preview', 'https://drive.google.com/uc?export=download&id=17-dSkJwc2u5qfTUEcfnljlxADEcMCrMY'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Rq4SS3zWuIWIPJpLLSHKpz_X8bPHVg7m/preview', 'https://drive.google.com/uc?export=download&id=1Rq4SS3zWuIWIPJpLLSHKpz_X8bPHVg7m'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1c0EP4OFHUsiROElrJnufW20Qu0PHpfcz/preview', 'https://drive.google.com/uc?export=download&id=1c0EP4OFHUsiROElrJnufW20Qu0PHpfcz'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10irAUFSeBSnxGXNqjq725GCuNtMdudnl/preview', 'https://drive.google.com/uc?export=download&id=10irAUFSeBSnxGXNqjq725GCuNtMdudnl'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1e-OcPwHYmG57bEjfCpbKGPTQ_VC0t5x8/preview', 'https://drive.google.com/uc?export=download&id=1e-OcPwHYmG57bEjfCpbKGPTQ_VC0t5x8'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1N0erL8vP9kfCtus5J4URer6VEZaez7Yj/preview', 'https://drive.google.com/uc?export=download&id=1N0erL8vP9kfCtus5J4URer6VEZaez7Yj'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1a6gScR_WgojUbVzges0aXAyKMNi-C8Sx/preview', 'https://drive.google.com/uc?export=download&id=1a6gScR_WgojUbVzges0aXAyKMNi-C8Sx'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gLbzVUHb4LIy6_QPCIEz4SDf8_UjQF-y/preview', 'https://drive.google.com/uc?export=download&id=1gLbzVUHb4LIy6_QPCIEz4SDf8_UjQF-y'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1asROnMw-6wtx90g3MOdB2t6d3gfeKvBk/preview', 'https://drive.google.com/uc?export=download&id=1asROnMw-6wtx90g3MOdB2t6d3gfeKvBk'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ROzB0CT3kq6IjBqQl10dHB_n_igUL57S/preview', 'https://drive.google.com/uc?export=download&id=1ROzB0CT3kq6IjBqQl10dHB_n_igUL57S'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oOJ_0ajpQorNjuGs_16B-96V_mSCf8p7/preview', 'https://drive.google.com/uc?export=download&id=1oOJ_0ajpQorNjuGs_16B-96V_mSCf8p7'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dWNHVhfBNt7yv6Weh3jUlZM1kLo26L35/preview', 'https://drive.google.com/uc?export=download&id=1dWNHVhfBNt7yv6Weh3jUlZM1kLo26L35'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VtvYvfc6yiraD-Hkc30Nca3RYXnfz_5n/preview', 'https://drive.google.com/uc?export=download&id=1VtvYvfc6yiraD-Hkc30Nca3RYXnfz_5n'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tKRm4zMALwrUOD7YUIFnF_hGTmpnJ9l_/preview', 'https://drive.google.com/uc?export=download&id=1tKRm4zMALwrUOD7YUIFnF_hGTmpnJ9l_'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rmRxmiZY86sHI206l1E6K_JSimCk4n3a/preview', 'https://drive.google.com/uc?export=download&id=1rmRxmiZY86sHI206l1E6K_JSimCk4n3a'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rfcawAZrLHkzoMqVf7F_NTAnFzH55W0u/preview', 'https://drive.google.com/uc?export=download&id=1rfcawAZrLHkzoMqVf7F_NTAnFzH55W0u'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ghhZO48otZhQxRMWc6jddOCBB1bh-ylM/preview', 'https://drive.google.com/uc?export=download&id=1ghhZO48otZhQxRMWc6jddOCBB1bh-ylM'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/17OZVjuI-olVcFrywk6NR4wZr2nEOpIKZ/preview', 'https://drive.google.com/uc?export=download&id=17OZVjuI-olVcFrywk6NR4wZr2nEOpIKZ'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bLgtBVD4ZM4hFuEgs3h2MEql_48-Snkz/preview', 'https://drive.google.com/uc?export=download&id=1bLgtBVD4ZM4hFuEgs3h2MEql_48-Snkz'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pC6oWaeXfVT30c2AlX7loLuVwPFxDVL5/preview', 'https://drive.google.com/uc?export=download&id=1pC6oWaeXfVT30c2AlX7loLuVwPFxDVL5'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1w2sGuTJ-Zze5TVztyuSCrAuCXJ-CLX1Y/preview', 'https://drive.google.com/uc?export=download&id=1w2sGuTJ-Zze5TVztyuSCrAuCXJ-CLX1Y'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cYg489XsIelMXHgHc3rLSvf8wtuAOpvH/preview', 'https://drive.google.com/uc?export=download&id=1cYg489XsIelMXHgHc3rLSvf8wtuAOpvH'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10AKsGRIwD7P0NdwwbZkXL9Gy_QdCSymi/preview', 'https://drive.google.com/uc?export=download&id=10AKsGRIwD7P0NdwwbZkXL9Gy_QdCSymi'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1v7gs2oVI3dpwIlvudenVaQIaVVqTAUlY/preview', 'https://drive.google.com/uc?export=download&id=1v7gs2oVI3dpwIlvudenVaQIaVVqTAUlY'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_gcoGUTTx7azO1029feU4oy6yJ4QUmuP/preview', 'https://drive.google.com/uc?export=download&id=1_gcoGUTTx7azO1029feU4oy6yJ4QUmuP'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14M8spPQYxSpTXP__wqTemnNEmH3cyZBv/preview', 'https://drive.google.com/uc?export=download&id=14M8spPQYxSpTXP__wqTemnNEmH3cyZBv'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13yVf7EeV1OZSmnLh6hb_9qOWu0pPeWb5/preview', 'https://drive.google.com/uc?export=download&id=13yVf7EeV1OZSmnLh6hb_9qOWu0pPeWb5'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wOM3rlOAvUlG8XB6kxB0lt1Cht2hiDkR/preview', 'https://drive.google.com/uc?export=download&id=1wOM3rlOAvUlG8XB6kxB0lt1Cht2hiDkR'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gZnfmHotLg3ZoTeVLZJ1lApHD2y5SvRk/preview', 'https://drive.google.com/uc?export=download&id=1gZnfmHotLg3ZoTeVLZJ1lApHD2y5SvRk'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1b6SyMPFkE3nui7DNEQeaczRqQubTHidL/preview', 'https://drive.google.com/uc?export=download&id=1b6SyMPFkE3nui7DNEQeaczRqQubTHidL'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1aljTHRrq9X1Tor1A6NQmnEeOJp9hUj9t/preview', 'https://drive.google.com/uc?export=download&id=1aljTHRrq9X1Tor1A6NQmnEeOJp9hUj9t'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1f7-IKgmS7CfFiwNYYHRaNrE128KOw3Mc/preview', 'https://drive.google.com/uc?export=download&id=1f7-IKgmS7CfFiwNYYHRaNrE128KOw3Mc'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1KA_fiCO8PTa3M_kUFsj47ptyfx1CQUGD/preview', 'https://drive.google.com/uc?export=download&id=1KA_fiCO8PTa3M_kUFsj47ptyfx1CQUGD'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MHU7qohOgE5Y_Iw7eB0KPZOHvHkYh11V/preview', 'https://drive.google.com/uc?export=download&id=1MHU7qohOgE5Y_Iw7eB0KPZOHvHkYh11V'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12viNQITh00jgBpaPcxNCLB0NWb0ta5sA/preview', 'https://drive.google.com/uc?export=download&id=12viNQITh00jgBpaPcxNCLB0NWb0ta5sA'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1on3AD7CLZXw4XPjP5ey2tMKXAoQ7YKFA/preview', 'https://drive.google.com/uc?export=download&id=1on3AD7CLZXw4XPjP5ey2tMKXAoQ7YKFA'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1O6gKJQVBMyhnRU9C47eqDRzQFlZYT90y/preview', 'https://drive.google.com/uc?export=download&id=1O6gKJQVBMyhnRU9C47eqDRzQFlZYT90y'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VfT7_h0s7TLwx3rtOELeUbUmFugFTQsF/preview', 'https://drive.google.com/uc?export=download&id=1VfT7_h0s7TLwx3rtOELeUbUmFugFTQsF'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kBFMC8r1CuvrP-EK53mfCVMgP4AAnboM/preview', 'https://drive.google.com/uc?export=download&id=1kBFMC8r1CuvrP-EK53mfCVMgP4AAnboM'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cxicpKbInrDI5ULiHd9XhkiF40qJxTIJ/preview', 'https://drive.google.com/uc?export=download&id=1cxicpKbInrDI5ULiHd9XhkiF40qJxTIJ'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uP78uvDbyiEBqOfeiDf3Xbz0x-PznY79/preview', 'https://drive.google.com/uc?export=download&id=1uP78uvDbyiEBqOfeiDf3Xbz0x-PznY79'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1O748APZKmffGw4F1l1Tu_ka6CG6OBuTv/preview', 'https://drive.google.com/uc?export=download&id=1O748APZKmffGw4F1l1Tu_ka6CG6OBuTv'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kBxuNAk757Vm2FG9hHhNhpG9mNv-Aow5/preview', 'https://drive.google.com/uc?export=download&id=1kBxuNAk757Vm2FG9hHhNhpG9mNv-Aow5'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1btAyevhLQfXWW7kt7TfcxpOku6kFL6Sw/preview', 'https://drive.google.com/uc?export=download&id=1btAyevhLQfXWW7kt7TfcxpOku6kFL6Sw'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hw8-Lh0WLAPd2XnLeXLmlLhS2x5brox6/preview', 'https://drive.google.com/uc?export=download&id=1hw8-Lh0WLAPd2XnLeXLmlLhS2x5brox6'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1izAMVrsTcCiRzVUcf6cXwVuvczhlFU5A/preview', 'https://drive.google.com/uc?export=download&id=1izAMVrsTcCiRzVUcf6cXwVuvczhlFU5A'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1y2BM3_xbKYdlaf7ZMfHxWHFSx0sVmNCe/preview', 'https://drive.google.com/uc?export=download&id=1y2BM3_xbKYdlaf7ZMfHxWHFSx0sVmNCe'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kJN1_zQwtS3zh0__yI5djicFisIMmgob/preview', 'https://drive.google.com/uc?export=download&id=1kJN1_zQwtS3zh0__yI5djicFisIMmgob'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TeWhlqMoIRZhHAcQXKyj86fXKHjUYIuc/preview', 'https://drive.google.com/uc?export=download&id=1TeWhlqMoIRZhHAcQXKyj86fXKHjUYIuc'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TIOy7H0T0Y3WdqeYz2_D3LFEQ4n_kmIJ/preview', 'https://drive.google.com/uc?export=download&id=1TIOy7H0T0Y3WdqeYz2_D3LFEQ4n_kmIJ'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DM2zRt6oGB_OqZoPfdbCvNyHH88k7WQC/preview', 'https://drive.google.com/uc?export=download&id=1DM2zRt6oGB_OqZoPfdbCvNyHH88k7WQC'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mEZWNCl-e873F33_AT1vdmgqBvzC2pAQ/preview', 'https://drive.google.com/uc?export=download&id=1mEZWNCl-e873F33_AT1vdmgqBvzC2pAQ'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14KVvqaVUSEvoaPDmoepmmxhiXEEJU243/preview', 'https://drive.google.com/uc?export=download&id=14KVvqaVUSEvoaPDmoepmmxhiXEEJU243'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1eCS70ovnT18M6zI_1ElPIdoiX7Dsfhsp/preview', 'https://drive.google.com/uc?export=download&id=1eCS70ovnT18M6zI_1ElPIdoiX7Dsfhsp'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Jd8E0iHAztUtwlmfV7UlpTopBKAMR1w5/preview', 'https://drive.google.com/uc?export=download&id=1Jd8E0iHAztUtwlmfV7UlpTopBKAMR1w5'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HIbSdvfpurhwPGAWZGNV0Na7-oPtJpnQ/preview', 'https://drive.google.com/uc?export=download&id=1HIbSdvfpurhwPGAWZGNV0Na7-oPtJpnQ'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MvRPOih8d0uCK_TopfIN7AJYtFMZfjxd/preview', 'https://drive.google.com/uc?export=download&id=1MvRPOih8d0uCK_TopfIN7AJYtFMZfjxd'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18HgIc27atxHlHNV2KgDL4Xlgjx0U5Rzb/preview', 'https://drive.google.com/uc?export=download&id=18HgIc27atxHlHNV2KgDL4Xlgjx0U5Rzb'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1K8we85bGmAdgEnTkDdSemW5oMTr9d1f9/preview', 'https://drive.google.com/uc?export=download&id=1K8we85bGmAdgEnTkDdSemW5oMTr9d1f9'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OW8dKq6BAjp-qAXG_ASZB-bz9xdcvHqD/preview', 'https://drive.google.com/uc?export=download&id=1OW8dKq6BAjp-qAXG_ASZB-bz9xdcvHqD'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ceJKG3onfLNI4FbPBZPGUI2ftvpoVJ2K/preview', 'https://drive.google.com/uc?export=download&id=1ceJKG3onfLNI4FbPBZPGUI2ftvpoVJ2K'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xTWVGN-l7lxnhYOvFUQ6OoEgKwmw37h5/preview', 'https://drive.google.com/uc?export=download&id=1xTWVGN-l7lxnhYOvFUQ6OoEgKwmw37h5'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dZsgND8rB03ws9_HirjvRUesuAVLDAVV/preview', 'https://drive.google.com/uc?export=download&id=1dZsgND8rB03ws9_HirjvRUesuAVLDAVV'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11pDT4lS4Gs2h9wlbg0i1vB4aaeQJTo6z/preview', 'https://drive.google.com/uc?export=download&id=11pDT4lS4Gs2h9wlbg0i1vB4aaeQJTo6z'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1y9a8FTO5iiFv_8Hm31HsS0IqsQQk1qFf/preview', 'https://drive.google.com/uc?export=download&id=1y9a8FTO5iiFv_8Hm31HsS0IqsQQk1qFf'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1F671Fcij4Cnexs-MgIhcXD7DbNy5zAxH/preview', 'https://drive.google.com/uc?export=download&id=1F671Fcij4Cnexs-MgIhcXD7DbNy5zAxH'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/139F7AdC5doMsAEDqx9X9n1RwX03OqgRe/preview', 'https://drive.google.com/uc?export=download&id=139F7AdC5doMsAEDqx9X9n1RwX03OqgRe'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HENBKfXy0xdBRnyX-Z7N1HoZC8W1OmQq/preview', 'https://drive.google.com/uc?export=download&id=1HENBKfXy0xdBRnyX-Z7N1HoZC8W1OmQq'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pfCKCWYNZIJcNwNpJ6_ijQk2hbD4GYEd/preview', 'https://drive.google.com/uc?export=download&id=1pfCKCWYNZIJcNwNpJ6_ijQk2hbD4GYEd'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YD1S6yJikKG3ypNKkokjqyGbMIL4SPZh/preview', 'https://drive.google.com/uc?export=download&id=1YD1S6yJikKG3ypNKkokjqyGbMIL4SPZh'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1zTgpxq3lYGO49rJwODSQesWJPGStSgk5/preview', 'https://drive.google.com/uc?export=download&id=1zTgpxq3lYGO49rJwODSQesWJPGStSgk5'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uzAChbZe03sYO7yUuaKBvXQOHHeMCa6E/preview', 'https://drive.google.com/uc?export=download&id=1uzAChbZe03sYO7yUuaKBvXQOHHeMCa6E'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Uy9qgEukC-biOr3R34tm5wGZ8chUwk84/preview', 'https://drive.google.com/uc?export=download&id=1Uy9qgEukC-biOr3R34tm5wGZ8chUwk84'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iTJO078NwXchOr62jHJp1Kzdfg4x78Ps/preview', 'https://drive.google.com/uc?export=download&id=1iTJO078NwXchOr62jHJp1Kzdfg4x78Ps'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1g56ebl_c9ERz8JHJPBEBoMkOkFpG8Iwv/preview', 'https://drive.google.com/uc?export=download&id=1g56ebl_c9ERz8JHJPBEBoMkOkFpG8Iwv'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Z3VBMKZNdVcg_BqNlrtGzJkZts-F_ok8/preview', 'https://drive.google.com/uc?export=download&id=1Z3VBMKZNdVcg_BqNlrtGzJkZts-F_ok8'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qz2KMptq2jJiLeu57l92JfSbndYtbQ0N/preview', 'https://drive.google.com/uc?export=download&id=1qz2KMptq2jJiLeu57l92JfSbndYtbQ0N'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QfWNPFzXWNGn6NiE0e8onJGv19EGT_P3/preview', 'https://drive.google.com/uc?export=download&id=1QfWNPFzXWNGn6NiE0e8onJGv19EGT_P3'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iZwV2vhGh3mLOUG_RJQDtXdCluZLMOOB/preview', 'https://drive.google.com/uc?export=download&id=1iZwV2vhGh3mLOUG_RJQDtXdCluZLMOOB'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bS5XXENRENn6u5ItMtE5gRg71vGoQulH/preview', 'https://drive.google.com/uc?export=download&id=1bS5XXENRENn6u5ItMtE5gRg71vGoQulH'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject 7: MAPEH -->
+    <div class="subject-card">
+      <div class="subject-title">MAPEH</div>
+      <div class="quarters-grid">
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1GmrlOb-KeH1DJzTUgMSTRU0x1DRwsXVm/preview', 'https://drive.google.com/uc?export=download&id=1GmrlOb-KeH1DJzTUgMSTRU0x1DRwsXVm'); return false;">MA LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11wKwnti_cPjOCqnlWI2dgZNXvMbSoC1Q/preview', 'https://drive.google.com/uc?export=download&id=11wKwnti_cPjOCqnlWI2dgZNXvMbSoC1Q'); return false;">MA LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18avj4v1AwymQ4Nq4GL8Nn9oQcV6L3Si6/preview', 'https://drive.google.com/uc?export=download&id=18avj4v1AwymQ4Nq4GL8Nn9oQcV6L3Si6'); return false;">MA LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ahBb-jBwNq80MS4DyAenaVSxO3Bg7Kb2/preview', 'https://drive.google.com/uc?export=download&id=1ahBb-jBwNq80MS4DyAenaVSxO3Bg7Kb2'); return false;">MA LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mNHiBRJ8Ovh899rxyUnNDMurV-Fd7zEu/preview', 'https://drive.google.com/uc?export=download&id=1mNHiBRJ8Ovh899rxyUnNDMurV-Fd7zEu'); return false;">MA LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DSLo4ohk9Ieu40LewIvHHerveQFcMj0I/preview', 'https://drive.google.com/uc?export=download&id=1DSLo4ohk9Ieu40LewIvHHerveQFcMj0I'); return false;">MA LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1K25GeIkkFVT4Xmts2_KxNXeC7qD7djoA/preview', 'https://drive.google.com/uc?export=download&id=1K25GeIkkFVT4Xmts2_KxNXeC7qD7djoA'); return false;">MA LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10YAuz0klBveIms8MGOPojstlKMD4iznJ/preview', 'https://drive.google.com/uc?export=download&id=10YAuz0klBveIms8MGOPojstlKMD4iznJ'); return false;">MA LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Iae2KOF_n7Y6eYXIALVJeMdIEOsSQQd3/preview', 'https://drive.google.com/uc?export=download&id=1Iae2KOF_n7Y6eYXIALVJeMdIEOsSQQd3'); return false;">MA LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pnsLGl8g-gqV1IEG7LSPcCULCKFBdIjI/preview', 'https://drive.google.com/uc?export=download&id=1pnsLGl8g-gqV1IEG7LSPcCULCKFBdIjI'); return false;">MA LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ApEZi6cas2OYOTCZbbK_Ljz8rCdavVPC/preview', 'https://drive.google.com/uc?export=download&id=1ApEZi6cas2OYOTCZbbK_Ljz8rCdavVPC'); return false;">MA LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QoQP2uTcTPsJRwG3bHUsZRj2XUrNjRjy/preview', 'https://drive.google.com/uc?export=download&id=1QoQP2uTcTPsJRwG3bHUsZRj2XUrNjRjy'); return false;">MA LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1T6S_HOA2Lip6zUUBOPs1JNqJI9jRqqOf/preview', 'https://drive.google.com/uc?export=download&id=1T6S_HOA2Lip6zUUBOPs1JNqJI9jRqqOf'); return false;">MA LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1G0quUq_foW5Utz0UkQ53wkvCb5F9PvHt/preview', 'https://drive.google.com/uc?export=download&id=1G0quUq_foW5Utz0UkQ53wkvCb5F9PvHt'); return false;">MA LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10sY80oHoKoRUry4u_crIYn5-nSOzgQN9/preview', 'https://drive.google.com/uc?export=download&id=10sY80oHoKoRUry4u_crIYn5-nSOzgQN9'); return false;">MA LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ANqUV_Kr3D0MfU-MRMldlw2BjuQsgUwe/preview', 'https://drive.google.com/uc?export=download&id=1ANqUV_Kr3D0MfU-MRMldlw2BjuQsgUwe'); return false;">MA LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xLU_uYvHssL0U1DhoXyh6wpPx9_MfeIb/preview', 'https://drive.google.com/uc?export=download&id=1xLU_uYvHssL0U1DhoXyh6wpPx9_MfeIb'); return false;">MA LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Ojb1E8tpNxDx6yaQgR_SvlTMtReV39YV/preview', 'https://drive.google.com/uc?export=download&id=1Ojb1E8tpNxDx6yaQgR_SvlTMtReV39YV'); return false;">MA LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EuTOQyL4v9c7NX0PgxnCQek1TQFvyW0B/preview', 'https://drive.google.com/uc?export=download&id=1EuTOQyL4v9c7NX0PgxnCQek1TQFvyW0B'); return false;">MA LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11GhoOYST1nVdoAeOyzIE2Rx_kBrTmzsX/preview', 'https://drive.google.com/uc?export=download&id=11GhoOYST1nVdoAeOyzIE2Rx_kBrTmzsX'); return false;">MA LAS 20</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18KFe42ZcX2PZXTwSiSlIuxOgaVK6oHvm/preview', 'https://drive.google.com/uc?export=download&id=18KFe42ZcX2PZXTwSiSlIuxOgaVK6oHvm'); return false;">MA LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pO61OxwYCIOZzX8FNFBf116v9aU-YzXy/preview', 'https://drive.google.com/uc?export=download&id=1pO61OxwYCIOZzX8FNFBf116v9aU-YzXy'); return false;">MA LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tJoVpsayvYGqK87q9uVNM_grX__neP_d/preview', 'https://drive.google.com/uc?export=download&id=1tJoVpsayvYGqK87q9uVNM_grX__neP_d'); return false;">MA LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WM1cx0B_jlhMF5wcEtg3rZ18NSmWpJq5/preview', 'https://drive.google.com/uc?export=download&id=1WM1cx0B_jlhMF5wcEtg3rZ18NSmWpJq5'); return false;">MA LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1GfD6uzz50Pi5PAUfmOej6pR-kbg54Yqd/preview', 'https://drive.google.com/uc?export=download&id=1GfD6uzz50Pi5PAUfmOej6pR-kbg54Yqd'); return false;">MA LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1vvJN9irAGtXJGoyslcONuFtnRY8ZnQQd/preview', 'https://drive.google.com/uc?export=download&id=1vvJN9irAGtXJGoyslcONuFtnRY8ZnQQd'); return false;">MA LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1P4k0HHUr8Ea8J5-JCByEE1pH0Ma8rh3M/preview', 'https://drive.google.com/uc?export=download&id=1P4k0HHUr8Ea8J5-JCByEE1pH0Ma8rh3M'); return false;">MA LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1X61k-FY27na9I1XpRjOsLN0DCiNrh2xb/preview', 'https://drive.google.com/uc?export=download&id=1X61k-FY27na9I1XpRjOsLN0DCiNrh2xb'); return false;">MA LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jaKnkZcvWoeEewR73XRK0L7qKbFnJ6lJ/preview', 'https://drive.google.com/uc?export=download&id=1jaKnkZcvWoeEewR73XRK0L7qKbFnJ6lJ'); return false;">MA LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uzyxyG3JMszfZgxpnwktMuVHtbTsH-pv/preview', 'https://drive.google.com/uc?export=download&id=1uzyxyG3JMszfZgxpnwktMuVHtbTsH-pv'); return false;">MA LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1K9VfevPd6xxU6u063xzUpa9oZBnx52qW/preview', 'https://drive.google.com/uc?export=download&id=1K9VfevPd6xxU6u063xzUpa9oZBnx52qW'); return false;">MA LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tW_h-dAdUiwRPVQ6LjJegcbJXLCixLHk/preview', 'https://drive.google.com/uc?export=download&id=1tW_h-dAdUiwRPVQ6LjJegcbJXLCixLHk'); return false;">MA LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16H47-wnO_XjHY-zYHb-dRjz7q5YaM-zy/preview', 'https://drive.google.com/uc?export=download&id=16H47-wnO_XjHY-zYHb-dRjz7q5YaM-zy'); return false;">MA LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XjHsmsoM4Zn_-ll8OhE3sGb8qiDZrRso/preview', 'https://drive.google.com/uc?export=download&id=1XjHsmsoM4Zn_-ll8OhE3sGb8qiDZrRso'); return false;">MA LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Fv7bEvAAQEcaMeUJDVtmDnY-1I5HT3GG/preview', 'https://drive.google.com/uc?export=download&id=1Fv7bEvAAQEcaMeUJDVtmDnY-1I5HT3GG'); return false;">MA LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PcOM5RbwMfKhlB9G2-WFnAVkAQLdNk5i/preview', 'https://drive.google.com/uc?export=download&id=1PcOM5RbwMfKhlB9G2-WFnAVkAQLdNk5i'); return false;">MA LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WDuDgJw55hvJnVHsq3kRadueqG4DwbKq/preview', 'https://drive.google.com/uc?export=download&id=1WDuDgJw55hvJnVHsq3kRadueqG4DwbKq'); return false;">MA LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1q_2wyyA9oimGGfxDEeLihzOytL-Qi7k_/preview', 'https://drive.google.com/uc?export=download&id=1q_2wyyA9oimGGfxDEeLihzOytL-Qi7k_'); return false;">MA LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16ujKtHyNqhYpV6caTk-ltvuFL10cf2q_/preview', 'https://drive.google.com/uc?export=download&id=16ujKtHyNqhYpV6caTk-ltvuFL10cf2q_'); return false;">MA LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NsYHvkM8R5IPRJHaGyIURxiaMFy8tMCK/preview', 'https://drive.google.com/uc?export=download&id=1NsYHvkM8R5IPRJHaGyIURxiaMFy8tMCK'); return false;">MA LAS 20</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject 8: TLE -->
+    <div class="subject-card">
+      <div class="subject-title">TLE</div>
+      <div class="quarters-grid">
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10YSuh4g37U769FhLgZyLO3K0vKuyG239/preview', 'https://drive.google.com/uc?export=download&id=10YSuh4g37U769FhLgZyLO3K0vKuyG239'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1vJS104BAB-9R7y-4bUtAnwN_mUZLeylo/preview', 'https://drive.google.com/uc?export=download&id=1vJS104BAB-9R7y-4bUtAnwN_mUZLeylo'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hiWZ5GX1ArWQl12DPL7tcdke29uqy3tA/preview', 'https://drive.google.com/uc?export=download&id=1hiWZ5GX1ArWQl12DPL7tcdke29uqy3tA'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gXaShFJKWnWAm8YbaausMfLCFGMHDDo5/preview', 'https://drive.google.com/uc?export=download&id=1gXaShFJKWnWAm8YbaausMfLCFGMHDDo5'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1F5-Ybes0Yp8BvGDsHNKMJp04gHhJqFJ6/preview', 'https://drive.google.com/uc?export=download&id=1F5-Ybes0Yp8BvGDsHNKMJp04gHhJqFJ6'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1a9qchFIiAkjdHx_WGZDJX7XUTaatR4v2/preview', 'https://drive.google.com/uc?export=download&id=1a9qchFIiAkjdHx_WGZDJX7XUTaatR4v2'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1J07d011WheeHoSHaP2Ki5oJt8g1SgiEM/preview', 'https://drive.google.com/uc?export=download&id=1J07d011WheeHoSHaP2Ki5oJt8g1SgiEM'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TdGuoIaDZ4n8KsFQhjdN5fGiVxr1K9zE/preview', 'https://drive.google.com/uc?export=download&id=1TdGuoIaDZ4n8KsFQhjdN5fGiVxr1K9zE'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XgrNjp0LeEHjFG29qvjC1fe6KXbaUTsW/preview', 'https://drive.google.com/uc?export=download&id=1XgrNjp0LeEHjFG29qvjC1fe6KXbaUTsW'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11rk3H-fX-bFCnDdoulQC3UTHUrjOGLcq/preview', 'https://drive.google.com/uc?export=download&id=11rk3H-fX-bFCnDdoulQC3UTHUrjOGLcq'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fR2he--0CKSTwLmEhIYCTjRyz8FPxsC7/preview', 'https://drive.google.com/uc?export=download&id=1fR2he--0CKSTwLmEhIYCTjRyz8FPxsC7'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1h9qIZlLL5Ep3xnuIGzm6RSv_odkM2T6m/preview', 'https://drive.google.com/uc?export=download&id=1h9qIZlLL5Ep3xnuIGzm6RSv_odkM2T6m'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_bUumi95KROOmihOBIpWV4VS2ko-DPWG/preview', 'https://drive.google.com/uc?export=download&id=1_bUumi95KROOmihOBIpWV4VS2ko-DPWG'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11480jtIs3_zkUIjJxtR1HbsLJ5GV5RLj/preview', 'https://drive.google.com/uc?export=download&id=11480jtIs3_zkUIjJxtR1HbsLJ5GV5RLj'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1t1Tt-VLHBHLohfs6pleCEcx82P6g3vxT/preview', 'https://drive.google.com/uc?export=download&id=1t1Tt-VLHBHLohfs6pleCEcx82P6g3vxT'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gOMC0zKDFNTixhy0xsUFLF24J8AcKBlh/preview', 'https://drive.google.com/uc?export=download&id=1gOMC0zKDFNTixhy0xsUFLF24J8AcKBlh'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/154XaKhZl_6ZfPc4cL4Sc5Nhc_RWbjL3D/preview', 'https://drive.google.com/uc?export=download&id=154XaKhZl_6ZfPc4cL4Sc5Nhc_RWbjL3D'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-Qr6AoSkhyUpAOs0jrF0Ry6BI_KFk0SP/preview', 'https://drive.google.com/uc?export=download&id=1-Qr6AoSkhyUpAOs0jrF0Ry6BI_KFk0SP'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tbLaD3NJuR0CgeeP1kGEEZuDoj3GQyIf/preview', 'https://drive.google.com/uc?export=download&id=1tbLaD3NJuR0CgeeP1kGEEZuDoj3GQyIf'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15RWNdU3-quQuQGFesqfC7MFp7BzF-WkR/preview', 'https://drive.google.com/uc?export=download&id=15RWNdU3-quQuQGFesqfC7MFp7BzF-WkR'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1moHXhVDWAg8Ep3et10nDWSOLmKn1lTL2/preview', 'https://drive.google.com/uc?export=download&id=1moHXhVDWAg8Ep3et10nDWSOLmKn1lTL2'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RfrDhhWjvCCT2smVQVWCq0UN3EaNJL1s/preview', 'https://drive.google.com/uc?export=download&id=1RfrDhhWjvCCT2smVQVWCq0UN3EaNJL1s'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mN1rdzORbpmmQnxYgr0cacXmU3MIZB-Q/preview', 'https://drive.google.com/uc?export=download&id=1mN1rdzORbpmmQnxYgr0cacXmU3MIZB-Q'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qZ9gpqOqz3YVRdBKW0Oo3dVRE1_0Oe8P/preview', 'https://drive.google.com/uc?export=download&id=1qZ9gpqOqz3YVRdBKW0Oo3dVRE1_0Oe8P'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ILchvTbL4IA24606OoJVGnPMuZ0CvpYM/preview', 'https://drive.google.com/uc?export=download&id=1ILchvTbL4IA24606OoJVGnPMuZ0CvpYM'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mzCsHNec_sH0DZ4pXmX-4LHuoNr7ssuf/preview', 'https://drive.google.com/uc?export=download&id=1mzCsHNec_sH0DZ4pXmX-4LHuoNr7ssuf'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1K8n_MTfTmJWVNp-Jm8jNpOThp-j1Rng3/preview', 'https://drive.google.com/uc?export=download&id=1K8n_MTfTmJWVNp-Jm8jNpOThp-j1Rng3'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1vp9efmrxWRzStJwhZI_eL--GTTYc1Ifi/preview', 'https://drive.google.com/uc?export=download&id=1vp9efmrxWRzStJwhZI_eL--GTTYc1Ifi'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1saFbyZY4WKZjbHEdbCvCX00FhCDdILJ0/preview', 'https://drive.google.com/uc?export=download&id=1saFbyZY4WKZjbHEdbCvCX00FhCDdILJ0'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LrtBpgoIez8zje_1SEYcHXJJY9a1JDHE/preview', 'https://drive.google.com/uc?export=download&id=1LrtBpgoIez8zje_1SEYcHXJJY9a1JDHE'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tTXfnQDktwlcepA6yP-uoAadf2nJhS3P/preview', 'https://drive.google.com/uc?export=download&id=1tTXfnQDktwlcepA6yP-uoAadf2nJhS3P'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uRsdxu8XeooZNfbP1Skiwxr2GrB5mK3V/preview', 'https://drive.google.com/uc?export=download&id=1uRsdxu8XeooZNfbP1Skiwxr2GrB5mK3V'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JyHsKXqMNcZQlPHK-fgCmLSRt6UrA52N/preview', 'https://drive.google.com/uc?export=download&id=1JyHsKXqMNcZQlPHK-fgCmLSRt6UrA52N'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Enb7THxjDQZm1cJEXmPpSF_bjbo9AhI2/preview', 'https://drive.google.com/uc?export=download&id=1Enb7THxjDQZm1cJEXmPpSF_bjbo9AhI2'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-ycIoPnW7BOdn9bC1cBUzz8dBIDlsm4A/preview', 'https://drive.google.com/uc?export=download&id=1-ycIoPnW7BOdn9bC1cBUzz8dBIDlsm4A'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bHQAv0JfXE-Mhgumvn6HYlRFRlvGf41N/preview', 'https://drive.google.com/uc?export=download&id=1bHQAv0JfXE-Mhgumvn6HYlRFRlvGf41N'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OVAuG4c4jHk8zbWd_tYfygTHcOzjMPMs/preview', 'https://drive.google.com/uc?export=download&id=1OVAuG4c4jHk8zbWd_tYfygTHcOzjMPMs'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/121gMOVDvIODHGqkq2RNsrfmm7Iaz9Abx/preview', 'https://drive.google.com/uc?export=download&id=121gMOVDvIODHGqkq2RNsrfmm7Iaz9Abx'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dngBD2b9QXiYCGQRURDuZAel8YDLUf5x/preview', 'https://drive.google.com/uc?export=download&id=1dngBD2b9QXiYCGQRURDuZAel8YDLUf5x'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ct869_GKAahRrWcpnzsdOjel5puDRtye/preview', 'https://drive.google.com/uc?export=download&id=1ct869_GKAahRrWcpnzsdOjel5puDRtye'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="las-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LbgdPQJ_159xxdti4Bkd6KJ5T7V_p7UE/preview', 'https://drive.google.com/uc?export=download&id=1LbgdPQJ_159xxdti4Bkd6KJ5T7V_p7UE'); return false;">LAS 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13CcNGriecRW6t8eZhda8XAd82s8MaMTP/preview', 'https://drive.google.com/uc?export=download&id=13CcNGriecRW6t8eZhda8XAd82s8MaMTP'); return false;">LAS 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cspLlcothjaMW18H-RmBI-FMBFRioDIQ/preview', 'https://drive.google.com/uc?export=download&id=1cspLlcothjaMW18H-RmBI-FMBFRioDIQ'); return false;">LAS 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1vPFXycdSWWGrGEo2MRGG7zWn6S5-uqrC/preview', 'https://drive.google.com/uc?export=download&id=1vPFXycdSWWGrGEo2MRGG7zWn6S5-uqrC'); return false;">LAS 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XWmljSB_X8aGqHbrZBPFuFUvAs_cmnkx/preview', 'https://drive.google.com/uc?export=download&id=1XWmljSB_X8aGqHbrZBPFuFUvAs_cmnkx'); return false;">LAS 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-y_kl-1PAdLVrHs4rTWSA4qNuhXzPyox/preview', 'https://drive.google.com/uc?export=download&id=1-y_kl-1PAdLVrHs4rTWSA4qNuhXzPyox'); return false;">LAS 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rcG4GjNfiBjPGYRofzxkV4igw5zpV-9O/preview', 'https://drive.google.com/uc?export=download&id=1rcG4GjNfiBjPGYRofzxkV4igw5zpV-9O'); return false;">LAS 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15Zk1CbCC2FOx0ov9G6jvX_clZZF14yWB/preview', 'https://drive.google.com/uc?export=download&id=15Zk1CbCC2FOx0ov9G6jvX_clZZF14yWB'); return false;">LAS 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_UIdzwG471Fdf3_wyI8WlIAYano29bRr/preview', 'https://drive.google.com/uc?export=download&id=1_UIdzwG471Fdf3_wyI8WlIAYano29bRr'); return false;">LAS 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XKRPjYZ6fZEl6UkyYicMG1FtfcdiutY8/preview', 'https://drive.google.com/uc?export=download&id=1XKRPjYZ6fZEl6UkyYicMG1FtfcdiutY8'); return false;">LAS 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PWMkkxBUN2vmy0HOYNXA6F8LYrqYAToa/preview', 'https://drive.google.com/uc?export=download&id=1PWMkkxBUN2vmy0HOYNXA6F8LYrqYAToa'); return false;">LAS 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/164DWdze5sejlX3ePNrqmKp8E0h6euPQw/preview', 'https://drive.google.com/uc?export=download&id=164DWdze5sejlX3ePNrqmKp8E0h6euPQw'); return false;">LAS 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hnci4ycsyBPRV7jijXP9D9VtBSWxpeSE/preview', 'https://drive.google.com/uc?export=download&id=1hnci4ycsyBPRV7jijXP9D9VtBSWxpeSE'); return false;">LAS 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1KkZqvKdau-e-uInKE4DB0ZtmwR8m3m6h/preview', 'https://drive.google.com/uc?export=download&id=1KkZqvKdau-e-uInKE4DB0ZtmwR8m3m6h'); return false;">LAS 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oF83yXbyeVwTpKOWMcOhz_R-GoC5KOyz/preview', 'https://drive.google.com/uc?export=download&id=1oF83yXbyeVwTpKOWMcOhz_R-GoC5KOyz'); return false;">LAS 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xwRIgilzb-b9191eI7tPedhMazlY69K5/preview', 'https://drive.google.com/uc?export=download&id=1xwRIgilzb-b9191eI7tPedhMazlY69K5'); return false;">LAS 16</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1e9dD0c2yf_D8BxgNY9oa4hsfWLIzobNk/preview', 'https://drive.google.com/uc?export=download&id=1e9dD0c2yf_D8BxgNY9oa4hsfWLIzobNk'); return false;">LAS 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1nziWePvEGRrKfy2D42zFmUamq2Zfy4DQ/preview', 'https://drive.google.com/uc?export=download&id=1nziWePvEGRrKfy2D42zFmUamq2Zfy4DQ'); return false;">LAS 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QkI5i6Pn9M5KhUumOrpUHMn3S7YfJp1A/preview', 'https://drive.google.com/uc?export=download&id=1QkI5i6Pn9M5KhUumOrpUHMn3S7YfJp1A'); return false;">LAS 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1zZqV19S8gu4QtVYHRiUXvhKhFM3x6AtF/preview', 'https://drive.google.com/uc?export=download&id=1zZqV19S8gu4QtVYHRiUXvhKhFM3x6AtF'); return false;">LAS 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1AD83zdkosSZu7EwhVxxKmXp6gmUxFSQS/preview', 'https://drive.google.com/uc?export=download&id=1AD83zdkosSZu7EwhVxxKmXp6gmUxFSQS'); return false;">LAS 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WC1GKoNhKawUfu8fojxWCRPIe4-u8Q4-/preview', 'https://drive.google.com/uc?export=download&id=1WC1GKoNhKawUfu8fojxWCRPIe4-u8Q4-'); return false;">LAS 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1e3ZyuZAsZ9geP0qGnqr8V-JFjkhaSK7U/preview', 'https://drive.google.com/uc?export=download&id=1e3ZyuZAsZ9geP0qGnqr8V-JFjkhaSK7U'); return false;">LAS 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OOQsRKP-PsF7TM3fFk-hSc1acLJVM6qI/preview', 'https://drive.google.com/uc?export=download&id=1OOQsRKP-PsF7TM3fFk-hSc1acLJVM6qI'); return false;">LAS 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fyaH9Dc5D3K8pr8PWLNWawWMIbs5sWxI/preview', 'https://drive.google.com/uc?export=download&id=1fyaH9Dc5D3K8pr8PWLNWawWMIbs5sWxI'); return false;">LAS 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1m2CKdaOwrXm-iXO-aYlK8JuYOgZO8TGF/preview', 'https://drive.google.com/uc?export=download&id=1m2CKdaOwrXm-iXO-aYlK8JuYOgZO8TGF'); return false;">LAS 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11PIWeTsl9Rb29N7fCXxQaE8lWMk6WVWe/preview', 'https://drive.google.com/uc?export=download&id=11PIWeTsl9Rb29N7fCXxQaE8lWMk6WVWe'); return false;">LAS 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Y09PQqTHRMrPYGEpacs0UdTvzQiYGfmR/preview', 'https://drive.google.com/uc?export=download&id=1Y09PQqTHRMrPYGEpacs0UdTvzQiYGfmR'); return false;">LAS 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Nm8kM6vBRQPm0sZqEJrUxanlOppL0Tu7/preview', 'https://drive.google.com/uc?export=download&id=1Nm8kM6vBRQPm0sZqEJrUxanlOppL0Tu7'); return false;">LAS 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qh3OTTBOOuVPUeiVdiRblpmnI11MuKPg/preview', 'https://drive.google.com/uc?export=download&id=1qh3OTTBOOuVPUeiVdiRblpmnI11MuKPg'); return false;">LAS 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ekddhbyG5EtznMsKRGbE3FP76zcZEXAt/preview', 'https://drive.google.com/uc?export=download&id=1ekddhbyG5EtznMsKRGbE3FP76zcZEXAt'); return false;">LAS 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZRETTt1Q-poS2Hj8meMkAlUXAlSXev9u/preview', 'https://drive.google.com/uc?export=download&id=1ZRETTt1Q-poS2Hj8meMkAlUXAlSXev9u'); return false;">LAS 32</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fMImte7NVRJTFj0f6-OflOzB8TilVAyG/preview', 'https://drive.google.com/uc?export=download&id=1fMImte7NVRJTFj0f6-OflOzB8TilVAyG'); return false;">LAS 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kqazkyjTN4y2OGp8dCqP03FXBbBJMc6R/preview', 'https://drive.google.com/uc?export=download&id=1kqazkyjTN4y2OGp8dCqP03FXBbBJMc6R'); return false;">LAS 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11mY1VLv_3g-bHDijHzjJwr_j-D24aCb0/preview', 'https://drive.google.com/uc?export=download&id=11mY1VLv_3g-bHDijHzjJwr_j-D24aCb0'); return false;">LAS 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1E2W2LnBtFGd-DZZiJfIxKI7izL1JKD1Z/preview', 'https://drive.google.com/uc?export=download&id=1E2W2LnBtFGd-DZZiJfIxKI7izL1JKD1Z'); return false;">LAS 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1s5QSNAzmibdXqxNwB9yezAdzP89MoQnp/preview', 'https://drive.google.com/uc?export=download&id=1s5QSNAzmibdXqxNwB9yezAdzP89MoQnp'); return false;">LAS 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Qf2yRc_JXXBqLW_Q5W9aqyK_7k44uV_Y/preview', 'https://drive.google.com/uc?export=download&id=1Qf2yRc_JXXBqLW_Q5W9aqyK_7k44uV_Y'); return false;">LAS 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pkUFzIV4vldMYVvr_RPdi0-XGsSjcaOB/preview', 'https://drive.google.com/uc?export=download&id=1pkUFzIV4vldMYVvr_RPdi0-XGsSjcaOB'); return false;">LAS 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1t2YY_j_wD73Ea1DCEi52CH0BuHb-1F_o/preview', 'https://drive.google.com/uc?export=download&id=1t2YY_j_wD73Ea1DCEi52CH0BuHb-1F_o'); return false;">LAS 40</a>
+          </div>
+        </div>
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="las-list">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="back">
+    ← <a href="lambo.html">Back to LAMBO Materials</a>
+  </div>
+</div>
+
+<!-- PDF Modal Popup (same as your learning-packets.html) -->
+<div id="pdfModal" class="pdf-modal">
+  <div class="pdf-modal-content">
+    <span class="pdf-close" onclick="closePdf()">&times;</span>
+    <div class="pdf-wrapper">
+      <iframe id="pdfIframe" src="" frameborder="0"></iframe>
+    </div>
+    <a id="pdfDownloadBtn" href="#" class="pdf-download" target="_blank">Download PDF</a>
+  </div>
+</div>
+
+<footer style="background:#003087; color:white; padding:20px 30px; text-align:center; font-size:0.95em; margin-top:40px;">
+  <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+    <div style="text-align:left; line-height:1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    <div style="display:flex; gap:25px; align-items:center;">
+      <img src="pinas.png" alt="Philippines Logo" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+      <img src="seal.png" alt="DepEd Seal" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+      <img src="school.png" alt="School Logo" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+    </div>
+  </div>
+</footer>
+
+<script>
+// PDF modal functions (same as your packets page)
+function openPdf(viewUrl, downloadUrl) {
+  const embedUrl = viewUrl;  // already /preview
+  document.getElementById("pdfIframe").src = embedUrl;
+  document.getElementById("pdfDownloadBtn").href = downloadUrl;
+  document.getElementById("pdfModal").style.display = "block";
+}
+
+function closePdf() {
+  document.getElementById("pdfModal").style.display = "none";
+  document.getElementById("pdfIframe").src = "";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("pdfModal");
+  if (event.target === modal) {
+    closePdf();
+  }
+}
+</script>
+
+</body>
+</html>

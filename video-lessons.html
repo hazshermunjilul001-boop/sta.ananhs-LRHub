@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sta. Ana National High School - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #003087;
+      --light: #e6f0ff;
+      --text: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin: 0; 
+      background-image: url('background.png');   
+      background-size: cover;                    
+      background-position: center;               
+      background-repeat: no-repeat;              
+      background-attachment: fixed;              
+      color: var(--text); 
+      min-height: 100vh;                         
+      line-height: 1.6;
+    }
+
+    header { 
+      background: var(--primary); 
+      color: white; 
+      padding: 10px; 
+      text-align: center;
+    }
+
+    /* ────────────── RESPONSIVE NAV ────────────── */
+    nav {
+      background: var(--primary);
+      padding: 1rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 30px;
+      height: 4px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Dropdown menu (mobile) */
+    .dropdown-menu {
+      display: none;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      flex-direction: column;
+      padding: 1rem 0;
+      z-index: 100;
+    }
+
+    .dropdown-menu a {
+      padding: 1rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    /* Checkbox hack for pure CSS toggle */
+    #menu-toggle {
+      display: none;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    #menu-toggle:checked ~ .dropdown-menu {
+      display: flex;
+    }
+
+    /* ────────────── MAIN CONTENT ────────────── */
+    .container { 
+      max-width: 1200px; 
+      margin: 20px auto; 
+      padding: 0 20px; 
+    }
+
+    .section { 
+      background: rgba(255, 255, 255, 0.5);   
+      padding: 25px; 
+      margin: 25px 0; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);   
+      backdrop-filter: blur(4px);              
+    }
+
+    h1, h2, h3 { 
+      color: var(--primary); 
+      margin-top: 0;
+    }
+
+    /* Paragraph styling: indent first line + justified */
+    .section p {
+      text-align: justify;
+      text-indent: 2em;           /* first-line indent */
+      margin: 1em 0;
+      hyphens: auto;              /* better word breaking in justified text */
+    }
+
+    /* Remove indent from first paragraph after heading (common style) */
+    .section h2 {
+      text-indent: 0;
+    }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+      gap: 20px; 
+    }
+
+    .card { 
+      background: var(--light); 
+      padding: 15px; 
+      border-radius: 8px; 
+      text-align: center; 
+    }
+
+    .card a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* ────────────── VIDEO MODAL ────────────── */
+    .video-modal {
+      display: none;
+      position: fixed;
+      z-index: 9998;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      overflow: auto;
+    }
+
+    .video-modal-content {
+      margin: 5% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 960px;
+      position: relative;
+    }
+
+    .video-close {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 9999;
+    }
+
+    .video-close:hover,
+    .video-close:focus {
+      color: #bbb;
+      text-decoration: none;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ────────────── SPLASH & VISITOR ────────────── */
+    #role-splash {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 48, 135, 0.95); color: white;
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+      text-align: center;
+    }
+
+    #role-splash .box {
+      background: white; color: var(--primary); padding: 40px; border-radius: 15px; max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .role-btn {
+      background: var(--primary); color: white; border: none; padding: 18px 30px; margin: 15px;
+      font-size: 1.2em; border-radius: 8px; cursor: pointer; width: 280px; max-width: 90%;
+    }
+
+    .role-btn:hover { background: #0056d2; }
+
+    .visitor-count {
+      background: var(--primary); color: white; padding: 12px; text-align: center; font-size: 1.1em;
+      margin-top: 20px;
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+
+    footer .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer img {
+      height: 60px;
+      width: auto;
+      border: 2px solid white;
+      border-radius: 8px;
+      padding: 4px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* ────────────── MEDIA QUERIES ────────────── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      header {
+        padding: 15px;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      .role-btn {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .video-modal-content {
+        margin: 10% auto;
+        padding: 10px;
+      }
+
+      .video-close {
+        font-size: 35px;
+        right: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 15px;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header style="background-image: url('logo.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 30px; text-align: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.6);">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;"></div>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <input type="checkbox" id="menu-toggle">
+    
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+
+    <div class="dropdown-menu">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="section">
+    <h2>Video Lessons</h2>
+    <p>Video lessons are curriculum-based instructional materials developed and published by the Department of Education to support effective teaching and learning. Designed to enhance student engagement and comprehension, these high-quality, structured lessons align with the curriculum, providing clear, accessible, and interactive content that reinforces key concepts and skills.</p>
+  </div>
+
+  <div class="section">
+    <h3>Grade 7</h3>
+    <div class="grid">
+      <div class="card">Filipino: Sanhi at Bunga: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/CTR33IZKwh0'); return false;">Watch</a></div>
+      <div class="card">Filipino: TEKSTONG NAGLALAHAD: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/OBBhUpaeONQ'); return false;">Watch</a></div>
+      <div class="card">Filipino: AWITING BAYAN NG KABISAYAAN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/3UXJZFDZ5PM'); return false;">Watch</a></div>
+      <div class="card">Filipino: KATANGIAN AT ELEMENTO NG MITO, ALAMAT, AT KUWENTONG-BAYAN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Xs9hl-04xGs'); return false;">Watch</a></div>
+      <div class="card">Filipino: PAGSULAT NG BALITA: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/QxW-nUyXhLM'); return false;">Watch</a></div>
+      <div class="card">Filipino: IBONG ADARNA: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/RliJ6w1HAPo'); return false;">Watch</a></div>
+      <div class="card">English: Passive and Active Voice: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/86CRy5N7IGM'); return false;">Watch</a></div>
+      <div class="card">English: Different Listening Strategies and importance of Listening: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/K1Q2px1UiQk'); return false;">Watch</a></div>
+      <div class="card">English: Relevance in Summarizing and Different Steps in Summarizing: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/s2nrYDCM9io'); return false;">Watch</a></div>
+      <div class="card">English: MULTIMEDIA RESOURCES: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/pAWbNeZFIZI'); return false;">Watch</a></div>
+      <div class="card">English: GENERAL STATEMENTS AND SUPPORTING EVIDENCES: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/9uNBDtmbi80'); return false;">Watch</a></div>
+      <div class="card">English: Determining the Worth of Ideas: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/XfOn0gpEkDM'); return false;">Watch</a></div>
+      <div class="card">English: Philippine Literature the Values of Today’s Global Village: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/DNWe-YX5RnM'); return false;">Watch</a></div>
+      <div class="card">Math: Understanding Integers and Absolute Value: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/OXQZB0dcWDA'); return false;">Watch</a></div>
+      <div class="card">Math: Multiplying Polynomials: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/fYRUorv8vM8'); return false;">Watch</a></div>
+      <div class="card">Math: Dividing Polynomials: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ragRIoYf6BQ'); return false;">Watch</a></div>
+      <div class="card">Math: DIVISION OF POLYNOMIALS - Polynomial divided by a Polynomial: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/3jlFfHFxoD0'); return false;">Watch</a></div>
+      <div class="card">Math: Laws of Exponents: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/VuItDedEtTI'); return false;">Watch</a></div>
+      <div class="card">Math: MEASUREMENT: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/MkUfTflaBDY'); return false;">Watch</a></div>
+      <div class="card">Math: ANGLE PAIRS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0vYqtUz2AAQ'); return false;">Watch</a></div>
+      <div class="card">Math: POLYGONS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/aVM5ay3Ex6Q'); return false;">Watch</a></div>
+      <div class="card">Math: FREQUENCY DISTRIBUTION: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/eeUitLoePSY'); return false;">Watch</a></div>
+      <div class="card">Math: MEASURES OF VARIABILITY: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/-9UrWJDSjhY'); return false;">Watch</a></div>
+      <div class="card">Science: Distinguish Mixtures from Substances based on Set of Properties: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/A7JkxAhf3qw'); return false;">Watch</a></div>
+      <div class="card">Science: COMPOUND MICROSCOPE: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/TVdIKXVsIfQ'); return false;">Watch</a></div>
+      <div class="card">Science: How to Differentiate Asexual to Sexual Reproduction: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/pUsQl0IFEUg'); return false;">Watch</a></div>
+      <div class="card">Science: ACCELERATION: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/jBWxupvvFwU'); return false;">Watch</a></div>
+      <div class="card">Science: ATMOSPHERE: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/zKPo2b8_8P8'); return false;">Watch</a></div>
+      <div class="card">ESP: Mga Angkop at Inaasahang Kakayahan at Kilos sa Panahon ng Pagdadalaga at Pagbibinata: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/rHPM5zGFAk4'); return false;">Watch</a></div>
+      <div class="card">ESP: Pag-unawa sa Kalayaan: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/nDseHnv-V-0'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Mga Likas na Yaman ng Asya: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/rLg_iLX88wk'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: ANG KONSEPTO AT KATANGIAN NG KABIHASNANG ASYA: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/B-EYz76L6Qc'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: KALAGAYAN AT BAHAGING GINAMPANAN NG KABABAIHAN MULA SINAUNANG PANAHON  AT IKALABING ANIM NA SIGLO: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Im5Dryqhz3c'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: ANYO, TUGON AT EPEKTO NG NEOKOLONYALISMO AT ANG MGA KONTRIBUSYON SA TIMOG AT KANLURANG ASYA: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/9jiFS1z4f38'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: ANG TIMOG AT KANLURANG ASYA SA TRADISYUNAL AT MAKABAGONG PANAHON (IKA-16 HANGGANG IKA-20 SIGLO): <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Jl6SuXxqQVU'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Implikasyon Asya: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/fJH5BTkW94s'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Epekto ng Neo S Timog Silangang Asya: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/BY33SnyRGqg'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Musical Instruments and Other Sound Sources: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/AFBoBT3jt8E'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Musical Characteristics of "SI PELIMON" a vocal music of VISAYAS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/pzMipjl8BsE'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: VOCAL MUSIC OF THE VISAYAS - SI PELIMON: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/zCcTF7fq9Tc'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Vocal Music of Mindanao El Galina Capituda: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/FxCWT9S8r5Q'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: How Music Contributes to the Musical Production (Kadayawan Festival): <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/FJbTaPScuu0'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Arts and Crafts of Luzon: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/mTLLaGjvJt4'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Iloilo Churches: A Living Architectural Legacy: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/xOdaHB1HDbs'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: ILOILO CHURCHES A LIVING ARCHITECTURAL LEGACY: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/VfHrPz9ENNE'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: ELEMENTS AND PRINCIPLES OF SARIMANOK: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/JfSPqiDGo9I'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Philippine Festival "Kadayawan Festival": <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Zli-xyQoxo0'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Phases of an Exercise Program: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ixdVFa6x_ps'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: PHYSICAL ACTIVITY AND PHYSICAL FITNESS ASSESSMENT: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/HBs3v4IaYq0'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Fitness and Dance Activity: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ATVzJ4N2Zkg'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Festival Dance "Kadayawan": <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/3eW0SO4RDJs'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Practicing Health Habits towards Achieving Holistic Health: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/PYzu-lH7Tzk'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Right Food During Adolescence: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/z00qtNlw6j8'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Prevention and Control of Nutritional Deficiencies: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/qeXFGWIJqb8'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Stress is Normal and Inevitable: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/cRfEB7XCYnU'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Practice Ways to Prevent and Control Non-Communicable Diseases: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/lVd6YPTT4f0'); return false;">Watch</a></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Grade 8</h3>
+    <div class="grid">
+      <div class="card">Filipino: Hakbang sa Paggawa ng Pananaliksik: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/YM5aIn0jCKY'); return false;">Watch</a></div>
+      <div class="card">Filipino: PANGUNAHIN AT PANTULONG NA KAISIPAN AT TULA: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Zfhj1Gyqa5w'); return false;">Watch</a></div>
+      <div class="card">Filipino: Impormal na Salita: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/piaUMntOudM'); return false;">Watch</a></div>
+      <div class="card">Filipino: PANSARILING KAISIPAN, PANANAW, OPINYON AT SALOOBIN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/6A-lFtHmVXw'); return false;">Watch</a></div>
+      <div class="card">English: Modal Verbs, Nouns and Adverbs: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/KdSFXBLOGmI'); return false;">Watch</a></div>
+      <div class="card">English: Positive and Negative Ideas: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ZwUdRBSptbY'); return false;">Watch</a></div>
+      <div class="card">English: Graphical Representations and How to use them: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/EIaQj8c5wAs'); return false;">Watch</a></div>
+      <div class="card">English: PROPAGANDA TECHNIQUES: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/3d8r__oATeo'); return false;">Watch</a></div>
+      <div class="card">English: Literary Elements: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/YPQEiXdqKB4'); return false;">Watch</a></div>
+      <div class="card">Math: Illustrating Rational Algebraic Expressions: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/HPKc8MrUrRs'); return false;">Watch</a></div>
+      <div class="card">Math: Application of Linear Function: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Q6MqJRy5Hao'); return false;">Watch</a></div>
+      <div class="card">Math: Linear Inequalities in Two Variables VS Linear Equations in Two Variables: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ECJyB91yg18'); return false;">Watch</a></div>
+      <div class="card">Math: Constructing Perpendicular Lines and Angle Bisector: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/QRmi0jc1DiY'); return false;">Watch</a></div>
+      <div class="card">Math: Mathematical Systems: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/L1L4K2dh3NM'); return false;">Watch</a></div>
+      <div class="card">Math: Triangle Inequality Theorems: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/psGn3HjfyQk'); return false;">Watch</a></div>
+      <div class="card">Science: Potential Energy and Kinetic Energy: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/RGSeklEOKvI'); return false;">Watch</a></div>
+      <div class="card">Science: TRACKING THE TYPHOON: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/u5RQ8fRblIc'); return false;">Watch</a></div>
+      <div class="card">Science: EARTHQUAKES AND FAULTS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/GgGj1UBEp7U'); return false;">Watch</a></div>
+      <div class="card">Science: PARTICLE NATURE OF MATTER: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/GrYMHTcg1UY'); return false;">Watch</a></div>
+      <div class="card">ESP: Misyon ng Pamilya: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/PtKuKXYp-64'); return false;">Watch</a></div>
+      <div class="card">ESP: PASASALAMAT: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/GPzfIo243ro'); return false;">Watch</a></div>
+      <div class="card">ESP: EMOSYON: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/GPzfIo243ro'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Yugto ng Pag-Unlad ng Kultura sa Panahong Prehistoriko: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/vGGsmup-p7U'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: KABIHASNANG MINOAN, MYCENAEAN, KLASIKO NG GREECE: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/s7IBEdWc4rw'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: KOLONYALISMO: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0sr2XDbgyAQ'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Pagsusumikap ng mga Bansa na makamit ang Kapayapaan at Kaunlaran: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/FbtI3VBqhS4'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Southeast Asian Music: Music of Indonesia: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/gwQgxqIWglw'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: MUSIC OF CHINA: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Gz3q9Qn_yXM'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Music of South Asia and the Middle East: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/K9mqy6-AmZM'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Music of South Asia and the Middle East: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/4bFazL9TJCE'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Chinese Theater Peking Opera: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/5zJB-nza0so'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Southeast Asian Artworks and Artifacts: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/gT-E1-Kqwp8'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: JAPANESE AND KOREAN MASK: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/LGBjgBSAD2A'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: KABUKI AND KOREAN MASK: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/7OyQVHEKR48'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Indian Art Diwali Festival: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/_qm6fmYWuS0'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Chinese New Year Festival: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/fIGlvQSFqXI'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Physical Activity Program: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0Owkk4KxBaI'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: HEALTH-RELATED FITNESS COMPONENTS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/TA9eaM-6m_Q'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: CHARACTERISTICS OF A BASKETBALL PLAYER: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/BsIxFMf-YB4'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: HRF Plan Review Goals Based on Assessment Results: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/TYF7mOyHNnM'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Factors that Affect Sexuality and Sexual Behavior: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0xNqiWg-KXY'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: A Way to A Happy Family: Dating, Courtship and Engagement: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/VfOyw5xpAbA'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: ESSENTIAL NEWBORN CARE: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Fr2bhFALIb8'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Cigarette Smoking and Its Harmful Effects: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Tp8ouViVBeg'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Short and Long term Effects of Drinking Alcohol: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/SVhv0Xs_U0I'); return false;">Watch</a></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Grade 9</h3>
+    <div class="grid">
+      <div class="card">Filipino: Tula: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0mM0MPQMyuA'); return false;">Watch</a></div>
+      <div class="card">Filipino: TANKA AT HAIKU: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/vtI8xAqEPEg'); return false;">Watch</a></div>
+      <div class="card">Filipino: NIYEBENG ITIM: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/2Sx5XRwM5Aw'); return false;">Watch</a></div>
+      <div class="card">Filipino: WASTONG PAGGAMIT NG SALITANG NAGLALARAWAN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/9TCL3JhlOT8'); return false;">Watch</a></div>
+      <div class="card">Filipino: ELEHIYA: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/c2RX9KzgVUE'); return false;">Watch</a></div>
+      <div class="card">English: Communicative Styles: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Sm-9uR2jreQ'); return false;">Watch</a></div>
+      <div class="card">English: Disposition in Real Life: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Wg7l7AhNGrs'); return false;">Watch</a></div>
+      <div class="card">English: The Relevance and Truthfulness of the Ideas Presented in the Material Viewed: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/CSiqvu3qlqs'); return false;">Watch</a></div>
+      <div class="card">English: DETERMINE THE RELEVANCE AND THE TRUTHFULNESS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/OEbW3QAI0Pc'); return false;">Watch</a></div>
+      <div class="card">English: Types of Information Disorders: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/EH2hn408v5w'); return false;">Watch</a></div>
+      <div class="card">Math: Transforming Expressions into Quadratic Form: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/YwIioPXdCwk'); return false;">Watch</a></div>
+      <div class="card">Math: Direct Variation: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/n0cmjgemdTw'); return false;">Watch</a></div>
+      <div class="card">Math: Laws of Exponents: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/VuItDedEtTI'); return false;">Watch</a></div>
+      <div class="card">Math: Rational Exponents: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/0kFkBxqxcYA'); return false;">Watch</a></div>
+      <div class="card">Math: Real Life Examples of Similar Triangles: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Bl8N6RfeBpQ'); return false;">Watch</a></div>
+      <div class="card">Math: Angle of Elevation: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/x0-zpOG3hb4'); return false;">Watch</a></div>
+      <div class="card">Math: Cosine Law Solving the Missing Sides: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/FFE_Km1X9Ms'); return false;">Watch</a></div>
+      <div class="card">Math: Cosine Law Solving the missing Angles: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/XMSFvBjDTAQ'); return false;">Watch</a></div>
+      <div class="card">Math: Angle of Depression: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/I_oNzWU4SK8'); return false;">Watch</a></div>
+      <div class="card">Science: Non-Mendelian Inheritance: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/EEf8sQkY35Q'); return false;">Watch</a></div>
+      <div class="card">Science: THE CARBON COMPOUNDS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/NglYsFDeZL8'); return false;">Watch</a></div>
+      <div class="card">Science: THE ELECTRON STRUCTURE: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/O4jV6_VvpDc'); return false;">Watch</a></div>
+      <div class="card">Science: WHEN VOLCANO ERUPTS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/2E6BccmoT7g'); return false;">Watch</a></div>
+      <div class="card">Science: CONSTELLATION: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/mK8FHcguLDA'); return false;">Watch</a></div>
+      <div class="card">ESP: Lipunang Pang-Ekonomiya: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/EYMChkRPojk'); return false;">Watch</a></div>
+      <div class="card">ESP: KARAPATAN AT TUNGKULIN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ZRXiBs172lI'); return false;">Watch</a></div>
+      <div class="card">ESP: Paggawa at kahalagahan nito sa Dignidad ng Tao at Paglilingkod: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Ov2X4KW36Ak'); return false;">Watch</a></div>
+      <div class="card">ESP: Katarungang Panlipunan: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/k88KmAUp7wU'); return false;">Watch</a></div>
+      <div class="card">ESP: Personal na Pahayag ng Misyon sa Buhay: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/qfZwF4ZQr94'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Ang mga Sestimang Pang-Ekonomiya: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/HYfLNa_oISk'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: DEMAND: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/J53zItqfSJk'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: INTERAKSIYON NG DEMAND AT SUPPLY: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/1rLeJfy5JHs'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Pag-iimpok at Pamumuhunan: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/qhTjnEn8Gzk'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Paikot na Daloy ng Ekonomiya: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/EQXiuIxHlgc'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Sektor ng Agrikultura: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Fa4N4UBZ-S0'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: IMPORMAL NA SEKTOR: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Kp9s6-EH0qI'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Music of Medieval, Renaissance and Baroque Period: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/wIyaDcVcsfI'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: EINE KLEINE NACHTMUSIK (A LITTLE NIGHT MUSIC) WOLFGANG AMADEUS MOZART: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/m-AodrNVyxQ'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Music of the Romantic Period: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/vxuTpTIE-3Y'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: Vocal Music of the Romantic Period: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Z0qS-Z3H0E0'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Western Classical Painters: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/aXjrNvfJhG0'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: The Art of Renaissance and Baroque Periods: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/zIdyWATGde4'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Artistic Concepts during Renaissance and Baroque Periods: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/ViSxz-BHeNs'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Neoclassical and Romantic Period Paintings: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/yIuV3r4iBBA'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Selected Western Classical Plays or Opera: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/bIuIhP4v87o'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: The Qualities of Sports Officiating: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/1e1UagrSHQo'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Physical Fitness Components: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/WQIr5_Qyiqw'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: SOCIAL DANCE PROGRAM: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/vUAPqudlKdQ'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Festival Dances KADAYAWAN Festival: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/dd9iLvzrP6k'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Project Virtual Community Recreation Program (VCoRP): <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/04lH114ssm8'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: The Nature of Environmental Issues in the Philippines: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/_n00yoJqfPQ'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: The Science of Drug-USE in the Philippines: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/w26XHjYF0Zo'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: HEALTH, SOCIO CULTURAL, PSYCHOLOGICAL  LEGAL AND ECONOMY: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Gh38Kri4Uqw'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Assessing Emergency Situation for Unintentional Injuries: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/WGZWMfbcx68'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: The Risk Factors Related to Intentional Injuries: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/J0wfrfsiwiY'); return false;">Watch</a></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Grade 10</h3>
+    <div class="grid">
+      <div class="card">Filipino: Parabula: Ang Tusong Katiwala: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/Ala268f0Ots'); return false;">Watch</a></div>
+      <div class="card">Filipino: MITOLOHIYA: SI PELE, ANG DIYOSA NG APOY AT BULKAN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/VEEfS19dq1s'); return false;">Watch</a></div>
+      <div class="card">Filipino: ANG MATANDA AT ANG DAGAT: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/VAyMQ08hflw'); return false;">Watch</a></div>
+      <div class="card">Filipino: ANEKDOTA | MGA URI AT KATANGIAN | MULLAH NASSREDDIN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/uO0KbnqA-20'); return false;">Watch</a></div>
+      <div class="card">Filipino: NOBELA | ELEMENTO | PAGLISAN | PAGSUSURING PAMPANITIKAN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/KVqPqyzRSTU'); return false;">Watch</a></div>
+      <div class="card">English: Plot, Setting and Characterization in a Story: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/9_BKxnNHqJk'); return false;">Watch</a></div>
+      <div class="card">English: OBSERVING THE LANGUAGE OF RESEARCH, CAMPAIGNS AND ADVOCACIES: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/sy_YbMSDPvQ'); return false;">Watch</a></div>
+      <div class="card">English: STRUCTURAL ELEMENTS AND LANGUAGE FEATURES OF DISCUSSION TEXT: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/PevBDoMCR4c'); return false;">Watch</a></div>
+      <div class="card">English: WRITING TECHNIQUES: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/QyQR8yMSUM0'); return false;">Watch</a></div>
+      <div class="card">English: Critiquing a Literary Selection: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/_2PlgejVFKU'); return false;">Watch</a></div>
+      <div class="card">English: Identifying, Classifying, Giving Technical and Operational Definitions: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/eWSZgB-OGy8'); return false;">Watch</a></div>
+      <div class="card">English: Observe Correct Grammar in Making Decisions: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/xkulnpOwgYM'); return false;">Watch</a></div>
+      <div class="card">Math: Arithmetic Sequence, Arithmetic Means and Arithmetic Series: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/d-IrOcOe0JU'); return false;">Watch</a></div>
+      <div class="card">Math: Angles formed by Secants and Tangents: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/8Anlq3kQkRo'); return false;">Watch</a></div>
+      <div class="card">Math: PERMUTATION: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/2sVBwIdCFT8'); return false;">Watch</a></div>
+      <div class="card">Math: Probabilities of A U B: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/6jWpbR5Phno'); return false;">Watch</a></div>
+      <div class="card">Science: Geologic Processes and Landforms along Plate Boundaries: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/xYn7isVlu0g'); return false;">Watch</a></div>
+      <div class="card">Science: ELECTROMAGNETIC WAVES: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/7Yt2ommumxI'); return false;">Watch</a></div>
+      <div class="card">Science: EFFECTS OF ELECTROMAGNETIC RADIATION ON LIVING THINGS AND THE ENVIRONMENT: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/GS4ZaqIRvEY'); return false;">Watch</a></div>
+      <div class="card">ESP: Paghubog ng Konsensiya batay sa Likas na Batas Moral: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/d8Ig3RM_Xqs'); return false;">Watch</a></div>
+      <div class="card">ESP: MGA YUGTO NG MAKATAONG KILOS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/tNVHCTV7TFs'); return false;">Watch</a></div>
+      <div class="card">ESP: ANG PAGKUKUSA NG MAKATAONG KILOS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/SjGorUXKskY'); return false;">Watch</a></div>
+      <div class="card">ESP: PAGMAMAHAL SA DIYOS: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/SPzO6zxAmRs'); return false;">Watch</a></div>
+      <div class="card">ESP: Paggalang sa Katotohanan: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/jtC-StshRUI'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: Paghahanda sa Harap ng Hamong Pangkapaligiran: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/m4kOLeexSrI'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: GLOBALISASYON: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/f5NFLN_bgoE'); return false;">Watch</a></div>
+      <div class="card">Araling Panlipunan: MGA ISYU SA KASARIAN AT LIPUNAN: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/5eos4aErybg'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: 20th Century Music to other Art Forms: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/C7vxJyFc8mo'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: AFRO-LATIN AMERICAN AND POPULAR MUSIC: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/3C6DvXZA7UE'); return false;">Watch</a></div>
+      <div class="card">MAPEH Music: PHILIPPINE POPULAR MUSIC: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/zNxSUfO_AMw'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Different Artistic Works: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/eSvysk9qlBs'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Mobile Phone Arts, its Characteristics, Functions and Production: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/RjZlO-X1RU8'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: THE USEFUL TOOLS IN MOBILE PHONE ART: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/aQVRHIPJXy8'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Media Arts in the Philippines and It's Elements: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/1ddw6ceWA6M'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: THE PHILIPPINE THEATER: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/LABJ_5J0GAA'); return false;">Watch</a></div>
+      <div class="card">MAPEH Arts: Media Arts in the Philippines and It's Elements: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/zgT0ZkDBrmg'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Active Recreation (Sports): <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/7zuEpWbo3Jk'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Physical Activity, Exercise and Eating Habits: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/se4vCoE-4k8'); return false;">Watch</a></div>
+      <div class="card">MAPEH PE: Active Recreation Hip Hop Dance: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/GG5EzwEZLxI'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Health Professionals, Specialists and Health Care Services: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/07J5iwhbemI'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Health Related Laws: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/_gay_oyZ46o'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Impact of Global Health Initiatives on People’s Health: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/4QTLO7yP2rs'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Impact of Global Health Initiatives on People’s Health V2: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/v-2YUXQUNLo'); return false;">Watch</a></div>
+      <div class="card">MAPEH Health: Health Career Pathways: <a href="#" class="watch-link" onclick="openVideo('https://youtu.be/9coBQb-0TbY'); return false;">Watch</a></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Video Modal Popup -->
+<div id="videoModal" class="video-modal">
+  <div class="video-modal-content">
+    <span class="video-close" onclick="closeVideo()">&times;</span>
+    <div class="video-wrapper">
+      <iframe 
+        id="videoIframe" 
+        src="" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div style="text-align: left; line-height: 1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    
+    <div style="display: flex; gap: 25px; align-items: center;">
+      <img src="pinas.png" alt="Philippines Logo" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+      <img src="seal.png" alt="DepEd Seal" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+      <img src="school.png" alt="School Logo" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+    </div>
+  </div>
+
+  <div class="visitor-count" id="visitor-footer">
+    Teachers: <span id="teacher-count">0</span>  |   
+    Learners: <span id="learner-count">0</span>
+  </div>
+</footer>
+
+<script>
+// Video modal functions
+function openVideo(url) {
+  // Force youtube-nocookie domain and clean URL
+  let videoId = url.split('v=')[1] || url.split('/').pop();
+  if (videoId) {
+    videoId = videoId.split('&')[0]; // remove extra params like ?t= or &list=
+  } else {
+    // fallback for youtu.be/short links
+    videoId = url.split('/').pop().split('?')[0];
+  }
+
+  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+
+  document.getElementById("videoIframe").src = embedUrl;
+  document.getElementById("videoModal").style.display = "block";
+}
+
+function closeVideo() {
+  document.getElementById("videoModal").style.display = "none";
+  document.getElementById("videoIframe").src = "";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("videoModal");
+  if (event.target === modal) {
+    closeVideo();
+  }
+}
+// (copy the exact same <script> block from above, starting from const TEACHER_KEY = ... to the end)
+const TEACHER_KEY = "sanha-teachers-2026";
+const LEARNER_KEY = "sanha-learners-2026";
+const BASE = "https://countapi.mileshilliard.com/api/v1";
+
+async function updateVisitorCounts() {
+  try {
+    const tRes = await fetch(`${BASE}/get/${TEACHER_KEY}`);
+    const tData = await tRes.json();
+    document.getElementById("teacher-count").textContent = tData.value || 0;
+
+    const lRes = await fetch(`${BASE}/get/${LEARNER_KEY}`);
+    const lData = await lRes.json();
+    document.getElementById("learner-count").textContent = lData.value || 0;
+  } catch(e) {}
+}
+window.onload = updateVisitorCounts;
+</script>
+
+</body>
+</html>

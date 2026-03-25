@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sta. Ana National High School - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #003087;
+      --light: #e6f0ff;
+      --text: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin: 0; 
+      background-image: url('background.png');   
+      background-size: cover;                    
+      background-position: center;               
+      background-repeat: no-repeat;              
+      background-attachment: fixed;              
+      color: var(--text); 
+      min-height: 100vh;                         
+      line-height: 1.6;
+    }
+
+    header { 
+      background: var(--primary); 
+      color: white; 
+      padding: 10px; 
+      text-align: center;
+    }
+
+    /* ────────────── RESPONSIVE NAV ────────────── */
+    nav {
+      background: var(--primary);
+      padding: 1rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 30px;
+      height: 4px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Dropdown menu (mobile) */
+    .dropdown-menu {
+      display: none;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      flex-direction: column;
+      padding: 1rem 0;
+      z-index: 100;
+    }
+
+    .dropdown-menu a {
+      padding: 1rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    /* Checkbox hack for pure CSS toggle */
+    #menu-toggle {
+      display: none;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    #menu-toggle:checked ~ .dropdown-menu {
+      display: flex;
+    }
+
+    /* ────────────── MAIN CONTENT ────────────── */
+    .container { 
+      max-width: 1200px; 
+      margin: 20px auto; 
+      padding: 0 20px; 
+    }
+
+    .section { 
+      background: rgba(255, 255, 255, 0.5);   
+      padding: 25px; 
+      margin: 25px 0; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);   
+      backdrop-filter: blur(4px);              
+    }
+
+    h1, h2, h3 { 
+      color: var(--primary); 
+      margin-top: 0;
+    }
+
+    /* Paragraph styling: indent first line + justified */
+    .section p {
+      text-align: justify;
+      text-indent: 2em;           /* first-line indent */
+      margin: 1em 0;
+      hyphens: auto;              /* better word breaking in justified text */
+    }
+
+    /* Remove indent from first paragraph after heading (common style) */
+    .section h2 {
+      text-indent: 0;
+    }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+      gap: 20px; 
+    }
+
+    .card { 
+      background: var(--light); 
+      padding: 15px; 
+      border-radius: 8px; 
+      text-align: center; 
+    }
+    .action-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 8px;
+    }
+    .action-link:hover {
+      color: #0056d2;
+      text-decoration: underline;
+    }
+    /* ────────────── PDF MODAL ────────────── */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      z-index: 9998;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      overflow: auto;
+    }
+    .pdf-modal-content {
+      margin: 4% auto;
+      padding: 20px;
+      width: 94%;
+      max-width: 1100px;
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .pdf-close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      color: #333;
+      font-size: 42px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .pdf-close:hover {
+      color: var(--primary);
+    }
+    .pdf-wrapper {
+      width: 100%;
+      height: 75vh;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+    .pdf-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .pdf-download {
+      display: block;
+      margin: 15px auto 0;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .pdf-download:hover {
+      background: #0056d2;
+    }
+    /* ────────────── VIDEO MODAL ────────────── */
+    .video-modal {
+      display: none;
+      position: fixed;
+      z-index: 9998;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      overflow: auto;
+    }
+    .video-modal-content {
+      margin: 5% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 960px;
+      position: relative;
+    }
+    .video-close {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 9999;
+    }
+    .video-close:hover {
+      color: #bbb;
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    /* ────────────── SPLASH & VISITOR ────────────── */
+    #role-splash {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 48, 135, 0.95); color: white;
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+      text-align: center;
+    }
+
+    #role-splash .box {
+      background: white; color: var(--primary); padding: 40px; border-radius: 15px; max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .role-btn {
+      background: var(--primary); color: white; border: none; padding: 18px 30px; margin: 15px;
+      font-size: 1.2em; border-radius: 8px; cursor: pointer; width: 280px; max-width: 90%;
+    }
+
+    .role-btn:hover { background: #0056d2; }
+
+    .visitor-count {
+      background: var(--primary); color: white; padding: 12px; text-align: center; font-size: 1.1em;
+      margin-top: 20px;
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+
+    footer .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer img {
+      height: 60px;
+      width: auto;
+      border: 2px solid white;
+      border-radius: 8px;
+      padding: 4px;
+      background: rgba(255,255,255,0.15);
+    }
+    /* ────────────── MEDIA QUERIES ────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      header { padding: 15px; }
+      .section { padding: 20px; }
+      .role-btn { width: 100%; margin: 10px 0; }
+      .pdf-modal-content { margin: 8% auto; padding: 12px; width: 96%; }
+      .pdf-close { font-size: 36px; right: 15px; }
+      .pdf-wrapper { height: 65vh; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 15px; }
+      h2 { font-size: 1.6em; }
+    }
+  </style>
+</head>
+<body>
+
+<header style="background-image: url('logo.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 30px; text-align: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.6);">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;"></div>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <input type="checkbox" id="menu-toggle">
+    
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+
+    <div class="dropdown-menu">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="section">
+    <h2>Academic Recovery and Accessible Learning Program</h2>
+    <p>The ARAL (Academic Recovery and Accessible Learning) Program is a nationwide initiative by the Philippine Department of Education (DepEd) to address learning gaps in reading, mathematics, and science for Kindergarten to Grade 10 learners. Launched in 2025 under Republic Act No. 12028, ARAL-Reading is the initial priority, offering tutorial support to identified low, emerging, and frustrated readers to help them attain grade-level competencies. Tutors include teachers and other trained individuals, supported by parents and guardians through orientations to reinforce learning at home.</p>
+  </div>
+
+  <div class="section">
+    <h3>ARAL Reading Basic Key Stage 3</h3>
+    <div class="grid">
+      <div class="card">ARAL Learners' WorkBOOK: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1Q182WKfgi-8IAoGsTOs0-5DtkbHFo6XC/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1Q182WKfgi-8IAoGsTOs0-5DtkbHFo6XC'); return false;">Download</a>
+      </div>
+      <div class="card">ARAL Tutors' GUIDE: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1xyhAZNjdSiRPewNBNiGRSXnScQk_qlzp/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1xyhAZNjdSiRPewNBNiGRSXnScQk_qlzp'); return false;">Download</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>ARAL Reading PLUS Key Stage 3</h3>
+    <div class="grid">
+      <div class="card">ARAL Learners' WorkBOOK: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1-oipcIuxUFhWxXTjYJmMfaaWNov3MJtw/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1-oipcIuxUFhWxXTjYJmMfaaWNov3MJtw'); return false;">Download</a>
+      </div>
+      <div class="card">ARAL Tutors' GUIDE: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1slOEC80XBZbk3TLsNBuYI2T5HR3WFxew/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1slOEC80XBZbk3TLsNBuYI2T5HR3WFxew'); return false;">Download</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>SUPPLEMENTARY MATERIALS (Blending - Decoding)</h3>
+    <div class="grid">
+      <div class="card">Elkonin Box - Sound Boxes: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1N6mcYjfb9e52R_P8k0LPDcm_-VIIZiCT/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1N6mcYjfb9e52R_P8k0LPDcm_-VIIZiCT'); return false;">Download</a>
+      </div>
+      <div class="card">English Alphabet - Letter tiles: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1vPUboWCd2GwO8vr3A937woXbUSQb_L0W/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1vPUboWCd2GwO8vr3A937woXbUSQb_L0W'); return false;">Download</a>
+      </div>
+      <div class="card">English Phonics - picture cards: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1Eror7PnRSaUQ6FzoNyNf_Yx8DRme09DM/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1Eror7PnRSaUQ6FzoNyNf_Yx8DRme09DM'); return false;">Download</a>
+      </div>
+      <div class="card">English Phonics - 44 Phonemes: 
+        <a href="#" class="action-link" onclick="openVideo('https://youtu.be/V4BTy_2F0Bg'); return false;">Watch</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>SUPPLEMENTARY MATERIALS (GAMES-ACTIVITIES)</h3>
+    <div class="grid">
+      <div class="card">Phoneme Isolation_Segmentation_Blending - Word Dice: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1f9TgnFiaFM8NfMuGtxU5ErxPrR2vPrR0/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1f9TgnFiaFM8NfMuGtxU5ErxPrR2vPrR0'); return false;">Download</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>SUPPLEMENTARY MATERIALS (STORY BOOKS)</h3>
+    <div class="grid">
+      <div class="card">English Leveled Reader_L2_V1: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1PUAXaI7CLFyPOB5p54Rfg7xqKGDhMOwc/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1PUAXaI7CLFyPOB5p54Rfg7xqKGDhMOwc'); return false;">Download</a>
+      </div>
+      <div class="card">English Leveled Reader_L3_V1: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1F8typAGrCI3bHyw9dDyOYfOSQD1SWtzf/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1F8typAGrCI3bHyw9dDyOYfOSQD1SWtzf'); return false;">Download</a>
+      </div>
+      <div class="card">English Leveled Reader_L3_V2: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1XElUWw9N0iliNvVs79Z9_Co0kklWKIt4/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1XElUWw9N0iliNvVs79Z9_Co0kklWKIt4'); return false;">Download</a>
+      </div>
+      <div class="card">English Leveled Reader_L3_V3: 
+        <a href="#" class="action-link" onclick="openPdf('https://drive.google.com/file/d/1zj9lEsWLjUdV25D4zN3wg7NrB0mgiMF5/view?usp=drive_link', 'https://drive.google.com/uc?export=download&id=1zj9lEsWLjUdV25D4zN3wg7NrB0mgiMF5'); return false;">Download</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PDF Modal -->
+<div id="pdfModal" class="pdf-modal">
+  <div class="pdf-modal-content">
+    <span class="pdf-close" onclick="closePdf()">&times;</span>
+    <div class="pdf-wrapper">
+      <iframe id="pdfIframe" src="" frameborder="0"></iframe>
+    </div>
+    <a id="pdfDownloadBtn" href="#" class="pdf-download" target="_blank">Download PDF</a>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div id="videoModal" class="video-modal">
+  <div class="video-modal-content">
+    <span class="video-close" onclick="closeVideo()">&times;</span>
+    <div class="video-wrapper">
+      <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div style="text-align: left; line-height: 1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    <div style="display: flex; gap: 25px; align-items: center;">
+      <img src="pinas.png" alt="Philippines Logo" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+      <img src="seal.png" alt="DepEd Seal" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+      <img src="school.png" alt="School Logo" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+    </div>
+  </div>
+
+  <div class="visitor-count" id="visitor-footer">
+    Teachers: <span id="teacher-count">0</span>  |  Learners: <span id="learner-count">0</span>
+  </div>
+</footer>
+
+<script>
+// PDF modal
+function openPdf(viewUrl, downloadUrl) {
+  const embedUrl = viewUrl.replace('/view', '/preview');
+  document.getElementById("pdfIframe").src = embedUrl;
+  document.getElementById("pdfDownloadBtn").href = downloadUrl;
+  document.getElementById("pdfModal").style.display = "block";
+}
+
+function closePdf() {
+  document.getElementById("pdfModal").style.display = "none";
+  document.getElementById("pdfIframe").src = "";
+}
+
+// Video modal
+function openVideo(url) {
+  let embedUrl = url
+    .replace("youtu.be/", "www.youtube-nocookie.com/embed/")
+    .replace("youtube.com/watch?v=", "www.youtube-nocookie.com/embed/")
+    .split("&")[0];
+  document.getElementById("videoIframe").src = embedUrl + "?autoplay=1";
+  document.getElementById("videoModal").style.display = "block";
+}
+
+function closeVideo() {
+  document.getElementById("videoModal").style.display = "none";
+  document.getElementById("videoIframe").src = "";
+}
+
+window.onclick = function(event) {
+  const pdfModal = document.getElementById("pdfModal");
+  const videoModal = document.getElementById("videoModal");
+  if (event.target === pdfModal) closePdf();
+  if (event.target === videoModal) closeVideo();
+}
+
+// (copy the exact same <script> block from above, starting from const TEACHER_KEY = ... to the end)
+const TEACHER_KEY = "sanha-teachers-2026";
+const LEARNER_KEY = "sanha-learners-2026";
+const BASE = "https://countapi.mileshilliard.com/api/v1";
+
+async function updateVisitorCounts() {
+  try {
+    const tRes = await fetch(`${BASE}/get/${TEACHER_KEY}`);
+    const tData = await tRes.json();
+    document.getElementById("teacher-count").textContent = tData.value || 0;
+
+    const lRes = await fetch(`${BASE}/get/${LEARNER_KEY}`);
+    const lData = await lRes.json();
+    document.getElementById("learner-count").textContent = lData.value || 0;
+  } catch(e) {}
+}
+window.onload = updateVisitorCounts;
+</script>
+
+</body>
+</html>

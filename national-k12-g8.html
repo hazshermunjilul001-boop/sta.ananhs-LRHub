@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-12 SLMs - Grade 8 | Sta. Ana National High School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin:0; 
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color:#333; 
+      min-height: 100vh;
+    }
+    .container { 
+      max-width: 1280px; 
+      margin: 40px auto; 
+      padding: 35px 25px; 
+      background: rgba(255,255,255,0.75); 
+      border-radius: 120px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25); 
+    }
+    h1 { 
+      text-align: center; 
+      color: #006400; 
+      margin-bottom: 5px; 
+      font-size: 2.5em; 
+      border-bottom: 3px solid #006400; 
+      padding-bottom: 15px; 
+    }
+    .subject-section {
+      margin-bottom: 100px;           /* space between subjects */
+      padding-bottom: 150px;
+      border-bottom: 1px solid #ddd; /* subtle separator line */
+    }
+    .subject-title {
+      font-size: 2em;
+      font-weight: bold;
+      color: #006400;
+      text-align: center;
+      margin-bottom: 1px;
+      padding-bottom: 1px;
+      border-bottom: 2px solid #006400;
+    }
+    .quarters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);  /* always 4 columns */
+      gap: 20px;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    .quarter-column {
+      background: #f9f9f9;
+      border-radius: 10px;
+      padding: 9px 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      min-height: 250px;               /* prevents height jumping when content varies */
+      display: flex;
+      flex-direction: column;
+    }
+    .quarter-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #003087;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #006400;
+    }
+    .section-label {
+      font-size: 1.15em;
+      font-weight: bold;
+      color: #444;
+      margin: 16px 0 10px;
+    }
+    .week-list {
+      flex-grow: 1;                    /* pushes content to fill space */
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+      padding-left: 20px;
+    }
+    .week-list a {
+      color: #b22222;
+      text-decoration: underline;
+      font-size: 1.02em;
+    }
+    .week-list a:hover {
+      color: #8b0000;
+    }
+    .back {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 1.15em;
+    }
+    .back a {
+      color: #003087;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .back a:hover {
+      text-decoration: underline;
+    }
+    /* ────────────── PDF MODAL ────────────── */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      z-index: 9998;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      overflow: auto;
+    }
+    .pdf-modal-content {
+      margin: 4% auto;
+      padding: 20px;
+      width: 94%;
+      max-width: 1100px;
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .pdf-close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      color: #333;
+      font-size: 42px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .pdf-close:hover {
+      color: var(--primary);
+    }
+    .pdf-wrapper {
+      width: 100%;
+      height: 75vh;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+    .pdf-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .pdf-download {
+      display: block;
+      margin: 15px auto 0;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .pdf-download:hover {
+      background: #0056d2;
+    }
+    @media (max-width: 1000px) {
+      .quarters-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .quarters-grid {
+        grid-template-columns: 1fr;
+      }
+      .pdf-modal-content { margin: 8% auto; padding: 12px; width: 96%; }
+      .pdf-close { font-size: 36px; right: 15px; }
+      .pdf-wrapper { height: 65vh; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>K-12 SLMs - Grade 8</h1>
+
+    <!-- ==================== FILIPINO ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Filipino</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sYqqnkca9aOsLgQJsgSUP4EXEgfnO6NB/preview', 'https://drive.google.com/uc?export=download&id=1sYqqnkca9aOsLgQJsgSUP4EXEgfnO6NB'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/124Q53e1kigDhOU7AoE-J7pzSSiUD1HG9/preview', 'https://drive.google.com/uc?export=download&id=124Q53e1kigDhOU7AoE-J7pzSSiUD1HG9'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Vy8f-6yj7_UiLDqoYrDcjT2SgUGBpQxp/preview', 'https://drive.google.com/uc?export=download&id=1Vy8f-6yj7_UiLDqoYrDcjT2SgUGBpQxp'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YdlPmh21Rv9bdmLKkk7kga-gR9MKohHb/preview', 'https://drive.google.com/uc?export=download&id=1YdlPmh21Rv9bdmLKkk7kga-gR9MKohHb'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10XlQwyEEvqNHyomx1-cu7qANQFufjGvG/preview', 'https://drive.google.com/uc?export=download&id=10XlQwyEEvqNHyomx1-cu7qANQFufjGvG'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LzZcS1-Y_StSVTQUR7tZMyAucbmrPLFX/preview', 'https://drive.google.com/uc?export=download&id=1LzZcS1-Y_StSVTQUR7tZMyAucbmrPLFX'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NDZQS63hg3dxRiS_7v9uoaOvX8YOXjox/preview', 'https://drive.google.com/uc?export=download&id=1NDZQS63hg3dxRiS_7v9uoaOvX8YOXjox'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11B0_AuYBnHJy9tz4TcAkNNsWD5Hk_pwp/preview', 'https://drive.google.com/uc?export=download&id=11B0_AuYBnHJy9tz4TcAkNNsWD5Hk_pwp'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12_-7XQYAD6MwS1bWLx4Wb3tUDYEqih6q/preview', 'https://drive.google.com/uc?export=download&id=12_-7XQYAD6MwS1bWLx4Wb3tUDYEqih6q'); return false;">Week 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/148pwm5E5bvvbKCLeVoFy5ic5SaZoQ5EQ/preview', 'https://drive.google.com/uc?export=download&id=148pwm5E5bvvbKCLeVoFy5ic5SaZoQ5EQ'); return false;">Week 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UK3UmZhFW6CX9XRh4Tzmg777i8_9CYTx/preview', 'https://drive.google.com/uc?export=download&id=1UK3UmZhFW6CX9XRh4Tzmg777i8_9CYTx'); return false;">Week 11</a>
+          </div>
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14HqrZDSLkm60VHs2edM3-0gaTAzDnX7g/preview', 'https://drive.google.com/uc?export=download&id=14HqrZDSLkm60VHs2edM3-0gaTAzDnX7g'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Ix_hNf-4sqlPwR_8bW9JyP7aXquD_5Dv/preview', 'https://drive.google.com/uc?export=download&id=1Ix_hNf-4sqlPwR_8bW9JyP7aXquD_5Dv'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15HxNOufqjGmzfK8Z2go-Zmm-k02T5Nf9/preview', 'https://drive.google.com/uc?export=download&id=15HxNOufqjGmzfK8Z2go-Zmm-k02T5Nf9'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MVKRzmZCx47bqPDEqVcIsYYnzHHnkLx-/preview', 'https://drive.google.com/uc?export=download&id=1MVKRzmZCx47bqPDEqVcIsYYnzHHnkLx-'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1B4NMGywy2FVnWMtVRfewSsPBPedJ4A4d/preview', 'https://drive.google.com/uc?export=download&id=1B4NMGywy2FVnWMtVRfewSsPBPedJ4A4d'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13hDJ7UlkltxddXRpi5qfQqGs3jMvoVUN/preview', 'https://drive.google.com/uc?export=download&id=13hDJ7UlkltxddXRpi5qfQqGs3jMvoVUN'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VnMp9e7HIkQIcrAwoitaHz8prRW0UZ6X/preview', 'https://drive.google.com/uc?export=download&id=1VnMp9e7HIkQIcrAwoitaHz8prRW0UZ6X'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pI3ZMxlYhIf8zdGI67AYFu29MkiCHOVf/preview', 'https://drive.google.com/uc?export=download&id=1pI3ZMxlYhIf8zdGI67AYFu29MkiCHOVf'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kJhapZ0rr0_xWS_poGovKoM82iY-dY3h/preview', 'https://drive.google.com/uc?export=download&id=1kJhapZ0rr0_xWS_poGovKoM82iY-dY3h'); return false;">Week 9</a>
+          </div>
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ywVkKZo4Ea7EwZBnQiu0UL_MMae3s-1k/preview', 'https://drive.google.com/uc?export=download&id=1ywVkKZo4Ea7EwZBnQiu0UL_MMae3s-1k'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cUiBm8Zwm5nok8xF2H6EJUQJTuE4nv_h/preview', 'https://drive.google.com/uc?export=download&id=1cUiBm8Zwm5nok8xF2H6EJUQJTuE4nv_h'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CiLvitN1sjpfnDpMMnUaCsI2HTqgBNAj/preview', 'https://drive.google.com/uc?export=download&id=1CiLvitN1sjpfnDpMMnUaCsI2HTqgBNAj'); return false;">Week 3</a>
+          </div>
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4 (UNAVAILABLE)</div>
+          <div class="week-list">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ENGLISH ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">English</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15Nz69yCgoJ6OY4KdbVg1dcMw_38bDbbQ/preview', 'https://drive.google.com/uc?export=download&id=15Nz69yCgoJ6OY4KdbVg1dcMw_38bDbbQ'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CpZdyU5QgsJxmpOwDcIQfk2XHiIcw0Gi/preview', 'https://drive.google.com/uc?export=download&id=1CpZdyU5QgsJxmpOwDcIQfk2XHiIcw0Gi'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mBUF3k8EBLLzoNtmrbEAsmlNw9pHnCWC/preview', 'https://drive.google.com/uc?export=download&id=1mBUF3k8EBLLzoNtmrbEAsmlNw9pHnCWC'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IPRwGBOgdsS8ls7KrPKoiNwAcJSAT_te/preview', 'https://drive.google.com/uc?export=download&id=1IPRwGBOgdsS8ls7KrPKoiNwAcJSAT_te'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jOdguqv9Dq6efpinS68znHvwNdobMrDb/preview', 'https://drive.google.com/uc?export=download&id=1jOdguqv9Dq6efpinS68znHvwNdobMrDb'); return false;">Week 5</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12oIGg-Uw8TQMCAGZ2p5ymwhgJTlJLH8I/preview', 'https://drive.google.com/uc?export=download&id=12oIGg-Uw8TQMCAGZ2p5ymwhgJTlJLH8I'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TQp0fczrtJizr-sGrGMvsk9X6oeL734z/preview', 'https://drive.google.com/uc?export=download&id=1TQp0fczrtJizr-sGrGMvsk9X6oeL734z'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hswGSqy9nxk9tMNPBi8RP0z-chrv0RZn/preview', 'https://drive.google.com/uc?export=download&id=1hswGSqy9nxk9tMNPBi8RP0z-chrv0RZn'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bCv6lDCQOGYnBwptDPBdgvz-KVSkGoPf/preview', 'https://drive.google.com/uc?export=download&id=1bCv6lDCQOGYnBwptDPBdgvz-KVSkGoPf'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dGMo1ZUqExXYwjwXqR2U31J5MwgRLcy4/preview', 'https://drive.google.com/uc?export=download&id=1dGMo1ZUqExXYwjwXqR2U31J5MwgRLcy4'); return false;">Week 5</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1f7T6zgm3Y8jj1bc-VE-ka7uddYzNfplD/preview', 'https://drive.google.com/uc?export=download&id=1f7T6zgm3Y8jj1bc-VE-ka7uddYzNfplD'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IZ1WrdGMXMUUc8fTtAVPIEtZxtZ6Wj6R/preview', 'https://drive.google.com/uc?export=download&id=1IZ1WrdGMXMUUc8fTtAVPIEtZxtZ6Wj6R'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-7BSTqXeL1DuQNs6eZY-FlAP6Bb4ba8b/preview', 'https://drive.google.com/uc?export=download&id=1-7BSTqXeL1DuQNs6eZY-FlAP6Bb4ba8b'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VbpucZYalERTmw-WYZ_Ypv1mYEDg5u7_/preview', 'https://drive.google.com/uc?export=download&id=1VbpucZYalERTmw-WYZ_Ypv1mYEDg5u7_'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/137Eb0XtMHAWhqGI9SAB2bt6WqMHRWr3S/preview', 'https://drive.google.com/uc?export=download&id=137Eb0XtMHAWhqGI9SAB2bt6WqMHRWr3S'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1lUyEkbXfpCR6ZpVglg5H2QR_jjEyFYzE/preview', 'https://drive.google.com/uc?export=download&id=1lUyEkbXfpCR6ZpVglg5H2QR_jjEyFYzE'); return false;">Week 6</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14nEbGsS_TBvVJl0IyWKQUIdHsnegQGxN/preview', 'https://drive.google.com/uc?export=download&id=14nEbGsS_TBvVJl0IyWKQUIdHsnegQGxN'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UkVR_xjzYteVmUMTE4dIuW1I5rxyg7Qm/preview', 'https://drive.google.com/uc?export=download&id=1UkVR_xjzYteVmUMTE4dIuW1I5rxyg7Qm'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18gE9x2O6rihSzik6Ie8vVeYu_-4nNIX1/preview', 'https://drive.google.com/uc?export=download&id=18gE9x2O6rihSzik6Ie8vVeYu_-4nNIX1'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ixVIElSgOslLKje1q5xWx2OUhhpmSHVu/preview', 'https://drive.google.com/uc?export=download&id=1ixVIElSgOslLKje1q5xWx2OUhhpmSHVu'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NqbqgZLX-03bC1GDx9mUVKrnjPdjmKmf/preview', 'https://drive.google.com/uc?export=download&id=1NqbqgZLX-03bC1GDx9mUVKrnjPdjmKmf'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Sl6AyaEzPBIpFLoKT200GNSm0hO3_E9A/preview', 'https://drive.google.com/uc?export=download&id=1Sl6AyaEzPBIpFLoKT200GNSm0hO3_E9A'); return false;">Week 6</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MATHEMATICS ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Mathematics</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rKU48M-D0zvn_KT_XiFFqFCY7fER733r/preview', 'https://drive.google.com/uc?export=download&id=1rKU48M-D0zvn_KT_XiFFqFCY7fER733r'); return false;">Week 1a</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rs7kiH0dHzB6xYLGvP4zJ9dcSlqRq_o5/preview', 'https://drive.google.com/uc?export=download&id=1rs7kiH0dHzB6xYLGvP4zJ9dcSlqRq_o5'); return false;">Week 1b</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1p2Hz24AKRsvyH-Kv-eDkdyKvBn4QeRfi/preview', 'https://drive.google.com/uc?export=download&id=1p2Hz24AKRsvyH-Kv-eDkdyKvBn4QeRfi'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BPt4cBWI70er7O8VqbWRno-ByrTJHFTV/preview', 'https://drive.google.com/uc?export=download&id=1BPt4cBWI70er7O8VqbWRno-ByrTJHFTV'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qCTKcJqJVQTrlznR211TmLTwu5_nTXBZ/preview', 'https://drive.google.com/uc?export=download&id=1qCTKcJqJVQTrlznR211TmLTwu5_nTXBZ'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TZtOB-M6RN675atvLyJDxQONHRVQ9T2Q/preview', 'https://drive.google.com/uc?export=download&id=1TZtOB-M6RN675atvLyJDxQONHRVQ9T2Q'); return false;">Week 5a</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JmLBnab4_xrqU2RaWngqlM8u_HgykFMR/preview', 'https://drive.google.com/uc?export=download&id=1JmLBnab4_xrqU2RaWngqlM8u_HgykFMR'); return false;">Week 5b</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Y5dX_KBMYIzwIJ7q_qNPGA4meB61Zp6z/preview', 'https://drive.google.com/uc?export=download&id=1Y5dX_KBMYIzwIJ7q_qNPGA4meB61Zp6z'); return false;">Week 5c</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HG5fXz-mxs5dkiFDX5oIsjCH1bhVvkQo/preview', 'https://drive.google.com/uc?export=download&id=1HG5fXz-mxs5dkiFDX5oIsjCH1bhVvkQo'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EA33FhPM56JASjjKV2rnqRf46PCC8nAF/preview', 'https://drive.google.com/uc?export=download&id=1EA33FhPM56JASjjKV2rnqRf46PCC8nAF'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mWYV6_WK7gChgiqQiONsyYZEYUXcnh0u/preview', 'https://drive.google.com/uc?export=download&id=1mWYV6_WK7gChgiqQiONsyYZEYUXcnh0u'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11PKN6jIjpnYGJUlOLE0xNgCcjMzVOXza/preview', 'https://drive.google.com/uc?export=download&id=11PKN6jIjpnYGJUlOLE0xNgCcjMzVOXza'); return false;">Week 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VnptNcBkiAPc6SVRK5-hWj3ohtyFtS56/preview', 'https://drive.google.com/uc?export=download&id=1VnptNcBkiAPc6SVRK5-hWj3ohtyFtS56'); return false;">Week 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1thc8nSpUI_fFST_BrwbZvE7WT8slb8Vt/preview', 'https://drive.google.com/uc?export=download&id=1thc8nSpUI_fFST_BrwbZvE7WT8slb8Vt'); return false;">Week 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Bpx9wE4E95eOjfdmbsU0kx-XbMOyICBI/preview', 'https://drive.google.com/uc?export=download&id=1Bpx9wE4E95eOjfdmbsU0kx-XbMOyICBI'); return false;">Week 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15l9BlGlJUxxclcODEl-kHKQ3UWded4zu/preview', 'https://drive.google.com/uc?export=download&id=15l9BlGlJUxxclcODEl-kHKQ3UWded4zu'); return false;">Week 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1G5C6QqOVIlawXw_B3tvPbSCfOrJZnsVs/preview', 'https://drive.google.com/uc?export=download&id=1G5C6QqOVIlawXw_B3tvPbSCfOrJZnsVs'); return false;">Week 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1G5C6QqOVIlawXw_B3tvPbSCfOrJZnsVs/preview', 'https://drive.google.com/uc?export=download&id=1G5C6QqOVIlawXw_B3tvPbSCfOrJZnsVs'); return false;">Week 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1G5C6QqOVIlawXw_B3tvPbSCfOrJZnsVs/preview', 'https://drive.google.com/uc?export=download&id=1G5C6QqOVIlawXw_B3tvPbSCfOrJZnsVs'); return false;">Week 16</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SpcYwd2kBImGyAFnh6rrI4kKTqVOOgF4/preview', 'https://drive.google.com/uc?export=download&id=1SpcYwd2kBImGyAFnh6rrI4kKTqVOOgF4'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1McFnpz7NasSPaEIzZbSlFwqdjRFTy9WQ/preview', 'https://drive.google.com/uc?export=download&id=1McFnpz7NasSPaEIzZbSlFwqdjRFTy9WQ'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JOE2-5imMr0itAk3YzHHyzz08v8iDkbN/preview', 'https://drive.google.com/uc?export=download&id=1JOE2-5imMr0itAk3YzHHyzz08v8iDkbN'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18DY0vL8gJCpcUWtV_60U8w4vdJoZo9J8/preview', 'https://drive.google.com/uc?export=download&id=18DY0vL8gJCpcUWtV_60U8w4vdJoZo9J8'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RCznqZN66pHS7lhKezustAuNwnw-4iTW/preview', 'https://drive.google.com/uc?export=download&id=1RCznqZN66pHS7lhKezustAuNwnw-4iTW'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1yXG1ejiOheXHyqg7H9wzR37UPIOzkCo4/preview', 'https://drive.google.com/uc?export=download&id=1yXG1ejiOheXHyqg7H9wzR37UPIOzkCo4'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1STDMrPcfsXtb0PA8yibag22u73ymOOQ-/preview', 'https://drive.google.com/uc?export=download&id=1STDMrPcfsXtb0PA8yibag22u73ymOOQ-'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/111nk8WdJire3f8N7JAxPYWqbaW4kQ9Av/preview', 'https://drive.google.com/uc?export=download&id=111nk8WdJire3f8N7JAxPYWqbaW4kQ9Av'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OTsqtwNbPh-pxCy2likToRetPw68k8bP/preview', 'https://drive.google.com/uc?export=download&id=1OTsqtwNbPh-pxCy2likToRetPw68k8bP'); return false;">Week 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Rn_PE2M-C_wMijaySKcVH-5spb1qruEO/preview', 'https://drive.google.com/uc?export=download&id=1Rn_PE2M-C_wMijaySKcVH-5spb1qruEO'); return false;">Week 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FlYTy2lo685U20OaZ6e949SN8dBWOohf/preview', 'https://drive.google.com/uc?export=download&id=1FlYTy2lo685U20OaZ6e949SN8dBWOohf'); return false;">Week 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DPPh6mMAB749-TUyywt45SAx6Ens0ERK/preview', 'https://drive.google.com/uc?export=download&id=1DPPh6mMAB749-TUyywt45SAx6Ens0ERK'); return false;">Week 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PnR99jJt2BESwehUk96rCTyIQDHkL0vN/preview', 'https://drive.google.com/uc?export=download&id=1PnR99jJt2BESwehUk96rCTyIQDHkL0vN'); return false;">Week 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ODKE_OMLSX5I1mV281m96PTkvWwZqN1i/preview', 'https://drive.google.com/uc?export=download&id=1ODKE_OMLSX5I1mV281m96PTkvWwZqN1i'); return false;">Week 14</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FijtiIpDSRhBvRW92ztjn5q-iLEVf_gY/preview', 'https://drive.google.com/uc?export=download&id=1FijtiIpDSRhBvRW92ztjn5q-iLEVf_gY'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ixP7Deiky4GxEbta9dToLaVSvepRWh4i/preview', 'https://drive.google.com/uc?export=download&id=1ixP7Deiky4GxEbta9dToLaVSvepRWh4i'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Zu5bGxOtNOPjkbvxUqf112khc2vH4vWn/preview', 'https://drive.google.com/uc?export=download&id=1Zu5bGxOtNOPjkbvxUqf112khc2vH4vWn'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1r7DrbMHX9ckjqdmswfPOIt7aAUVAvWj0/preview', 'https://drive.google.com/uc?export=download&id=1r7DrbMHX9ckjqdmswfPOIt7aAUVAvWj0'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cCPadeRV8mAe8JncMD-9vndO3su_vZtI/preview', 'https://drive.google.com/uc?export=download&id=1cCPadeRV8mAe8JncMD-9vndO3su_vZtI'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iAnYZ6IExD3QnNQdC8wzR7B3I30If3ct/preview', 'https://drive.google.com/uc?export=download&id=1iAnYZ6IExD3QnNQdC8wzR7B3I30If3ct'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xqZGygvioRMEbVJKLtI2Wd5xzHMvxL4z/preview', 'https://drive.google.com/uc?export=download&id=1xqZGygvioRMEbVJKLtI2Wd5xzHMvxL4z'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JaX9Mo6S8K2Nyv9QVwJ-dRiL44QfnzHm/preview', 'https://drive.google.com/uc?export=download&id=1JaX9Mo6S8K2Nyv9QVwJ-dRiL44QfnzHm'); return false;">Week 8</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1nUmX2gWyU_63Vub5g8Qc-Q3ksY39m2S6/preview', 'https://drive.google.com/uc?export=download&id=1nUmX2gWyU_63Vub5g8Qc-Q3ksY39m2S6'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/17I4drjObK2Ui0ht1BnnxNHJ2rMD5jjvs/preview', 'https://drive.google.com/uc?export=download&id=17I4drjObK2Ui0ht1BnnxNHJ2rMD5jjvs'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kH8AN7k9f3aWmWSZAjJSJ3lKqO4Df448/preview', 'https://drive.google.com/uc?export=download&id=1kH8AN7k9f3aWmWSZAjJSJ3lKqO4Df448'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/17uqn7EkimZi5E126ylCq9i5Z7Ixu3c8f/preview', 'https://drive.google.com/uc?export=download&id=17uqn7EkimZi5E126ylCq9i5Z7Ixu3c8f'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VbdNC_nSDmM2dAuZrvdK_m0tyEpwpr1x/preview', 'https://drive.google.com/uc?export=download&id=1VbdNC_nSDmM2dAuZrvdK_m0tyEpwpr1x'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xpsJ2okmdvNOYaX8-RMAStaK_P6AEUSg/preview', 'https://drive.google.com/uc?export=download&id=1xpsJ2okmdvNOYaX8-RMAStaK_P6AEUSg'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16QuFlRWIrrQEn9Q33J9ISzeQOcRBzbVx/preview', 'https://drive.google.com/uc?export=download&id=16QuFlRWIrrQEn9Q33J9ISzeQOcRBzbVx'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1GhAl6oVNqlYgzlSUBrmHUTQkn1nrSEhD/preview', 'https://drive.google.com/uc?export=download&id=1GhAl6oVNqlYgzlSUBrmHUTQkn1nrSEhD'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1U_RCa4hoZB4sN-MEt-SQ974QDwPkh79S/preview', 'https://drive.google.com/uc?export=download&id=1U_RCa4hoZB4sN-MEt-SQ974QDwPkh79S'); return false;">Week 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14u7rGx9JciTv1CmQDwSc0F50gwTtDq9c/preview', 'https://drive.google.com/uc?export=download&id=14u7rGx9JciTv1CmQDwSc0F50gwTtDq9c'); return false;">Week 10</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SCIENCE ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Science</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HuLYTwyGwlAqkMMbw9644a_S6QJRv5-j/preview', 'https://drive.google.com/uc?export=download&id=1HuLYTwyGwlAqkMMbw9644a_S6QJRv5-j'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1I-rdr5WIRrAvO4_6DaDdTI73MCvIitRj/preview', 'https://drive.google.com/uc?export=download&id=1I-rdr5WIRrAvO4_6DaDdTI73MCvIitRj'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ECTlKaMIEBWjx8aWmG5ZsLNQFBv1BoZp/preview', 'https://drive.google.com/uc?export=download&id=1ECTlKaMIEBWjx8aWmG5ZsLNQFBv1BoZp'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16a2GkAmlkxskXoEv9_PNkZou-D6up_Qq/preview', 'https://drive.google.com/uc?export=download&id=16a2GkAmlkxskXoEv9_PNkZou-D6up_Qq'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QgW1KuTBcYyI8MktdB0SPkrX7uklafOP/preview', 'https://drive.google.com/uc?export=download&id=1QgW1KuTBcYyI8MktdB0SPkrX7uklafOP'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FCz6C-mgDCIx41UW_z27xi9u516Scw4w/preview', 'https://drive.google.com/uc?export=download&id=1FCz6C-mgDCIx41UW_z27xi9u516Scw4w'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NLcDdK-ugwaBXwLWcKxeGdR58fBXKZZE/preview', 'https://drive.google.com/uc?export=download&id=1NLcDdK-ugwaBXwLWcKxeGdR58fBXKZZE'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1X9rOfJOxi26jTVAgNvoRetNg5rll2kTJ/preview', 'https://drive.google.com/uc?export=download&id=1X9rOfJOxi26jTVAgNvoRetNg5rll2kTJ'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12i1XWgHTIzaq5jBCJ-WXu13kpoPKlhYV/preview', 'https://drive.google.com/uc?export=download&id=12i1XWgHTIzaq5jBCJ-WXu13kpoPKlhYV'); return false;">Week 9</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11D1RRYzUfux316zzCiBurvAYVKMNl_1D/preview', 'https://drive.google.com/uc?export=download&id=11D1RRYzUfux316zzCiBurvAYVKMNl_1D'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1diPiq84DPE8fG0AWjz9o2jiuKVYinq73/preview', 'https://drive.google.com/uc?export=download&id=1diPiq84DPE8fG0AWjz9o2jiuKVYinq73'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19yldM-RfGh5kWVBhblnwnibod-F3i0ls/preview', 'https://drive.google.com/uc?export=download&id=19yldM-RfGh5kWVBhblnwnibod-F3i0ls'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NXM8Y7Tf8GPFyx5cZar8_obaVADhtkNI/preview', 'https://drive.google.com/uc?export=download&id=1NXM8Y7Tf8GPFyx5cZar8_obaVADhtkNI'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1j9Jmw4-KntkQafptY0dpspRUEudP54rU/preview', 'https://drive.google.com/uc?export=download&id=1j9Jmw4-KntkQafptY0dpspRUEudP54rU'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DEpSUABQbBk0DKxSyNLL0uimF1Uprfan/preview', 'https://drive.google.com/uc?export=download&id=1DEpSUABQbBk0DKxSyNLL0uimF1Uprfan'); return false;">Week 6</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-K2FC41Q2lZ3DP60pihdDgBTNHFdJC_4/preview', 'https://drive.google.com/uc?export=download&id=1-K2FC41Q2lZ3DP60pihdDgBTNHFdJC_4'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1C78QQh0VE-dGzNjGyLvF-GzNoq4sTtPU/preview', 'https://drive.google.com/uc?export=download&id=1C78QQh0VE-dGzNjGyLvF-GzNoq4sTtPU'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1S4NxMOwGPFpJyAnJi2yrk49W9wmNJkdb/preview', 'https://drive.google.com/uc?export=download&id=1S4NxMOwGPFpJyAnJi2yrk49W9wmNJkdb'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VJL1iY5c_uiPfuaXJlWa1Yyh8CtP_M5e/preview', 'https://drive.google.com/uc?export=download&id=1VJL1iY5c_uiPfuaXJlWa1Yyh8CtP_M5e'); return false;">Week 4</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-L6-ubLDiPm7mZSoTAu-6B_8PesPa-V4/preview', 'https://drive.google.com/uc?export=download&id=1-L6-ubLDiPm7mZSoTAu-6B_8PesPa-V4'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-j365KHKpgMHOuS_nG7kaz7yrABvnoLb/preview', 'https://drive.google.com/uc?export=download&id=1-j365KHKpgMHOuS_nG7kaz7yrABvnoLb'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Eh3rMpvVhaChYCIVMjzVi_MeySejiZ06/preview', 'https://drive.google.com/uc?export=download&id=1Eh3rMpvVhaChYCIVMjzVi_MeySejiZ06'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1urVLez3c_bBe1sb_dP2lFE0vWTNNrUPv/preview', 'https://drive.google.com/uc?export=download&id=1urVLez3c_bBe1sb_dP2lFE0vWTNNrUPv'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IorOrO6YxrlC4aVhW9sgAukiWO64Uzfk/preview', 'https://drive.google.com/uc?export=download&id=1IorOrO6YxrlC4aVhW9sgAukiWO64Uzfk'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DaWENlXSFcHz02jhRDa6pvIRyNo1umgD/preview', 'https://drive.google.com/uc?export=download&id=1DaWENlXSFcHz02jhRDa6pvIRyNo1umgD'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Z0lxuijr3016WrHj7ALPmy-1tgbH1LsL/preview', 'https://drive.google.com/uc?export=download&id=1Z0lxuijr3016WrHj7ALPmy-1tgbH1LsL'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/114n9ngaDVJVZ6BsuHsYc8UVgtFdgtjDj/preview', 'https://drive.google.com/uc?export=download&id=114n9ngaDVJVZ6BsuHsYc8UVgtFdgtjDj'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qEuvAUJVFGB2m666nMv0AjxAo8-Y0Tsl/preview', 'https://drive.google.com/uc?export=download&id=1qEuvAUJVFGB2m666nMv0AjxAo8-Y0Tsl'); return false;">Week 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11zEfs7xCkIlCXn71iAvTCdexqh98RTJv/preview', 'https://drive.google.com/uc?export=download&id=11zEfs7xCkIlCXn71iAvTCdexqh98RTJv'); return false;">Week 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hCj7DRv-g2SqWkkSNWhkNSbgU6xi4PD9/preview', 'https://drive.google.com/uc?export=download&id=1hCj7DRv-g2SqWkkSNWhkNSbgU6xi4PD9'); return false;">Week 11</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==================== ESP / VE ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Val. Ed. / ESP</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1F9wt5mamkNYPEfh70ZmQgo73R6U-7WoG/preview', 'https://drive.google.com/uc?export=download&id=1F9wt5mamkNYPEfh70ZmQgo73R6U-7WoG'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XTjWhNH3MXjJeD9RpYaJIMumYFIWkvQo/preview', 'https://drive.google.com/uc?export=download&id=1XTjWhNH3MXjJeD9RpYaJIMumYFIWkvQo'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SKdC9c9Y6_z8GYvP4LpmU4s_g_mshaqC/preview', 'https://drive.google.com/uc?export=download&id=1SKdC9c9Y6_z8GYvP4LpmU4s_g_mshaqC'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Kh3b8YtDHtqRGbRqTHbkRBS_wHBNAZ9z/preview', 'https://drive.google.com/uc?export=download&id=1Kh3b8YtDHtqRGbRqTHbkRBS_wHBNAZ9z'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Gl8lUYlVZLphx1kHlwSblO5lpxUulaFI/preview', 'https://drive.google.com/uc?export=download&id=1Gl8lUYlVZLphx1kHlwSblO5lpxUulaFI'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pRltnvkMV0tjMnvsYlBkORvh4S1fuIbw/preview', 'https://drive.google.com/uc?export=download&id=1pRltnvkMV0tjMnvsYlBkORvh4S1fuIbw'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oeegobLqJdvgwycWkZzG6Zav0wXM5iSO/preview', 'https://drive.google.com/uc?export=download&id=1oeegobLqJdvgwycWkZzG6Zav0wXM5iSO'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1E9oDTbOZgmVb6Vus3KH5mogxdC_z7ef_/preview', 'https://drive.google.com/uc?export=download&id=1E9oDTbOZgmVb6Vus3KH5mogxdC_z7ef_'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1X0YMs_aOCKb1oSlEAm_gaj3Jlc1Lf_li/preview', 'https://drive.google.com/uc?export=download&id=1X0YMs_aOCKb1oSlEAm_gaj3Jlc1Lf_li'); return false;">Week 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1x5x592fd0JekxH3CkEqqDgaSXShk0OUd/preview', 'https://drive.google.com/uc?export=download&id=1x5x592fd0JekxH3CkEqqDgaSXShk0OUd'); return false;">Week 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Eq6uZ_2CZ_o2GdYLhzFd7ZCzuOXwc1Ym/preview', 'https://drive.google.com/uc?export=download&id=1Eq6uZ_2CZ_o2GdYLhzFd7ZCzuOXwc1Ym'); return false;">Week 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dh_sSd1aUpJcMkw7k5BcTkxvIKFQhEN-/preview', 'https://drive.google.com/uc?export=download&id=1dh_sSd1aUpJcMkw7k5BcTkxvIKFQhEN-'); return false;">Week 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ln7hq-E5LOgkX_tVr4CPBnD-28Q-xg9q/preview', 'https://drive.google.com/uc?export=download&id=1ln7hq-E5LOgkX_tVr4CPBnD-28Q-xg9q'); return false;">Week 13</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YW8pj_DIKDfD3xF0XuD5AkAm7wXjR2nV/preview', 'https://drive.google.com/uc?export=download&id=1YW8pj_DIKDfD3xF0XuD5AkAm7wXjR2nV'); return false;">Week 14</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12buLoSueeK3PgG0dFPdXJljfXPQXwEP4/preview', 'https://drive.google.com/uc?export=download&id=12buLoSueeK3PgG0dFPdXJljfXPQXwEP4'); return false;">Week 15</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Rds8Ciwn079hv9Q0sC16FYJEKsIa5vcg/preview', 'https://drive.google.com/uc?export=download&id=1Rds8Ciwn079hv9Q0sC16FYJEKsIa5vcg'); return false;">Week 16</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-V6g2qQwdX3_g6MMhZEbZWbaVq-sg9mb/preview', 'https://drive.google.com/uc?export=download&id=1-V6g2qQwdX3_g6MMhZEbZWbaVq-sg9mb'); return false;">Week 17</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ywqDY4OiqjrptPLv71tprCMA_Mst81Np/preview', 'https://drive.google.com/uc?export=download&id=1ywqDY4OiqjrptPLv71tprCMA_Mst81Np'); return false;">Week 18</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1O17QdYFEOHBNaEx8AX8CruQuzvamoSWi/preview', 'https://drive.google.com/uc?export=download&id=1O17QdYFEOHBNaEx8AX8CruQuzvamoSWi'); return false;">Week 19</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FimN28yduXEvJVNF6-70SU-ESdG8JBWA/preview', 'https://drive.google.com/uc?export=download&id=1FimN28yduXEvJVNF6-70SU-ESdG8JBWA'); return false;">Week 20</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/17iRt8EvDBZCccbwN5HvWvfAFrQooICw6/preview', 'https://drive.google.com/uc?export=download&id=17iRt8EvDBZCccbwN5HvWvfAFrQooICw6'); return false;">Week 21</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19ozB2zXCUMJodHzOnmgLpmlLB5d9hiEI/preview', 'https://drive.google.com/uc?export=download&id=19ozB2zXCUMJodHzOnmgLpmlLB5d9hiEI'); return false;">Week 22</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ViNMDzYDGDL-CMFdM-uhTz8ZbfRHcit4/preview', 'https://drive.google.com/uc?export=download&id=1ViNMDzYDGDL-CMFdM-uhTz8ZbfRHcit4'); return false;">Week 23</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1enxRo4MHo8diZ46tw1tyKR_MAwLpZNrQ/preview', 'https://drive.google.com/uc?export=download&id=1enxRo4MHo8diZ46tw1tyKR_MAwLpZNrQ'); return false;">Week 24</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11xHPNW7avC2uAZnbelmUCZLSJ5aJPNCX/preview', 'https://drive.google.com/uc?export=download&id=11xHPNW7avC2uAZnbelmUCZLSJ5aJPNCX'); return false;">Week 25</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16pn698Cs1xC3sa_TaDJySis6FGAQY0aW/preview', 'https://drive.google.com/uc?export=download&id=16pn698Cs1xC3sa_TaDJySis6FGAQY0aW'); return false;">Week 26</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1b6hPI628AqJTNntE-QOlo4nhHW_-eTm9/preview', 'https://drive.google.com/uc?export=download&id=1b6hPI628AqJTNntE-QOlo4nhHW_-eTm9'); return false;">Week 27</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1zZ2ciaBtE6nUxUh2VDSfvCsO71EMIeVd/preview', 'https://drive.google.com/uc?export=download&id=1zZ2ciaBtE6nUxUh2VDSfvCsO71EMIeVd'); return false;">Week 28</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iDvT7u36G_J1iiGL3OrO9d352SZq9d6o/preview', 'https://drive.google.com/uc?export=download&id=1iDvT7u36G_J1iiGL3OrO9d352SZq9d6o'); return false;">Week 29</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1l1-b-MEnJJpBuDlVTvNSvvRGSrxD5IFy/preview', 'https://drive.google.com/uc?export=download&id=1l1-b-MEnJJpBuDlVTvNSvvRGSrxD5IFy'); return false;">Week 30</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1GLIt-kh3LzYVszh6SP5YRAzPE-gEFzne/preview', 'https://drive.google.com/uc?export=download&id=1GLIt-kh3LzYVszh6SP5YRAzPE-gEFzne'); return false;">Week 31</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bHR4pvS3AHUg3ewKNQjdQGffZrltz2AU/preview', 'https://drive.google.com/uc?export=download&id=1bHR4pvS3AHUg3ewKNQjdQGffZrltz2AU'); return false;">Week 32</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qQZ8elyB2lHTzolTz518THC4Z7MBt8ev/preview', 'https://drive.google.com/uc?export=download&id=1qQZ8elyB2lHTzolTz518THC4Z7MBt8ev'); return false;">Week 33</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YlWRaZS-Bf5ZakGF3WiIb6APv2QvvhDW/preview', 'https://drive.google.com/uc?export=download&id=1YlWRaZS-Bf5ZakGF3WiIb6APv2QvvhDW'); return false;">Week 34</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1vSUIoDvDFSQhqbyc7ndjzaEEJQm8qW4o/preview', 'https://drive.google.com/uc?export=download&id=1vSUIoDvDFSQhqbyc7ndjzaEEJQm8qW4o'); return false;">Week 35</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1KYG2E1tKgLFG_GZzWYcvOTvkdHJoXYRR/preview', 'https://drive.google.com/uc?export=download&id=1KYG2E1tKgLFG_GZzWYcvOTvkdHJoXYRR'); return false;">Week 36</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14dJBCrAIGzGL2Zz58QEdgZ0_OPeDFL-c/preview', 'https://drive.google.com/uc?export=download&id=14dJBCrAIGzGL2Zz58QEdgZ0_OPeDFL-c'); return false;">Week 37</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bAqx6rbAm-cYF3Tg7yb67otsKCTh3k8Z/preview', 'https://drive.google.com/uc?export=download&id=1bAqx6rbAm-cYF3Tg7yb67otsKCTh3k8Z'); return false;">Week 38</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hvhKId9882KrIPF6Qi75l5RxwlABvmGP/preview', 'https://drive.google.com/uc?export=download&id=1hvhKId9882KrIPF6Qi75l5RxwlABvmGP'); return false;">Week 39</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Y_KXZKU1BBOvlKZuwzIgcoVt1sBTKGS6/preview', 'https://drive.google.com/uc?export=download&id=1Y_KXZKU1BBOvlKZuwzIgcoVt1sBTKGS6'); return false;">Week 40</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/122A4I63KzIItXoXBVqpttzmtZa7K1cPp/preview', 'https://drive.google.com/uc?export=download&id=122A4I63KzIItXoXBVqpttzmtZa7K1cPp'); return false;">Week 41</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wUq1HhDEWPcjUwBpPJfWrakwNUWW4gjA/preview', 'https://drive.google.com/uc?export=download&id=1wUq1HhDEWPcjUwBpPJfWrakwNUWW4gjA'); return false;">Week 42</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DJXFnSsMr3HWAKDX3YqsKjMS3Dd60ugW/preview', 'https://drive.google.com/uc?export=download&id=1DJXFnSsMr3HWAKDX3YqsKjMS3Dd60ugW'); return false;">Week 43</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gz-r-wjXoc3fy-qtXPndYbyrYx_xIsFQ/preview', 'https://drive.google.com/uc?export=download&id=1gz-r-wjXoc3fy-qtXPndYbyrYx_xIsFQ'); return false;">Week 44</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pxSABXNwnJgrNHattF92MltTDsGVP6nC/preview', 'https://drive.google.com/uc?export=download&id=1pxSABXNwnJgrNHattF92MltTDsGVP6nC'); return false;">Week 45</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_ZMBDX1Yx3rbOPsYHF6JFr6w9txf77su/preview', 'https://drive.google.com/uc?export=download&id=1_ZMBDX1Yx3rbOPsYHF6JFr6w9txf77su'); return false;">Week 46</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SNBgma8hsKwiQgGxjgXvMQ3cbNsCgOP6/preview', 'https://drive.google.com/uc?export=download&id=1SNBgma8hsKwiQgGxjgXvMQ3cbNsCgOP6'); return false;">Week 47</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1KWfnmDMXNWYoKJ4beKtRXYjY8xZPopmj/preview', 'https://drive.google.com/uc?export=download&id=1KWfnmDMXNWYoKJ4beKtRXYjY8xZPopmj'); return false;">Week 48</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1G_FYBGqEXiDQCllfLtXuGPanwVZ0PHMV/preview', 'https://drive.google.com/uc?export=download&id=1G_FYBGqEXiDQCllfLtXuGPanwVZ0PHMV'); return false;">Week 49</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1snjw9Ste5Ep9nHuY7xVWYeE5VjZF7Cz5/preview', 'https://drive.google.com/uc?export=download&id=1snjw9Ste5Ep9nHuY7xVWYeE5VjZF7Cz5'); return false;">Week 50</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-d4s2pYBXKCCZE3BfNSgTgADdXyjj5C5/preview', 'https://drive.google.com/uc?export=download&id=1-d4s2pYBXKCCZE3BfNSgTgADdXyjj5C5'); return false;">Week 51</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1enx0QNeeDOlBdfIPFYz2EARO9kcZHVxV/preview', 'https://drive.google.com/uc?export=download&id=1enx0QNeeDOlBdfIPFYz2EARO9kcZHVxV'); return false;">Week 52</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ARALING PANLIPUNAN ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Araling Panlipunan</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1eF_Ftd1xw_hmeb50KKnMoMk9d1NBd48f/preview', 'https://drive.google.com/uc?export=download&id=1eF_Ftd1xw_hmeb50KKnMoMk9d1NBd48f'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10nuIGqEi10_U3IezRf5mzUo_upS3PJj4/preview', 'https://drive.google.com/uc?export=download&id=10nuIGqEi10_U3IezRf5mzUo_upS3PJj4'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1w7VBTAa2w-xa_GAS1A23d7KJ87w4VwvK/preview', 'https://drive.google.com/uc?export=download&id=1w7VBTAa2w-xa_GAS1A23d7KJ87w4VwvK'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/191ogjd88EFshWAjGwC7ivaJfBRqvpsKw/preview', 'https://drive.google.com/uc?export=download&id=191ogjd88EFshWAjGwC7ivaJfBRqvpsKw'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VCmOmTG5cHix1PJ9utn60CrVDORBU3wy/preview', 'https://drive.google.com/uc?export=download&id=1VCmOmTG5cHix1PJ9utn60CrVDORBU3wy'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13EeBbEUFVfgvQk6TdrIWjKNA34RLX24p/preview', 'https://drive.google.com/uc?export=download&id=13EeBbEUFVfgvQk6TdrIWjKNA34RLX24p'); return false;">Week 6</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jl21tRGBzFnkqFuecjWW77j0LCBufK5h/preview', 'https://drive.google.com/uc?export=download&id=1jl21tRGBzFnkqFuecjWW77j0LCBufK5h'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OFwVMLlcZpdRadtz044FTGGFgkgZjXav/preview', 'https://drive.google.com/uc?export=download&id=1OFwVMLlcZpdRadtz044FTGGFgkgZjXav'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Wc2AymGKGp_mwiKn3w9dBixuOv2HyP9a/preview', 'https://drive.google.com/uc?export=download&id=1Wc2AymGKGp_mwiKn3w9dBixuOv2HyP9a'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1USp_riv6l68adXyFGKcUSI8f9x_J8tjf/preview', 'https://drive.google.com/uc?export=download&id=1USp_riv6l68adXyFGKcUSI8f9x_J8tjf'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZldzrU8trz69mKdK-qrOwI8CMKBcDQpY/preview', 'https://drive.google.com/uc?export=download&id=1ZldzrU8trz69mKdK-qrOwI8CMKBcDQpY'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1aLBHYBj0RUVeI2x_Wv4-kNPSDLcEp4Ai/preview', 'https://drive.google.com/uc?export=download&id=1aLBHYBj0RUVeI2x_Wv4-kNPSDLcEp4Ai'); return false;">Week 6</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3 (UNAVAILABLE)</div>
+          <div class="week-list">
+          </div>
+
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jLdcn-9BtsuutSWUP1G901-c-kcX_3Ti/preview', 'https://drive.google.com/uc?export=download&id=1jLdcn-9BtsuutSWUP1G901-c-kcX_3Ti'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tfEGNl3MnvxUKcvhc_hjbKrXkbHBD-GH/preview', 'https://drive.google.com/uc?export=download&id=1tfEGNl3MnvxUKcvhc_hjbKrXkbHBD-GH'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hn6gCYhp6XN7OHBJ0NvCN6zSyHB-vYr_/preview', 'https://drive.google.com/uc?export=download&id=1hn6gCYhp6XN7OHBJ0NvCN6zSyHB-vYr_'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IxHDbksLjXgLXXKyibbtyajFpPchnx6x/preview', 'https://drive.google.com/uc?export=download&id=1IxHDbksLjXgLXXKyibbtyajFpPchnx6x'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EnYhugfYYfROlIzbLhEAbJ-tjDaU9kWe/preview', 'https://drive.google.com/uc?export=download&id=1EnYhugfYYfROlIzbLhEAbJ-tjDaU9kWe'); return false;">Week 6</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TLE ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">TLE</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">CAREGIVING</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xD3xq8wTqoWMVF1ija0Qtw7ydukPKaBR/preview', 'https://drive.google.com/uc?export=download&id=1xD3xq8wTqoWMVF1ija0Qtw7ydukPKaBR'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18SM1vuE78IQbAiB4OsHXZ1STPafB2d-K/preview', 'https://drive.google.com/uc?export=download&id=18SM1vuE78IQbAiB4OsHXZ1STPafB2d-K'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RpivWJU0gyk95_Sj15TRGxJQyY30gfn5/preview', 'https://drive.google.com/uc?export=download&id=1RpivWJU0gyk95_Sj15TRGxJQyY30gfn5'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YG2EBCquSZC0RKEoMAnfh6pPWHJ2x6Uw/preview', 'https://drive.google.com/uc?export=download&id=1YG2EBCquSZC0RKEoMAnfh6pPWHJ2x6Uw'); return false;">Week 5</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">COOKERY</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ERaeM1q2q7PhWzu1XIQ3Jr2UljKp7NFB/preview', 'https://drive.google.com/uc?export=download&id=1ERaeM1q2q7PhWzu1XIQ3Jr2UljKp7NFB'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12FKQviUo0fkD9uRV9RY_H64j5uCwnQMA/preview', 'https://drive.google.com/uc?export=download&id=12FKQviUo0fkD9uRV9RY_H64j5uCwnQMA'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1my7snyMLXIlFx8l8gaB_pp0hcUeC6Z28/preview', 'https://drive.google.com/uc?export=download&id=1my7snyMLXIlFx8l8gaB_pp0hcUeC6Z28'); return false;">Week 3.1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1znnoubNz2Mk3y9WnTBTG9ycUx-k9vC0Q/preview', 'https://drive.google.com/uc?export=download&id=1znnoubNz2Mk3y9WnTBTG9ycUx-k9vC0Q'); return false;">Week 3.2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13FvSEFAbtQ5XsUtnm9r3-jXvI0HZe0IZ/preview', 'https://drive.google.com/uc?export=download&id=13FvSEFAbtQ5XsUtnm9r3-jXvI0HZe0IZ'); return false;">Week 3.3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/118DtxSpDmoo1NYtLzW7p7GIzYYsW_7SY/preview', 'https://drive.google.com/uc?export=download&id=118DtxSpDmoo1NYtLzW7p7GIzYYsW_7SY'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XlEZsgR3--y3IrGneNjx6yLj8KLLMjVO/preview', 'https://drive.google.com/uc?export=download&id=1XlEZsgR3--y3IrGneNjx6yLj8KLLMjVO'); return false;">Week 5</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">DRESSMAKING</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1P6Vh_iy90Xbfb-YBEjqURl0aMwAFPb_V/preview', 'https://drive.google.com/uc?export=download&id=1P6Vh_iy90Xbfb-YBEjqURl0aMwAFPb_V'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wz-tqLOlbYbVwNcGa5AuaMCRBjwiaRys/preview', 'https://drive.google.com/uc?export=download&id=1wz-tqLOlbYbVwNcGa5AuaMCRBjwiaRys'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oKTBbzqgTUpDzHZ0NQvjdYKKR2TobtIr/preview', 'https://drive.google.com/uc?export=download&id=1oKTBbzqgTUpDzHZ0NQvjdYKKR2TobtIr'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19WPvoLFae0h1M1jjT28BKliYDXIzjI3J/preview', 'https://drive.google.com/uc?export=download&id=19WPvoLFae0h1M1jjT28BKliYDXIzjI3J'); return false;">Week 4</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">NAILCARE</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xylyxMtYz4lbxpdNvDT9PBEjMKdCeTMY/preview', 'https://drive.google.com/uc?export=download&id=1xylyxMtYz4lbxpdNvDT9PBEjMKdCeTMY'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SDMOnesqRKPtfPxwO4-yXpbF4YW0oAyE/preview', 'https://drive.google.com/uc?export=download&id=1SDMOnesqRKPtfPxwO4-yXpbF4YW0oAyE'); return false;">Week 2-3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iLxFKGXLvzfKjfLMVIUGRGFVJZQ_wvEh/preview', 'https://drive.google.com/uc?export=download&id=1iLxFKGXLvzfKjfLMVIUGRGFVJZQ_wvEh'); return false;">Week 4-8</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MAPEH ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">MAPEH</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="section-label">Music</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JUoO4reN5JdHaQsgUzxpmBgJ5CoeoKrf/preview', 'https://drive.google.com/uc?export=download&id=1JUoO4reN5JdHaQsgUzxpmBgJ5CoeoKrf'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ooUpqe3ii2cgJZOEfANWTfrf06GwidjG/preview', 'https://drive.google.com/uc?export=download&id=1ooUpqe3ii2cgJZOEfANWTfrf06GwidjG'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OnDZpoDVYs4korC1imQwj4S2aXBxP6W0/preview', 'https://drive.google.com/uc?export=download&id=1OnDZpoDVYs4korC1imQwj4S2aXBxP6W0'); return false;">Week 3</a>
+          <div class="section-label">Arts (UNAVAILABLE)</div>
+          <div class="section-label">Physical Ed</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YQLKeDIWt93gXIHJnEOx2GZqezlUcjzD/preview', 'https://drive.google.com/uc?export=download&id=1YQLKeDIWt93gXIHJnEOx2GZqezlUcjzD'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XtnQdrfZLgibTGc-FmXpPzFA-wPcnZ3C/preview', 'https://drive.google.com/uc?export=download&id=1XtnQdrfZLgibTGc-FmXpPzFA-wPcnZ3C'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1I049USeLv4981I0f8tvWgyF1fFgR5cCo/preview', 'https://drive.google.com/uc?export=download&id=1I049USeLv4981I0f8tvWgyF1fFgR5cCo'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Ze3OPshw5SnDEVSG_f5XufO4V-c9El5s/preview', 'https://drive.google.com/uc?export=download&id=1Ze3OPshw5SnDEVSG_f5XufO4V-c9El5s'); return false;">Week 4</a>
+          <div class="section-label">Health</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VGsQRlRuaecGTQlFgR_CnmBthUfCTstX/preview', 'https://drive.google.com/uc?export=download&id=1VGsQRlRuaecGTQlFgR_CnmBthUfCTstX'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MWrpa7GVDJxvS9ww6R2g9EnYyVymRNSP/preview', 'https://drive.google.com/uc?export=download&id=1MWrpa7GVDJxvS9ww6R2g9EnYyVymRNSP'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QOovnvhR25QTnjzBneMj3JzR1ypF2Jdo/preview', 'https://drive.google.com/uc?export=download&id=1QOovnvhR25QTnjzBneMj3JzR1ypF2Jdo'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fuH3auK66EgnCF5Y7E__eoOA_4-BhfXw/preview', 'https://drive.google.com/uc?export=download&id=1fuH3auK66EgnCF5Y7E__eoOA_4-BhfXw'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EBidDg7rtQ14N0EdNysf3bSh_BQQbIaO/preview', 'https://drive.google.com/uc?export=download&id=1EBidDg7rtQ14N0EdNysf3bSh_BQQbIaO'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Y-qxJsFITZXIGbWzVj2LF2PSgkw6kSZ6/preview', 'https://drive.google.com/uc?export=download&id=1Y-qxJsFITZXIGbWzVj2LF2PSgkw6kSZ6'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12jzTS5gJtnlSjkNsLwWM-PfI6OboM5F_/preview', 'https://drive.google.com/uc?export=download&id=12jzTS5gJtnlSjkNsLwWM-PfI6OboM5F_'); return false;">Week 7</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="section-label">Music</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SqQERehQ7MuZrlkdQBOG1ljFIZe0WPhW/preview', 'https://drive.google.com/uc?export=download&id=1SqQERehQ7MuZrlkdQBOG1ljFIZe0WPhW'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hqnUvQO2zHupTcG_M5jmEz44qDv56C2g/preview', 'https://drive.google.com/uc?export=download&id=1hqnUvQO2zHupTcG_M5jmEz44qDv56C2g'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MbDesWGI69hDYtAjz-4P0gaMFvNk-VbP/preview', 'https://drive.google.com/uc?export=download&id=1MbDesWGI69hDYtAjz-4P0gaMFvNk-VbP'); return false;">Week 3</a>
+          <div class="section-label">Arts</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Vj4NBuCsrN5teIPgrjbJ14QTZPBykf5-/preview', 'https://drive.google.com/uc?export=download&id=1Vj4NBuCsrN5teIPgrjbJ14QTZPBykf5-'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SFhYZRgcF0eItAIftfFU59H7Q7Qg6yc8/preview', 'https://drive.google.com/uc?export=download&id=1SFhYZRgcF0eItAIftfFU59H7Q7Qg6yc8'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fkdTXct9KLoCFV1TKG5Zfa6LejYg7Cdf/preview', 'https://drive.google.com/uc?export=download&id=1fkdTXct9KLoCFV1TKG5Zfa6LejYg7Cdf'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hjwPaP6UYG7bCfJGHmtKV51yc9rhecJy/preview', 'https://drive.google.com/uc?export=download&id=1hjwPaP6UYG7bCfJGHmtKV51yc9rhecJy'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ellmF5GusewEad4iAyjh4cvhz-ABLMEx/preview', 'https://drive.google.com/uc?export=download&id=1ellmF5GusewEad4iAyjh4cvhz-ABLMEx'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Q-o4bJwqUh5ZCtTLzSa3MdoQyRnBegrM/preview', 'https://drive.google.com/uc?export=download&id=1Q-o4bJwqUh5ZCtTLzSa3MdoQyRnBegrM'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DdLrWscfJKdpuxpuZrs2PZkrfp_Jb1Uw/preview', 'https://drive.google.com/uc?export=download&id=1DdLrWscfJKdpuxpuZrs2PZkrfp_Jb1Uw'); return false;">Week 7</a>
+          <div class="section-label">Physical Ed</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10Fuzs1OEZir3-73RrYO9A-4u_TWX0bVp/preview', 'https://drive.google.com/uc?export=download&id=10Fuzs1OEZir3-73RrYO9A-4u_TWX0bVp'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CNSLl2BhA00oOw33J0wI7iAerR2gO5qb/preview', 'https://drive.google.com/uc?export=download&id=1CNSLl2BhA00oOw33J0wI7iAerR2gO5qb'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1A9dpEl0RNNW-xWRRn4h2koWR1A4oV-Pd/preview', 'https://drive.google.com/uc?export=download&id=1A9dpEl0RNNW-xWRRn4h2koWR1A4oV-Pd'); return false;">Week 3</a>
+          <div class="section-label">Health</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1aPsHCV4zwz6QQqe1_XUR3cS89fErHBQt/preview', 'https://drive.google.com/uc?export=download&id=1aPsHCV4zwz6QQqe1_XUR3cS89fErHBQt'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18kYefJn9CkbibSK3Wsz3TynSn0HxL9c6/preview', 'https://drive.google.com/uc?export=download&id=18kYefJn9CkbibSK3Wsz3TynSn0HxL9c6'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jgK9U18Z1Mv6kArao4d7pTcWkcjQ2TH1/preview', 'https://drive.google.com/uc?export=download&id=1jgK9U18Z1Mv6kArao4d7pTcWkcjQ2TH1'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1tkBeqn9Wx0cGxEuD4Ujerw2sJihJr8q3/preview', 'https://drive.google.com/uc?export=download&id=1tkBeqn9Wx0cGxEuD4Ujerw2sJihJr8q3'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LGI7bgK5gcT14Q9mZWZcdiXZXcTSInk0/preview', 'https://drive.google.com/uc?export=download&id=1LGI7bgK5gcT14Q9mZWZcdiXZXcTSInk0'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1aB2YA23pkW61dIxvMfU5d2mjYtyF3ntC/preview', 'https://drive.google.com/uc?export=download&id=1aB2YA23pkW61dIxvMfU5d2mjYtyF3ntC'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12dAp223U9cC3DEvcfNR5aDGRoODa06PM/preview', 'https://drive.google.com/uc?export=download&id=12dAp223U9cC3DEvcfNR5aDGRoODa06PM'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JW5gtc_VVlEBiGtpPyT21ZiN-L6smEoV/preview', 'https://drive.google.com/uc?export=download&id=1JW5gtc_VVlEBiGtpPyT21ZiN-L6smEoV'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ooJfxuKw_PmjoyETyQ3PA573j6yKoq9f/preview', 'https://drive.google.com/uc?export=download&id=1ooJfxuKw_PmjoyETyQ3PA573j6yKoq9f'); return false;">Week 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HAnRg9EWDin-I2ucYlajQaV6YX9X2LD-/preview', 'https://drive.google.com/uc?export=download&id=1HAnRg9EWDin-I2ucYlajQaV6YX9X2LD-'); return false;">Week 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TtSSCmOY3Ukmfiz7xN2yUsQCGs2PJKTn/preview', 'https://drive.google.com/uc?export=download&id=1TtSSCmOY3Ukmfiz7xN2yUsQCGs2PJKTn'); return false;">Week 11</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1EcRcUteYGHBqVoQQkSTHtjMSUkEJwGp-/preview', 'https://drive.google.com/uc?export=download&id=1EcRcUteYGHBqVoQQkSTHtjMSUkEJwGp-'); return false;">Week 12</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JJhcUAOhsQEsU_6OQbtJN_nLqlntLmGX/preview', 'https://drive.google.com/uc?export=download&id=1JJhcUAOhsQEsU_6OQbtJN_nLqlntLmGX'); return false;">Week 13</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="section-label">Music</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RG_GHSVJJuNApRBHLEZ_ImUznNEaAyab/preview', 'https://drive.google.com/uc?export=download&id=1RG_GHSVJJuNApRBHLEZ_ImUznNEaAyab'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15xhrjRIkMOMrQZxvXz7icS401YbtnApL/preview', 'https://drive.google.com/uc?export=download&id=15xhrjRIkMOMrQZxvXz7icS401YbtnApL'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1yIMiiLG8vDN141OQrKdc8WQF28QW-ZKF/preview', 'https://drive.google.com/uc?export=download&id=1yIMiiLG8vDN141OQrKdc8WQF28QW-ZKF'); return false;">Week 3</a>
+          <div class="section-label">Arts</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HbZY-E5AR5WIQiYfJt8Jhu89IA1YI6cf/preview', 'https://drive.google.com/uc?export=download&id=1HbZY-E5AR5WIQiYfJt8Jhu89IA1YI6cf'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZTjw06tbNPRcBUbRHcI182ZLd8XbIcGT/preview', 'https://drive.google.com/uc?export=download&id=1ZTjw06tbNPRcBUbRHcI182ZLd8XbIcGT'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13WNSPT6y1HA8NnLr0lQhKhKGEXnWylzU/preview', 'https://drive.google.com/uc?export=download&id=13WNSPT6y1HA8NnLr0lQhKhKGEXnWylzU'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1o3eW8b4qGSQTRvStAGIqv1FE3PdKDrIT/preview', 'https://drive.google.com/uc?export=download&id=1o3eW8b4qGSQTRvStAGIqv1FE3PdKDrIT'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Wvj9FEb16YMhZCJ6UeNnd4JTS66oPNMW/preview', 'https://drive.google.com/uc?export=download&id=1Wvj9FEb16YMhZCJ6UeNnd4JTS66oPNMW'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CFCGkhC_I8c4MYJZ-tW-E_TXHiZjHNem/preview', 'https://drive.google.com/uc?export=download&id=1CFCGkhC_I8c4MYJZ-tW-E_TXHiZjHNem'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Xjh9wZDLfD43jsh0OqkGYIO5cbs5J6LJ/preview', 'https://drive.google.com/uc?export=download&id=1Xjh9wZDLfD43jsh0OqkGYIO5cbs5J6LJ'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1aCS-7gQ_9HLuq3ugjj6DI2axZb_zZxMG/preview', 'https://drive.google.com/uc?export=download&id=1aCS-7gQ_9HLuq3ugjj6DI2axZb_zZxMG'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1eIo7InsAhXu7x80N5bc_VfW7dt7Jd36u/preview', 'https://drive.google.com/uc?export=download&id=1eIo7InsAhXu7x80N5bc_VfW7dt7Jd36u'); return false;">Week 9</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1baXikFrEeRaF4G05nHDzCp4Hcf1kMyqI/preview', 'https://drive.google.com/uc?export=download&id=1baXikFrEeRaF4G05nHDzCp4Hcf1kMyqI'); return false;">Week 10</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Li0o5sDf2GpnrCjNh1IUyaFYkzP8_lnp/preview', 'https://drive.google.com/uc?export=download&id=1Li0o5sDf2GpnrCjNh1IUyaFYkzP8_lnp'); return false;">Week 11</a>
+          <div class="section-label">Physical Ed</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1o-NFt4676Lv8Uc50IW6hqQErWh5Fsldw/preview', 'https://drive.google.com/uc?export=download&id=1o-NFt4676Lv8Uc50IW6hqQErWh5Fsldw'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Vzi-3p56KT5UZYJpXWhgCWwGJvPvVIEI/preview', 'https://drive.google.com/uc?export=download&id=1Vzi-3p56KT5UZYJpXWhgCWwGJvPvVIEI'); return false;">Week 2</a>
+          <div class="section-label">Health</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JnHb6pOaugbXiY_P8wxguSTbprq8fe_Y/preview', 'https://drive.google.com/uc?export=download&id=1JnHb6pOaugbXiY_P8wxguSTbprq8fe_Y'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TOWFowLijfgVJP85_Xs2IRt9t475hnPm/preview', 'https://drive.google.com/uc?export=download&id=1TOWFowLijfgVJP85_Xs2IRt9t475hnPm'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12eRfnG625eb-2OSyvifN_HXnc-mKEIrI/preview', 'https://drive.google.com/uc?export=download&id=12eRfnG625eb-2OSyvifN_HXnc-mKEIrI'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XlBNT1O866y4574TB2EvFMh1n9coy7Ch/preview', 'https://drive.google.com/uc?export=download&id=1XlBNT1O866y4574TB2EvFMh1n9coy7Ch'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18gd4r6OskK0aLN3AMcBnoRdaqIyfk2KE/preview', 'https://drive.google.com/uc?export=download&id=18gd4r6OskK0aLN3AMcBnoRdaqIyfk2KE'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TGG3N17nMgDLZz4z4JSb-tfZZaYr6PJw/preview', 'https://drive.google.com/uc?export=download&id=1TGG3N17nMgDLZz4z4JSb-tfZZaYr6PJw'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DOIUDhIn6QZnsg7Gcg2aaoFkEskbU90D/preview', 'https://drive.google.com/uc?export=download&id=1DOIUDhIn6QZnsg7Gcg2aaoFkEskbU90D'); return false;">Week 7</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="section-label">Music</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Mi8NaCH-AInjFwdSUG-W9E7wh9HC7J1-/preview', 'https://drive.google.com/uc?export=download&id=1Mi8NaCH-AInjFwdSUG-W9E7wh9HC7J1-'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iw0Xe3K06LY0VOij0G67ICK1jxyy01dP/preview', 'https://drive.google.com/uc?export=download&id=1iw0Xe3K06LY0VOij0G67ICK1jxyy01dP'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12E-AVUVaHR_3hvip68dm44joVkeQqBOf/preview', 'https://drive.google.com/uc?export=download&id=12E-AVUVaHR_3hvip68dm44joVkeQqBOf'); return false;">Week 3</a>
+          <div class="section-label">Arts</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ptC5FR0ZcbWaizWfqY2w8G-iKWC-tkuT/preview', 'https://drive.google.com/uc?export=download&id=1ptC5FR0ZcbWaizWfqY2w8G-iKWC-tkuT'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1lo6o1XTm830X-giz0OS43m6wKRDMbKMJ/preview', 'https://drive.google.com/uc?export=download&id=1lo6o1XTm830X-giz0OS43m6wKRDMbKMJ'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wJbWXSNkrszOyNqFcebjOhYFWl3tXSMB/preview', 'https://drive.google.com/uc?export=download&id=1wJbWXSNkrszOyNqFcebjOhYFWl3tXSMB'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JF4xwC34UZeLlLzSc_hJ3V-s2Ny_SesE/preview', 'https://drive.google.com/uc?export=download&id=1JF4xwC34UZeLlLzSc_hJ3V-s2Ny_SesE'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ho-IkVw8L6813WeVbYnS9qWvXQ4ti3zL/preview', 'https://drive.google.com/uc?export=download&id=1ho-IkVw8L6813WeVbYnS9qWvXQ4ti3zL'); return false;">Week 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BtV0ew0Wg6-looqULEKf68TdlarAkDeA/preview', 'https://drive.google.com/uc?export=download&id=1BtV0ew0Wg6-looqULEKf68TdlarAkDeA'); return false;">Week 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fqLjPDhjiyyPRHDKFqpQqmp1_-Gkqrft/preview', 'https://drive.google.com/uc?export=download&id=1fqLjPDhjiyyPRHDKFqpQqmp1_-Gkqrft'); return false;">Week 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12ZUCy2jr6xMAQxOnWcuvdsAMYY9o9i9P/preview', 'https://drive.google.com/uc?export=download&id=12ZUCy2jr6xMAQxOnWcuvdsAMYY9o9i9P'); return false;">Week 8</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1F1bdBrzDl70H8iNTaQBGHQOOiqwbAzgp/preview', 'https://drive.google.com/uc?export=download&id=1F1bdBrzDl70H8iNTaQBGHQOOiqwbAzgp'); return false;">Week 9</a>
+          <div class="section-label">Physical Ed</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1q5yY_3qFsj1LdELfIAB2rzkAxCGgns-A/preview', 'https://drive.google.com/uc?export=download&id=1q5yY_3qFsj1LdELfIAB2rzkAxCGgns-A'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1uYV0abdzXR0rkAxw4s2iTkyRlwFs4Q12/preview', 'https://drive.google.com/uc?export=download&id=1uYV0abdzXR0rkAxw4s2iTkyRlwFs4Q12'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TX_5CGeNZQL23Ia6XKHE4jHbXC0VXhs8/preview', 'https://drive.google.com/uc?export=download&id=1TX_5CGeNZQL23Ia6XKHE4jHbXC0VXhs8'); return false;">Week 4</a>
+          <div class="section-label">Health</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xBGCjjuHiPEgNkz9dTwEc05Sj1wbQlKk/preview', 'https://drive.google.com/uc?export=download&id=1xBGCjjuHiPEgNkz9dTwEc05Sj1wbQlKk'); return false;">Week 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-eKmdt3HMVJf8Z0FmqTiSLjyqHe_Tyt7/preview', 'https://drive.google.com/uc?export=download&id=1-eKmdt3HMVJf8Z0FmqTiSLjyqHe_Tyt7'); return false;">Week 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1q80G7P_2RP6ebCDWC_yMt85IRZriWJAv/preview', 'https://drive.google.com/uc?export=download&id=1q80G7P_2RP6ebCDWC_yMt85IRZriWJAv'); return false;">Week 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BLrEJYC-P-Qmt2OeoQmF5xxSftfaihob/preview', 'https://drive.google.com/uc?export=download&id=1BLrEJYC-P-Qmt2OeoQmF5xxSftfaihob'); return false;">Week 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TPLuw89K44lGd0VTT0JDnoIWPd323-wE/preview', 'https://drive.google.com/uc?export=download&id=1TPLuw89K44lGd0VTT0JDnoIWPd323-wE'); return false;">Week 5</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="back">
+    ← <a href="national-slms.html">Back to National SLMs</a>
+  </div>
+</div>
+
+<!-- PDF Modal Popup (same as your learning-packets.html) -->
+<div id="pdfModal" class="pdf-modal">
+  <div class="pdf-modal-content">
+    <span class="pdf-close" onclick="closePdf()">&times;</span>
+    <div class="pdf-wrapper">
+      <iframe id="pdfIframe" src="" frameborder="0"></iframe>
+    </div>
+    <a id="pdfDownloadBtn" href="#" class="pdf-download" target="_blank">Download PDF</a>
+  </div>
+</div>
+
+<footer style="background:#003087; color:white; padding:20px 30px; text-align:center; font-size:0.95em; margin-top:40px;">
+  <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+    <div style="text-align:left; line-height:1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    <div style="display:flex; gap:25px; align-items:center;">
+      <img src="pinas.png" alt="Philippines Logo" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+      <img src="seal.png" alt="DepEd Seal" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+      <img src="school.png" alt="School Logo" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+    </div>
+  </div>
+</footer>
+
+<script>
+// PDF modal functions (same as your packets page)
+function openPdf(viewUrl, downloadUrl) {
+  const embedUrl = viewUrl;  // already /preview
+  document.getElementById("pdfIframe").src = embedUrl;
+  document.getElementById("pdfDownloadBtn").href = downloadUrl;
+  document.getElementById("pdfModal").style.display = "block";
+}
+
+function closePdf() {
+  document.getElementById("pdfModal").style.display = "none";
+  document.getElementById("pdfIframe").src = "";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("pdfModal");
+  if (event.target === modal) {
+    closePdf();
+  }
+}
+</script>
+
+</body>
+</html>

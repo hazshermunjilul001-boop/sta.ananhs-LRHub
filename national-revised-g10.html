@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Division K-12 SLMs - Grade 10 | Sta. Ana National High School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin:0; 
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color:#333; 
+      min-height: 100vh;
+    }
+    .container { 
+      max-width: 1280px; 
+      margin: 40px auto; 
+      padding: 35px 25px; 
+      background: rgba(255,255,255,0.75); 
+      border-radius: 120px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25); 
+    }
+    h1 { 
+      text-align: center; 
+      color: #006400; 
+      margin-bottom: 5px; 
+      font-size: 2.5em; 
+      border-bottom: 3px solid #006400; 
+      padding-bottom: 15px; 
+    }
+    .subject-section {
+      margin-bottom: 100px;           /* space between subjects */
+      padding-bottom: 150px;
+      border-bottom: 1px solid #ddd; /* subtle separator line */
+    }
+    .subject-title {
+      font-size: 2em;
+      font-weight: bold;
+      color: #006400;
+      text-align: center;
+      margin-bottom: 1px;
+      padding-bottom: 1px;
+      border-bottom: 2px solid #006400;
+    }
+    .quarters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);  /* always 4 columns */
+      gap: 20px;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    .quarter-column {
+      background: #f9f9f9;
+      border-radius: 10px;
+      padding: 9px 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      min-height: 250px;               /* prevents height jumping when content varies */
+      display: flex;
+      flex-direction: column;
+    }
+    .quarter-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #003087;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #006400;
+    }
+    .section-label {
+      font-size: 1.15em;
+      font-weight: bold;
+      color: #444;
+      margin: 16px 0 10px;
+    }
+    .week-list {
+      flex-grow: 1;                    /* pushes content to fill space */
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+      padding-left: 20px;
+    }
+    .week-list a {
+      color: #b22222;
+      text-decoration: underline;
+      font-size: 1.02em;
+    }
+    .week-list a:hover {
+      color: #8b0000;
+    }
+    .back {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 1.15em;
+    }
+    .back a {
+      color: #003087;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .back a:hover {
+      text-decoration: underline;
+    }
+    /* ────────────── PDF MODAL ────────────── */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      z-index: 9998;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      overflow: auto;
+    }
+    .pdf-modal-content {
+      margin: 4% auto;
+      padding: 20px;
+      width: 94%;
+      max-width: 1100px;
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .pdf-close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      color: #333;
+      font-size: 42px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .pdf-close:hover {
+      color: var(--primary);
+    }
+    .pdf-wrapper {
+      width: 100%;
+      height: 75vh;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+    .pdf-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .pdf-download {
+      display: block;
+      margin: 15px auto 0;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .pdf-download:hover {
+      background: #0056d2;
+    }
+    @media (max-width: 1000px) {
+      .quarters-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .quarters-grid {
+        grid-template-columns: 1fr;
+      }
+      .pdf-modal-content { margin: 8% auto; padding: 12px; width: 96%; }
+      .pdf-close { font-size: 36px; right: 15px; }
+      .pdf-wrapper { height: 65vh; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Regional - Division K-12 SLMs - Grade 10</h1>
+
+    <!-- ==================== FILIPINO ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Filipino</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Ng57f5oO8kos8YLYp0kpoEd_AgMqHE7i/preview', 'https://drive.google.com/uc?export=download&id=1Ng57f5oO8kos8YLYp0kpoEd_AgMqHE7i'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1zndv8A_chCWx5-e75SyBGd2Vj4rVZz0f/preview', 'https://drive.google.com/uc?export=download&id=1zndv8A_chCWx5-e75SyBGd2Vj4rVZz0f'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1U0DnU2Nti81icHA0OJ7owS5ssaG70GGG/preview', 'https://drive.google.com/uc?export=download&id=1U0DnU2Nti81icHA0OJ7owS5ssaG70GGG'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1stAgAKQ2aTIYXPytyDS8EfvBBTYxIn4X/preview', 'https://drive.google.com/uc?export=download&id=1stAgAKQ2aTIYXPytyDS8EfvBBTYxIn4X'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1bpzn5qEuybdZgxT4Vpvu6ZsMW6NWRXt6/preview', 'https://drive.google.com/uc?export=download&id=1bpzn5qEuybdZgxT4Vpvu6ZsMW6NWRXt6'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oZ64Ux4_PePYOsxNvauHOIpEQcI2FFsh/preview', 'https://drive.google.com/uc?export=download&id=1oZ64Ux4_PePYOsxNvauHOIpEQcI2FFsh'); return false;">Module 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XhBdU8QzjYY1vzvR3Ro9JUjmXrXoepff/preview', 'https://drive.google.com/uc?export=download&id=1XhBdU8QzjYY1vzvR3Ro9JUjmXrXoepff'); return false;">Module 7</a>
+          </div>
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1M4KGUeR7xr70IhEkJBV53V3BViYK8Hvs/preview', 'https://drive.google.com/uc?export=download&id=1M4KGUeR7xr70IhEkJBV53V3BViYK8Hvs'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HumwxMnSRlriTU4LEUVUG_Yb2V7TJUp1/preview', 'https://drive.google.com/uc?export=download&id=1HumwxMnSRlriTU4LEUVUG_Yb2V7TJUp1'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/185JkCtSnqOW1_r4HoTLvx7mrQ3aYho4m/preview', 'https://drive.google.com/uc?export=download&id=185JkCtSnqOW1_r4HoTLvx7mrQ3aYho4m'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dLxLk5gREQi4Fj3ZUHAdJH4PPCH2kV_v/preview', 'https://drive.google.com/uc?export=download&id=1dLxLk5gREQi4Fj3ZUHAdJH4PPCH2kV_v'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BkebQ5MFW3SN4d03ezA5K7EpiONS2GOb/preview', 'https://drive.google.com/uc?export=download&id=1BkebQ5MFW3SN4d03ezA5K7EpiONS2GOb'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gCmCUfKxl0q5WZGHq127WZ9f6cSXsl2V/preview', 'https://drive.google.com/uc?export=download&id=1gCmCUfKxl0q5WZGHq127WZ9f6cSXsl2V'); return false;">Module 6</a>
+          </div>
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1s3iH1ob7R1pbbGQ52uclxq3JKMkTcG4X/preview', 'https://drive.google.com/uc?export=download&id=1s3iH1ob7R1pbbGQ52uclxq3JKMkTcG4X'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1E8TLCN3siHW8vdijKi4K757MDsp2ODxr/preview', 'https://drive.google.com/uc?export=download&id=1E8TLCN3siHW8vdijKi4K757MDsp2ODxr'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1waopO0hiGuUlyFFuUoOL61_S6jh2ULGQ/preview', 'https://drive.google.com/uc?export=download&id=1waopO0hiGuUlyFFuUoOL61_S6jh2ULGQ'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sFRvKR5WpobcUr_GpQVkp1s17Ao_sFt6/preview', 'https://drive.google.com/uc?export=download&id=1sFRvKR5WpobcUr_GpQVkp1s17Ao_sFt6'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1KP1Gk_G0vaDkxFIk-HObMIVjv-bRSHeJ/preview', 'https://drive.google.com/uc?export=download&id=1KP1Gk_G0vaDkxFIk-HObMIVjv-bRSHeJ'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1djpf8CWL_iXyfA4-cmdehA5QySB_3oJQ/preview', 'https://drive.google.com/uc?export=download&id=1djpf8CWL_iXyfA4-cmdehA5QySB_3oJQ'); return false;">Module 6</a>
+          </div>
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rIQJ0ByX3IWyCMb613S8m5LxxhHLNMv0/preview', 'https://drive.google.com/uc?export=download&id=1rIQJ0ByX3IWyCMb613S8m5LxxhHLNMv0'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dhTytRmKkw9WwHlNqF8ugR4NKKyMf2yY/preview', 'https://drive.google.com/uc?export=download&id=1dhTytRmKkw9WwHlNqF8ugR4NKKyMf2yY'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_d12oXzsD-ZnW-nUBuD_Tz-NRnbZWGa_/preview', 'https://drive.google.com/uc?export=download&id=1_d12oXzsD-ZnW-nUBuD_Tz-NRnbZWGa_'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Rs3y7haMBwK6HtxA9_csyWdnBeR1V0Rt/preview', 'https://drive.google.com/uc?export=download&id=1Rs3y7haMBwK6HtxA9_csyWdnBeR1V0Rt'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ituemT_zuQkVhMqUR-6edJX9n79S507q/preview', 'https://drive.google.com/uc?export=download&id=1ituemT_zuQkVhMqUR-6edJX9n79S507q'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/145cc5hYc4_TY8OU50s1PYYOChBvoze2Y/preview', 'https://drive.google.com/uc?export=download&id=145cc5hYc4_TY8OU50s1PYYOChBvoze2Y'); return false;">Module 6</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ENGLISH ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">English</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1pgggmXDdAnIgrSCWzla3DC2vs6OYr0c9/preview', 'https://drive.google.com/uc?export=download&id=1pgggmXDdAnIgrSCWzla3DC2vs6OYr0c9'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TyP1aW-ZZ5GQiE1GDoXZjpgvuaaQuYaG/preview', 'https://drive.google.com/uc?export=download&id=1TyP1aW-ZZ5GQiE1GDoXZjpgvuaaQuYaG'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1N7cxb09tHzLPZd74NRiSLdEXbZSQTLUO/preview', 'https://drive.google.com/uc?export=download&id=1N7cxb09tHzLPZd74NRiSLdEXbZSQTLUO'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cihVkZozROCipT6QPF6puXXNxk9Lueet/preview', 'https://drive.google.com/uc?export=download&id=1cihVkZozROCipT6QPF6puXXNxk9Lueet'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ojBeHdXoqS6zlPFwhZnGxoaDkGCdEDrW/preview', 'https://drive.google.com/uc?export=download&id=1ojBeHdXoqS6zlPFwhZnGxoaDkGCdEDrW'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cPiOMZWSCV-eEgMGkF-_qOKNoEfHcHEs/preview', 'https://drive.google.com/uc?export=download&id=1cPiOMZWSCV-eEgMGkF-_qOKNoEfHcHEs'); return false;">Module 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1eyavGdNKGUrcIDd_kLy4yUbxVMYfMdEN/preview', 'https://drive.google.com/uc?export=download&id=1eyavGdNKGUrcIDd_kLy4yUbxVMYfMdEN'); return false;">Module 7</a>
+          </div>
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1AQMo6dvlRBSLJNBSdDxY9Mu3LGnxMYm0/preview', 'https://drive.google.com/uc?export=download&id=1AQMo6dvlRBSLJNBSdDxY9Mu3LGnxMYm0'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16Y2OI0isiNHvXoqnuSF4zw18Pkwm3DU4/preview', 'https://drive.google.com/uc?export=download&id=16Y2OI0isiNHvXoqnuSF4zw18Pkwm3DU4'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dsBXC0Q3kbD367eqRLRaeJCicjhi3-8V/preview', 'https://drive.google.com/uc?export=download&id=1dsBXC0Q3kbD367eqRLRaeJCicjhi3-8V'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1K9r2ny8tzRkOuVyQQ0zl9qaP5f2cViI4/preview', 'https://drive.google.com/uc?export=download&id=1K9r2ny8tzRkOuVyQQ0zl9qaP5f2cViI4'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xgFhcrtUJMgI3vZHa3E12qpvmuApir3l/preview', 'https://drive.google.com/uc?export=download&id=1xgFhcrtUJMgI3vZHa3E12qpvmuApir3l'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Uj3ZxBKOoFHds-AyomDC-L3w0NuAc-Ug/preview', 'https://drive.google.com/uc?export=download&id=1Uj3ZxBKOoFHds-AyomDC-L3w0NuAc-Ug'); return false;">Module 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10K3O7vFtMe3ioSWwriw7CF03S6tfh-Lk/preview', 'https://drive.google.com/uc?export=download&id=10K3O7vFtMe3ioSWwriw7CF03S6tfh-Lk'); return false;">Module 7</a>
+          </div>
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18XYioDVgXrJPep45AKVE22kr8NYTnFcO/preview', 'https://drive.google.com/uc?export=download&id=18XYioDVgXrJPep45AKVE22kr8NYTnFcO'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1f7pGwd4kecaneWAIhD42A3cWFn5fEzM6/preview', 'https://drive.google.com/uc?export=download&id=1f7pGwd4kecaneWAIhD42A3cWFn5fEzM6'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1SvJEuoCqh97bwdOcoz7Bo1QNmg-iXJfY/preview', 'https://drive.google.com/uc?export=download&id=1SvJEuoCqh97bwdOcoz7Bo1QNmg-iXJfY'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Y6I5xWY4E2CN3yHxd7NI5CZ_gziWOFZf/preview', 'https://drive.google.com/uc?export=download&id=1Y6I5xWY4E2CN3yHxd7NI5CZ_gziWOFZf'); return false;">Module 4</a>
+          </div>
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VU6VAD1lV-gBtTlwzgexQnzPVJ_0ckbv/preview', 'https://drive.google.com/uc?export=download&id=1VU6VAD1lV-gBtTlwzgexQnzPVJ_0ckbv'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RGJ5SIWS893ZZ1tSY7g-9a168t6cDhNN/preview', 'https://drive.google.com/uc?export=download&id=1RGJ5SIWS893ZZ1tSY7g-9a168t6cDhNN'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fjSwHOxACKtXKTedC-jx92UMNn5J50bh/preview', 'https://drive.google.com/uc?export=download&id=1fjSwHOxACKtXKTedC-jx92UMNn5J50bh'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1W__B5mRzdMO2qmtwlPU8tOEtbtRDapPd/preview', 'https://drive.google.com/uc?export=download&id=1W__B5mRzdMO2qmtwlPU8tOEtbtRDapPd'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FFRh6HdbVnqkBqewNjnY9C_WNVkVBSqA/preview', 'https://drive.google.com/uc?export=download&id=1FFRh6HdbVnqkBqewNjnY9C_WNVkVBSqA'); return false;">Module 5</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MATHEMATICS ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Mathematics</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oDRIlx_Hsw9nCFZX6RSFgX9smidMsYix/preview', 'https://drive.google.com/uc?export=download&id=1oDRIlx_Hsw9nCFZX6RSFgX9smidMsYix'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oYkSUF808q8J1pZah-g5neMbQjU5xrvX/preview', 'https://drive.google.com/uc?export=download&id=1oYkSUF808q8J1pZah-g5neMbQjU5xrvX'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1IjW3EzltDADcEl6RmwmKVUvuus2NcNYY/preview', 'https://drive.google.com/uc?export=download&id=1IjW3EzltDADcEl6RmwmKVUvuus2NcNYY'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10nUVfGG9L_rOBySBV-BKg4N4At-ZZFxR/preview', 'https://drive.google.com/uc?export=download&id=10nUVfGG9L_rOBySBV-BKg4N4At-ZZFxR'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Dd5KVR_aaNaaTJlI7l8vYsR6ngZaNGCU/preview', 'https://drive.google.com/uc?export=download&id=1Dd5KVR_aaNaaTJlI7l8vYsR6ngZaNGCU'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RLo57gJKsYcvvfDCdTNOLi8qiNqQiHIK/preview', 'https://drive.google.com/uc?export=download&id=1RLo57gJKsYcvvfDCdTNOLi8qiNqQiHIK'); return false;">Module 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/17todOUIisOD32qQ6riWCUw-oEIb7d_go/preview', 'https://drive.google.com/uc?export=download&id=17todOUIisOD32qQ6riWCUw-oEIb7d_go'); return false;">Module 7</a>
+          </div>
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15FCeDmAQvGBd92Q39wYdpBZ9DNC93sZz/preview', 'https://drive.google.com/uc?export=download&id=15FCeDmAQvGBd92Q39wYdpBZ9DNC93sZz'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OeWCpfbumEzJflsbi1HOuKmzZeRxfkpx/preview', 'https://drive.google.com/uc?export=download&id=1OeWCpfbumEzJflsbi1HOuKmzZeRxfkpx'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1V2-fuZGYSOdEkHn7IjkMwixG145kZh74/preview', 'https://drive.google.com/uc?export=download&id=1V2-fuZGYSOdEkHn7IjkMwixG145kZh74'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CL1kEj_ZsKl8cgae3FYmKS5Hf2eNRGxI/preview', 'https://drive.google.com/uc?export=download&id=1CL1kEj_ZsKl8cgae3FYmKS5Hf2eNRGxI'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Vn8BVVu7FTzwnrkl5N7BGxlD_iEfKJEU/preview', 'https://drive.google.com/uc?export=download&id=1Vn8BVVu7FTzwnrkl5N7BGxlD_iEfKJEU'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xZw1cIWg97UghPxordutxUy7mPEWcO_z/preview', 'https://drive.google.com/uc?export=download&id=1xZw1cIWg97UghPxordutxUy7mPEWcO_z'); return false;">Module 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12PPr9xPrXHLpdc8nT0p5bWEbE6bjYGEi/preview', 'https://drive.google.com/uc?export=download&id=12PPr9xPrXHLpdc8nT0p5bWEbE6bjYGEi'); return false;">Module 7</a>
+          </div>
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1xiLbm_p85OYcDVB6mDvtazL4YA_GlIM0/preview', 'https://drive.google.com/uc?export=download&id=1xiLbm_p85OYcDVB6mDvtazL4YA_GlIM0'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gF22lgMfK7jZO6r6kWfphs21czQQyDtG/preview', 'https://drive.google.com/uc?export=download&id=1gF22lgMfK7jZO6r6kWfphs21czQQyDtG'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cf-ZvMzkUfjxMPKhD9yzH4J6lRqYYt5o/preview', 'https://drive.google.com/uc?export=download&id=1cf-ZvMzkUfjxMPKhD9yzH4J6lRqYYt5o'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1d52r9_4M6fwHwvF05i-LrOGyP7LE6G6K/preview', 'https://drive.google.com/uc?export=download&id=1d52r9_4M6fwHwvF05i-LrOGyP7LE6G6K'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12tkemiadTDgjXRhLFSd4PbUungPdwcqt/preview', 'https://drive.google.com/uc?export=download&id=12tkemiadTDgjXRhLFSd4PbUungPdwcqt'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wTk3_PAbImD6iffpzwLSkkEpQ3RoilhU/preview', 'https://drive.google.com/uc?export=download&id=1wTk3_PAbImD6iffpzwLSkkEpQ3RoilhU'); return false;">Module 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rrvwAUIBHnrIaNj--tcQ-L298xLJZoBX/preview', 'https://drive.google.com/uc?export=download&id=1rrvwAUIBHnrIaNj--tcQ-L298xLJZoBX'); return false;">Module 7</a>
+          </div>
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1fXR_LscF615MK6SAbcejjCY2VDwbnGBJ/preview', 'https://drive.google.com/uc?export=download&id=1fXR_LscF615MK6SAbcejjCY2VDwbnGBJ'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UkpAMoTLog1LCkCIUIHw-jK41VqQgvN3/preview', 'https://drive.google.com/uc?export=download&id=1UkpAMoTLog1LCkCIUIHw-jK41VqQgvN3'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DccjOequarqs-BiKMd1YLmoRriqK6kKi/preview', 'https://drive.google.com/uc?export=download&id=1DccjOequarqs-BiKMd1YLmoRriqK6kKi'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1I6KH_ku2BblBWp4NMyxo-gKDk9iefjj_/preview', 'https://drive.google.com/uc?export=download&id=1I6KH_ku2BblBWp4NMyxo-gKDk9iefjj_'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZBimu7ahTUz3ARENaB6LQtln-FeTDwW-/preview', 'https://drive.google.com/uc?export=download&id=1ZBimu7ahTUz3ARENaB6LQtln-FeTDwW-'); return false;">Module 5</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SCIENCE ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Science</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/164fuCUq6Puc0Me-zuCojn5FNU7OLRsOz/preview', 'https://drive.google.com/uc?export=download&id=164fuCUq6Puc0Me-zuCojn5FNU7OLRsOz'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1CZwRvtn5VRdenVebTkWAQvF7kHlCT-zE/preview', 'https://drive.google.com/uc?export=download&id=1CZwRvtn5VRdenVebTkWAQvF7kHlCT-zE'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TnkYWVMJexbjruuEMsc_DCzOiskct3oq/preview', 'https://drive.google.com/uc?export=download&id=1TnkYWVMJexbjruuEMsc_DCzOiskct3oq'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rJGnwOHfz1QUE-gIq82l3wilWRDYX0Bq/preview', 'https://drive.google.com/uc?export=download&id=1rJGnwOHfz1QUE-gIq82l3wilWRDYX0Bq'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Wkf1yvVeuluWIal0WQ4zQ7_35NVc04vl/preview', 'https://drive.google.com/uc?export=download&id=1Wkf1yvVeuluWIal0WQ4zQ7_35NVc04vl'); return false;">Module 5</a>
+          </div>
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-Purht1hi1OcpvxXhKct-xrnP5C-tKZc/preview', 'https://drive.google.com/uc?export=download&id=1-Purht1hi1OcpvxXhKct-xrnP5C-tKZc'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1t5IRTJ7C2wK-Fh_C4j0ReX8MBWjUKNWY/preview', 'https://drive.google.com/uc?export=download&id=1t5IRTJ7C2wK-Fh_C4j0ReX8MBWjUKNWY'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LpWD_pvDD32C4zdcIiICo3kxxHEZwm0c/preview', 'https://drive.google.com/uc?export=download&id=1LpWD_pvDD32C4zdcIiICo3kxxHEZwm0c'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rXJMHhBZpKULoJVePtSJ1bqaaDwJ4d5I/preview', 'https://drive.google.com/uc?export=download&id=1rXJMHhBZpKULoJVePtSJ1bqaaDwJ4d5I'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13-ioj7Hj1E81hUwPMwQsF1x_5H3v5GIb/preview', 'https://drive.google.com/uc?export=download&id=13-ioj7Hj1E81hUwPMwQsF1x_5H3v5GIb'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dmoNr1myM3qq9VsN7J9lNTRG819ep1Jg/preview', 'https://drive.google.com/uc?export=download&id=1dmoNr1myM3qq9VsN7J9lNTRG819ep1Jg'); return false;">Module 6</a>
+          </div>
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HmhYE_xKJTyZWW5LQMmPLsH3mZlKXbQa/preview', 'https://drive.google.com/uc?export=download&id=1HmhYE_xKJTyZWW5LQMmPLsH3mZlKXbQa'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1lcv279e8XjidsrHsZFkj6Fp6D_sFSC6v/preview', 'https://drive.google.com/uc?export=download&id=1lcv279e8XjidsrHsZFkj6Fp6D_sFSC6v'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1yIjRUJD6ml2R0HT9qngT46S0NeKt7nF3/preview', 'https://drive.google.com/uc?export=download&id=1yIjRUJD6ml2R0HT9qngT46S0NeKt7nF3'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1qjg7Ycw7n3A9h6KpnPtLYemqotf9emFI/preview', 'https://drive.google.com/uc?export=download&id=1qjg7Ycw7n3A9h6KpnPtLYemqotf9emFI'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1oJ9Zq54dAyb__-EIOeGIKi8agrlR5jRS/preview', 'https://drive.google.com/uc?export=download&id=1oJ9Zq54dAyb__-EIOeGIKi8agrlR5jRS'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FoNcvx_bOe41OwkQCgJVvzu3s4GEiPpi/preview', 'https://drive.google.com/uc?export=download&id=1FoNcvx_bOe41OwkQCgJVvzu3s4GEiPpi'); return false;">Module 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1frdIpcqaCLA1MfHAmSvkJNsp6LqyqFrP/preview', 'https://drive.google.com/uc?export=download&id=1frdIpcqaCLA1MfHAmSvkJNsp6LqyqFrP'); return false;">Module 7</a>
+          </div>
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19yW-ooBqEFYen6toFw6AELBH95MLchQb/preview', 'https://drive.google.com/uc?export=download&id=19yW-ooBqEFYen6toFw6AELBH95MLchQb'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Cvtkl80u40HiHqu6ZB-w8Pu1eZfqOqzs/preview', 'https://drive.google.com/uc?export=download&id=1Cvtkl80u40HiHqu6ZB-w8Pu1eZfqOqzs'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1x7M5V_0Vf64RBFBPvex4mBB3v47OGcT2/preview', 'https://drive.google.com/uc?export=download&id=1x7M5V_0Vf64RBFBPvex4mBB3v47OGcT2'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1mAytaPnIHgNbqWcDqUL7Qx_ooAZ_0YFc/preview', 'https://drive.google.com/uc?export=download&id=1mAytaPnIHgNbqWcDqUL7Qx_ooAZ_0YFc'); return false;">Module 4</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==================== ESP / VE ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Val. Ed. / ESP</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1XRqfl1db5sba_QLTQUwoyNSAI-8RXduQ/preview', 'https://drive.google.com/uc?export=download&id=1XRqfl1db5sba_QLTQUwoyNSAI-8RXduQ'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rx_TZkrU4bKhMOrN9t_Jqc-UDgSDpQI9/preview', 'https://drive.google.com/uc?export=download&id=1rx_TZkrU4bKhMOrN9t_Jqc-UDgSDpQI9'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gS8FxAVvmISsVmqINKkyLvy4_PuRgaiS/preview', 'https://drive.google.com/uc?export=download&id=1gS8FxAVvmISsVmqINKkyLvy4_PuRgaiS'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Dt5X1Xl95rQYlaDRR6FyUf82IhvVWP6J/preview', 'https://drive.google.com/uc?export=download&id=1Dt5X1Xl95rQYlaDRR6FyUf82IhvVWP6J'); return false;">Module 4</a>
+          </div>
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rAlC7fK2c3g79V99P9rzMV5kew7fLG2y/preview', 'https://drive.google.com/uc?export=download&id=1rAlC7fK2c3g79V99P9rzMV5kew7fLG2y'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1TjbLrBPkkauQJec_q-mzetmk0hYsbQgB/preview', 'https://drive.google.com/uc?export=download&id=1TjbLrBPkkauQJec_q-mzetmk0hYsbQgB'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1NRaNpoQhghef9X4Lm5Bs3vmOzYNmm3av/preview', 'https://drive.google.com/uc?export=download&id=1NRaNpoQhghef9X4Lm5Bs3vmOzYNmm3av'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1hDPpZVPTOrNAXOe2khn7ev20PEYbDiW7/preview', 'https://drive.google.com/uc?export=download&id=1hDPpZVPTOrNAXOe2khn7ev20PEYbDiW7'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UlZzzzmyywyDrU-HzKsu35fWh3vuOvt3/preview', 'https://drive.google.com/uc?export=download&id=1UlZzzzmyywyDrU-HzKsu35fWh3vuOvt3'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1T38TNNwqWjvdkyjZsf8u-hB2i5zxq22A/preview', 'https://drive.google.com/uc?export=download&id=1T38TNNwqWjvdkyjZsf8u-hB2i5zxq22A'); return false;">Module 6</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VVJ0J2f8zHdiXBFCWsDZSlSC28hcGH9Y/preview', 'https://drive.google.com/uc?export=download&id=1VVJ0J2f8zHdiXBFCWsDZSlSC28hcGH9Y'); return false;">Module 7</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14uLn_6I6usEGUKXFq12-8NZQW1vyacF_/preview', 'https://drive.google.com/uc?export=download&id=14uLn_6I6usEGUKXFq12-8NZQW1vyacF_'); return false;">Module 8</a>
+          </div>
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1jKbsIpnoLGIuif6Djiu1Ee4IXImEbOvJ/preview', 'https://drive.google.com/uc?export=download&id=1jKbsIpnoLGIuif6Djiu1Ee4IXImEbOvJ'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HGTXf-qvIaLRxhQ1pf78-wmZHOmf4rzJ/preview', 'https://drive.google.com/uc?export=download&id=1HGTXf-qvIaLRxhQ1pf78-wmZHOmf4rzJ'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1RjgIrPSv-UWguwVJK0GGkt56UbzRjSmQ/preview', 'https://drive.google.com/uc?export=download&id=1RjgIrPSv-UWguwVJK0GGkt56UbzRjSmQ'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1KtmJS5iU2LGOGJ91EQw4BqZOuT-HKOZk/preview', 'https://drive.google.com/uc?export=download&id=1KtmJS5iU2LGOGJ91EQw4BqZOuT-HKOZk'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1g7rSIl76hjtYHyG7TC5Io3xcXTPtjzSe/preview', 'https://drive.google.com/uc?export=download&id=1g7rSIl76hjtYHyG7TC5Io3xcXTPtjzSe'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DPIp7AXZo1vpgCQ0W_tgcqR7UO_apqhc/preview', 'https://drive.google.com/uc?export=download&id=1DPIp7AXZo1vpgCQ0W_tgcqR7UO_apqhc'); return false;">Module 6</a>
+          </div>
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1C8Er6B-SCEX-Xjo8H-8duxjpX3cQs-9b/preview', 'https://drive.google.com/uc?export=download&id=1C8Er6B-SCEX-Xjo8H-8duxjpX3cQs-9b'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BpeMZNN8Xza8xz1wJrqeVjHBIkE9Lnec/preview', 'https://drive.google.com/uc?export=download&id=1BpeMZNN8Xza8xz1wJrqeVjHBIkE9Lnec'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Vv68Xqe4SxTCWXdVdE01ZEtDSvaen6LE/preview', 'https://drive.google.com/uc?export=download&id=1Vv68Xqe4SxTCWXdVdE01ZEtDSvaen6LE'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Nu32UEBsGfPYOd03_WdZ5MtBADFsWlWT/preview', 'https://drive.google.com/uc?export=download&id=1Nu32UEBsGfPYOd03_WdZ5MtBADFsWlWT'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1BvunYu_eIcUVGfZQTPheRUfGS-i46UTp/preview', 'https://drive.google.com/uc?export=download&id=1BvunYu_eIcUVGfZQTPheRUfGS-i46UTp'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DE6hJ0tc5LXhkkwX2bxyRFudbN2WJsuW/preview', 'https://drive.google.com/uc?export=download&id=1DE6hJ0tc5LXhkkwX2bxyRFudbN2WJsuW'); return false;">Module 6</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ARALING PANLIPUNAN ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">Araling Panlipunan</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1AeNUMnLrkmTa8lxGxhDCFIR9nPIckTpY/preview', 'https://drive.google.com/uc?export=download&id=1AeNUMnLrkmTa8lxGxhDCFIR9nPIckTpY'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1A1zVRuWqY8EOPzQxBqGnyUslpp5sWm08/preview', 'https://drive.google.com/uc?export=download&id=1A1zVRuWqY8EOPzQxBqGnyUslpp5sWm08'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1iBsA7ZGPKcOxaw1LAcfX7z6VUUH8zegK/preview', 'https://drive.google.com/uc?export=download&id=1iBsA7ZGPKcOxaw1LAcfX7z6VUUH8zegK'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1byYnJ-z8QHAAN3rVgIM6yqg5XWVDlt_p/preview', 'https://drive.google.com/uc?export=download&id=1byYnJ-z8QHAAN3rVgIM6yqg5XWVDlt_p'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wJBq8WIPk4FK27lK3sXWmKZx9rHlqR38/preview', 'https://drive.google.com/uc?export=download&id=1wJBq8WIPk4FK27lK3sXWmKZx9rHlqR38'); return false;">Module 5</a>
+          </div>
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14WOHNF2jN8XKxKFxWt_64k7O43Vfe6Me/preview', 'https://drive.google.com/uc?export=download&id=14WOHNF2jN8XKxKFxWt_64k7O43Vfe6Me'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1P-LYyzm17WA-7P4nz2n760rHODTMiIrc/preview', 'https://drive.google.com/uc?export=download&id=1P-LYyzm17WA-7P4nz2n760rHODTMiIrc'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1WSAHjbN8juSNeKVruTnLjB8BYGQMTxzR/preview', 'https://drive.google.com/uc?export=download&id=1WSAHjbN8juSNeKVruTnLjB8BYGQMTxzR'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ApXKUtr5XhHkdZpLuSospTogxbTja8zJ/preview', 'https://drive.google.com/uc?export=download&id=1ApXKUtr5XhHkdZpLuSospTogxbTja8zJ'); return false;">Module 4</a>
+          </div>
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1zVNu85RFZ1Cc7g9lwsgAbeSOk5OOqDWh/preview', 'https://drive.google.com/uc?export=download&id=1zVNu85RFZ1Cc7g9lwsgAbeSOk5OOqDWh'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HBgA89z-SpglKx13lKzzzVycfqffSjhO/preview', 'https://drive.google.com/uc?export=download&id=1HBgA89z-SpglKx13lKzzzVycfqffSjhO'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1nToURQqbQXfDeqdHO3AWghHtnmNMg8fj/preview', 'https://drive.google.com/uc?export=download&id=1nToURQqbQXfDeqdHO3AWghHtnmNMg8fj'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1msgY9w5uiPfKHF3GfRMRQxxRMMpAoPY-/preview', 'https://drive.google.com/uc?export=download&id=1msgY9w5uiPfKHF3GfRMRQxxRMMpAoPY-'); return false;">Module 4</a>
+          </div>
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DRBK6Hf8fpXJkW6uhdR6yY04dIXTLw7b/preview', 'https://drive.google.com/uc?export=download&id=1DRBK6Hf8fpXJkW6uhdR6yY04dIXTLw7b'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1rvo9U_Vw_Mc0zOzQHJ7RIQkwRFIU0U8Z/preview', 'https://drive.google.com/uc?export=download&id=1rvo9U_Vw_Mc0zOzQHJ7RIQkwRFIU0U8Z'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Lrs1BkXUpfTvm6PMWlRO1glWN762Jl8M/preview', 'https://drive.google.com/uc?export=download&id=1Lrs1BkXUpfTvm6PMWlRO1glWN762Jl8M'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1732kBNSAT-lTdV4bL8GKZYXFSpGkQaXP/preview', 'https://drive.google.com/uc?export=download&id=1732kBNSAT-lTdV4bL8GKZYXFSpGkQaXP'); return false;">Module 4</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MAPEH ==================== -->
+    <div class="subject-card">
+      <div class="subject-title">MAPEH</div>
+      <div class="quarters-grid">
+
+        <!-- Quarter 1 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 1</div>
+          <div class="section-label">Music</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/11olMvedKbsAX06_fep97cIsvuXP-DqOw/preview', 'https://drive.google.com/uc?export=download&id=11olMvedKbsAX06_fep97cIsvuXP-DqOw'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16h1JlVG4zYK_A6_Cjfx2DvwpvqZ_lTGi/preview', 'https://drive.google.com/uc?export=download&id=16h1JlVG4zYK_A6_Cjfx2DvwpvqZ_lTGi'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/14Ef0CNOWL4LFm1XQ_9eXUr95rSJQmW28/preview', 'https://drive.google.com/uc?export=download&id=14Ef0CNOWL4LFm1XQ_9eXUr95rSJQmW28'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/15_CCFIKXrnMOZjqw2KylWzuaCEzMvD7Z/preview', 'https://drive.google.com/uc?export=download&id=15_CCFIKXrnMOZjqw2KylWzuaCEzMvD7Z'); return false;">Module 4</a>
+          <div class="section-label">Arts</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-GGa9SLYLrhe5VIwjAKtmwRTOW2ex1Jz/preview', 'https://drive.google.com/uc?export=download&id=1-GGa9SLYLrhe5VIwjAKtmwRTOW2ex1Jz'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1cavjmPFPCwYrZTLZtFwY_TwcCOU6rwnM/preview', 'https://drive.google.com/uc?export=download&id=1cavjmPFPCwYrZTLZtFwY_TwcCOU6rwnM'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HqSnKgvOqYSFkwQhIovJglD__97R70WB/preview', 'https://drive.google.com/uc?export=download&id=1HqSnKgvOqYSFkwQhIovJglD__97R70WB'); return false;">Module 3a</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FziVxaSN-WUrJNOZnrC4UhTPJD0PfRvH/preview', 'https://drive.google.com/uc?export=download&id=1FziVxaSN-WUrJNOZnrC4UhTPJD0PfRvH'); return false;">Module 3b</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1OFkrPY9kB5eI9qsU8I9R3OWxCoin-2KR/preview', 'https://drive.google.com/uc?export=download&id=1OFkrPY9kB5eI9qsU8I9R3OWxCoin-2KR'); return false;">Module 4</a>
+          <div class="section-label">Physical Ed</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1c3xfXef-d2E4y1YPUWT_VXuayl8F_fpy/preview', 'https://drive.google.com/uc?export=download&id=1c3xfXef-d2E4y1YPUWT_VXuayl8F_fpy'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1QD1fI8ShdSiEaU5jpKccmtlbk9Vy7ZlK/preview', 'https://drive.google.com/uc?export=download&id=1QD1fI8ShdSiEaU5jpKccmtlbk9Vy7ZlK'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1eo9tdNSPUuY80Za0_B9Cd7CAl8LzrVd1/preview', 'https://drive.google.com/uc?export=download&id=1eo9tdNSPUuY80Za0_B9Cd7CAl8LzrVd1'); return false;">Module 3</a>
+          <div class="section-label">Health</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1JUe-urnQpW9cEGrsRPPLoBwmUPEALT6G/preview', 'https://drive.google.com/uc?export=download&id=1JUe-urnQpW9cEGrsRPPLoBwmUPEALT6G'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wJUFlKgeEliB_RuyYqzzhVrAOvHuHi4h/preview', 'https://drive.google.com/uc?export=download&id=1wJUFlKgeEliB_RuyYqzzhVrAOvHuHi4h'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VwHhQaTJRpLByyhD9EtR36GWlHzOizKC/preview', 'https://drive.google.com/uc?export=download&id=1VwHhQaTJRpLByyhD9EtR36GWlHzOizKC'); return false;">Module 5</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UzU2AOz3L3m07hISVjmNcqtTaSheFX_J/preview', 'https://drive.google.com/uc?export=download&id=1UzU2AOz3L3m07hISVjmNcqtTaSheFX_J'); return false;">Module 6</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 2 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 2</div>
+          <div class="section-label">Music</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1MB8dwjgntXTQWGhgV0VrD7vJGVADxg7H/preview', 'https://drive.google.com/uc?export=download&id=1MB8dwjgntXTQWGhgV0VrD7vJGVADxg7H'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZBL7S_Gu7VW0ktAGnpJLSZ1QqMJUViU9/preview', 'https://drive.google.com/uc?export=download&id=1ZBL7S_Gu7VW0ktAGnpJLSZ1QqMJUViU9'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1gK7T2Mk4vhjY8opIYXNN0SVdmHi25hAA/preview', 'https://drive.google.com/uc?export=download&id=1gK7T2Mk4vhjY8opIYXNN0SVdmHi25hAA'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1wetChBcqWDfrguom7REDOwS4U-_Z6hAQ/preview', 'https://drive.google.com/uc?export=download&id=1wetChBcqWDfrguom7REDOwS4U-_Z6hAQ'); return false;">Module 4</a>
+          <div class="section-label">Arts</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1-lTRWig5WSZH22YIpsnzPIChUvUwA4g2/preview', 'https://drive.google.com/uc?export=download&id=1-lTRWig5WSZH22YIpsnzPIChUvUwA4g2'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/10xd9TUG4fyO3BVJOv6yjkU1iiHg5_KyM/preview', 'https://drive.google.com/uc?export=download&id=10xd9TUG4fyO3BVJOv6yjkU1iiHg5_KyM'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1s7wbgBCJ9UYIedRvvyHDKHi3V3ui-Ncl/preview', 'https://drive.google.com/uc?export=download&id=1s7wbgBCJ9UYIedRvvyHDKHi3V3ui-Ncl'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1H1_rER8qs5XEYbMfyCxg8Da0ramoUnqu/preview', 'https://drive.google.com/uc?export=download&id=1H1_rER8qs5XEYbMfyCxg8Da0ramoUnqu'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1kRjVVdOU7NKzd1Zu-vuk5hgkgSw0XXfQ/preview', 'https://drive.google.com/uc?export=download&id=1kRjVVdOU7NKzd1Zu-vuk5hgkgSw0XXfQ'); return false;">Module 5</a>
+          <div class="section-label">Physical Ed</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1dsN6QDv527-jMsEMK0X_yAt5DoNBRviE/preview', 'https://drive.google.com/uc?export=download&id=1dsN6QDv527-jMsEMK0X_yAt5DoNBRviE'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/17YiKWO7TUM5XVjyunfcGmv9zMTBeBwAe/preview', 'https://drive.google.com/uc?export=download&id=17YiKWO7TUM5XVjyunfcGmv9zMTBeBwAe'); return false;">Module 2</a>
+          <div class="section-label">Health</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13YC7Yedxu0Xby6BJd37KTxihFzCSB_WJ/preview', 'https://drive.google.com/uc?export=download&id=13YC7Yedxu0Xby6BJd37KTxihFzCSB_WJ'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1k2AaG-oEod4OAMPJq6H4VuKLNQmyHit6/preview', 'https://drive.google.com/uc?export=download&id=1k2AaG-oEod4OAMPJq6H4VuKLNQmyHit6'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZPsQywOV01pmRIu7rC3q_tfR4ZtwtQHS/preview', 'https://drive.google.com/uc?export=download&id=1ZPsQywOV01pmRIu7rC3q_tfR4ZtwtQHS'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YifRPaOpZGgSxIBBs5vxnKXAIGaLRk1L/preview', 'https://drive.google.com/uc?export=download&id=1YifRPaOpZGgSxIBBs5vxnKXAIGaLRk1L'); return false;">Module 4</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 3 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 3</div>
+          <div class="section-label">Music</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/13QmRwOtInI6NR5l0uty18oCwOe7XGqG1/preview', 'https://drive.google.com/uc?export=download&id=13QmRwOtInI6NR5l0uty18oCwOe7XGqG1'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Wfl1O9B1zzp_-H0qqgi-IUdozwHelUA8/preview', 'https://drive.google.com/uc?export=download&id=1Wfl1O9B1zzp_-H0qqgi-IUdozwHelUA8'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/12tkMd8yDQdi3J9I2I-1W9IvRWz1mFYwa/preview', 'https://drive.google.com/uc?export=download&id=12tkMd8yDQdi3J9I2I-1W9IvRWz1mFYwa'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1VGuuQc1jomrEebK8o0U4gQIzpvvpydLd/preview', 'https://drive.google.com/uc?export=download&id=1VGuuQc1jomrEebK8o0U4gQIzpvvpydLd'); return false;">Module 4</a>
+          <div class="section-label">Arts</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1ZcRI-Ielwh-6gJTewLhJekkuPUBHPxSu/preview', 'https://drive.google.com/uc?export=download&id=1ZcRI-Ielwh-6gJTewLhJekkuPUBHPxSu'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1L-cWLPdeXL8gQznKK2R7AmNEQD8Uxopi/preview', 'https://drive.google.com/uc?export=download&id=1L-cWLPdeXL8gQznKK2R7AmNEQD8Uxopi'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1L6iqdfQuL-y4KiPTPG6z8jlSphvroeBF/preview', 'https://drive.google.com/uc?export=download&id=1L6iqdfQuL-y4KiPTPG6z8jlSphvroeBF'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1vn_ULdxo1nl6X4DD_WCPVPD0svkRqQcL/preview', 'https://drive.google.com/uc?export=download&id=1vn_ULdxo1nl6X4DD_WCPVPD0svkRqQcL'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DnKQzJWhcnX5hhqxiYVMQ58la6FNLvxB/preview', 'https://drive.google.com/uc?export=download&id=1DnKQzJWhcnX5hhqxiYVMQ58la6FNLvxB'); return false;">Module 5</a>
+          <div class="section-label">Physical Ed</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18dCxymJC5LDMCFCDLyHEF02rZK8SfAnQ/preview', 'https://drive.google.com/uc?export=download&id=18dCxymJC5LDMCFCDLyHEF02rZK8SfAnQ'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1eS0A_qrDD5ZF0MHPBIibA3IV6CPVJvjK/preview', 'https://drive.google.com/uc?export=download&id=1eS0A_qrDD5ZF0MHPBIibA3IV6CPVJvjK'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1sGVcKKRkxZ8Te94eupC2e8RNZWaSGS63/preview', 'https://drive.google.com/uc?export=download&id=1sGVcKKRkxZ8Te94eupC2e8RNZWaSGS63'); return false;">Module 3</a>
+          <div class="section-label">Health</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/19VE97Ya_1U2fhRi_8tAU-iujArjsjHuN/preview', 'https://drive.google.com/uc?export=download&id=19VE97Ya_1U2fhRi_8tAU-iujArjsjHuN'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/18WNjn8DZ0Puf5R41dXqpeMQqKdjBQTEo/preview', 'https://drive.google.com/uc?export=download&id=18WNjn8DZ0Puf5R41dXqpeMQqKdjBQTEo'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1DNNG5ebmKb20NAXlKhiB5y2EVLVOQCwI/preview', 'https://drive.google.com/uc?export=download&id=1DNNG5ebmKb20NAXlKhiB5y2EVLVOQCwI'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1YGMyGRzDPVqDGwXFuywHzIehIiwQOHBB/preview', 'https://drive.google.com/uc?export=download&id=1YGMyGRzDPVqDGwXFuywHzIehIiwQOHBB'); return false;">Module 4</a>
+          </div>
+
+        </div>
+
+        <!-- Quarter 4 -->
+        <div class="quarter-column">
+          <div class="quarter-title">QUARTER 4</div>
+          <div class="section-label">Music</div>
+          <div class="week-list">
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1Y3iQoehq7pwr21TxkhNvvJ4T1rKxUIhS/preview', 'https://drive.google.com/uc?export=download&id=1Y3iQoehq7pwr21TxkhNvvJ4T1rKxUIhS'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1PiJ-CTQ1SvTOHlr264Zo-lxbA_-9Drq4/preview', 'https://drive.google.com/uc?export=download&id=1PiJ-CTQ1SvTOHlr264Zo-lxbA_-9Drq4'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1l5PXBSdQy0EOBKpI9r68iXTivazfrGXO/preview', 'https://drive.google.com/uc?export=download&id=1l5PXBSdQy0EOBKpI9r68iXTivazfrGXO'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UjUX6gvPtC8K6QFp-IyO84fq0FtX3LW-/preview', 'https://drive.google.com/uc?export=download&id=1UjUX6gvPtC8K6QFp-IyO84fq0FtX3LW-'); return false;">Module 4</a>
+          <div class="section-label">Arts</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1FwtkKPY_GXuW8rJH11MfBzoR5zoaRNZv/preview', 'https://drive.google.com/uc?export=download&id=1FwtkKPY_GXuW8rJH11MfBzoR5zoaRNZv'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1loLnhh6C94D6Jq5tDb_2i0sc25K1d7w5/preview', 'https://drive.google.com/uc?export=download&id=1loLnhh6C94D6Jq5tDb_2i0sc25K1d7w5'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1HUQFfR7xUbIU6nenphw59wSqWtdfBLxH/preview', 'https://drive.google.com/uc?export=download&id=1HUQFfR7xUbIU6nenphw59wSqWtdfBLxH'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/16zdrNww8SOLhPR_oEQpvsiY-ub9zH4NH/preview', 'https://drive.google.com/uc?export=download&id=16zdrNww8SOLhPR_oEQpvsiY-ub9zH4NH'); return false;">Module 4</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1S5H97glx6ydN6cfx06ifN-13YMYf1MSY/preview', 'https://drive.google.com/uc?export=download&id=1S5H97glx6ydN6cfx06ifN-13YMYf1MSY'); return false;">Module 5</a>
+          <div class="section-label">Physical Ed</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1UFsaYdNGfd6IdM5pJHrYn5x4sWtgJM4x/preview', 'https://drive.google.com/uc?export=download&id=1UFsaYdNGfd6IdM5pJHrYn5x4sWtgJM4x'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1M5JNceVKPsxt5XALyDNt6vubl05Ai-os/preview', 'https://drive.google.com/uc?export=download&id=1M5JNceVKPsxt5XALyDNt6vubl05Ai-os'); return false;">Module 2</a>
+          <div class="section-label">Health</div>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1_gpaXpwjuCx0w0HFS9KTKJNTz6h06OhJ/preview', 'https://drive.google.com/uc?export=download&id=1_gpaXpwjuCx0w0HFS9KTKJNTz6h06OhJ'); return false;">Module 1</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1aDOcVAsA5Ef_gsSiGu4Qc3J_pt7EPg4O/preview', 'https://drive.google.com/uc?export=download&id=1aDOcVAsA5Ef_gsSiGu4Qc3J_pt7EPg4O'); return false;">Module 2</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/1LXe-q_2SOYUcyZC0NQpwNP_-Ny8HXbB8/preview', 'https://drive.google.com/uc?export=download&id=1LXe-q_2SOYUcyZC0NQpwNP_-Ny8HXbB8'); return false;">Module 3</a>
+            <a href="#" onclick="openPdf('https://drive.google.com/file/d/128Tx_5EdgJW9O7hkoVsOl9OGQwdixXMN/preview', 'https://drive.google.com/uc?export=download&id=128Tx_5EdgJW9O7hkoVsOl9OGQwdixXMN'); return false;">Module 4</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="back">
+    ← <a href="regional-division-slms.html">Back to Regional/Division SLMs</a>
+  </div>
+</div>
+
+<!-- PDF Modal Popup (same as your learning-packets.html) -->
+<div id="pdfModal" class="pdf-modal">
+  <div class="pdf-modal-content">
+    <span class="pdf-close" onclick="closePdf()">&times;</span>
+    <div class="pdf-wrapper">
+      <iframe id="pdfIframe" src="" frameborder="0"></iframe>
+    </div>
+    <a id="pdfDownloadBtn" href="#" class="pdf-download" target="_blank">Download PDF</a>
+  </div>
+</div>
+
+<footer style="background:#003087; color:white; padding:20px 30px; text-align:center; font-size:0.95em; margin-top:40px;">
+  <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+    <div style="text-align:left; line-height:1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    <div style="display:flex; gap:25px; align-items:center;">
+      <img src="pinas.png" alt="Philippines Logo" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+      <img src="seal.png" alt="DepEd Seal" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+      <img src="school.png" alt="School Logo" style="height:60px; width:auto; filter:drop-shadow(0 0 0 3px white);">
+    </div>
+  </div>
+</footer>
+
+<script>
+// PDF modal functions (same as your packets page)
+function openPdf(viewUrl, downloadUrl) {
+  const embedUrl = viewUrl;  // already /preview
+  document.getElementById("pdfIframe").src = embedUrl;
+  document.getElementById("pdfDownloadBtn").href = downloadUrl;
+  document.getElementById("pdfModal").style.display = "block";
+}
+
+function closePdf() {
+  document.getElementById("pdfModal").style.display = "none";
+  document.getElementById("pdfIframe").src = "";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("pdfModal");
+  if (event.target === modal) {
+    closePdf();
+  }
+}
+</script>
+
+</body>
+</html>

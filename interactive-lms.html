@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sta. Ana National High School - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #003087;
+      --light: #e6f0ff;
+      --text: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin: 0; 
+      background-image: url('background.png');   
+      background-size: cover;                    
+      background-position: center;               
+      background-repeat: no-repeat;              
+      background-attachment: fixed;              
+      color: var(--text); 
+      min-height: 100vh;                         
+      line-height: 1.6;
+    }
+
+    header { 
+      background: var(--primary); 
+      color: white; 
+      padding: 10px; 
+      text-align: center;
+    }
+
+    /* ────────────── RESPONSIVE NAV ────────────── */
+    nav {
+      background: var(--primary);
+      padding: 1rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 30px;
+      height: 4px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Dropdown menu (mobile) */
+    .dropdown-menu {
+      display: none;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      flex-direction: column;
+      padding: 1rem 0;
+      z-index: 100;
+    }
+
+    .dropdown-menu a {
+      padding: 1rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    /* Checkbox hack for pure CSS toggle */
+    #menu-toggle {
+      display: none;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    #menu-toggle:checked ~ .dropdown-menu {
+      display: flex;
+    }
+    .container { 
+      max-width:1200px; 
+      margin:20px auto; 
+      padding:0 20px; 
+    }
+    .section { 
+      background: rgba(255, 255, 255, 0.5);
+      padding:25px; 
+      margin:20px 0; 
+      border-radius:8px; 
+      box-shadow:0 2px 10px rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
+    }
+    h2 { color:#003087; text-align:center; margin-bottom:30px; }
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* ────────────── SPLASH & VISITOR ────────────── */
+    #role-splash {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 48, 135, 0.95); color: white;
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+      text-align: center;
+    }
+
+    #role-splash .box {
+      background: white; color: var(--primary); padding: 40px; border-radius: 15px; max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .role-btn {
+      background: var(--primary); color: white; border: none; padding: 18px 30px; margin: 15px;
+      font-size: 1.2em; border-radius: 8px; cursor: pointer; width: 280px; max-width: 90%;
+    }
+
+    .role-btn:hover { background: #0056d2; }
+
+    .visitor-count {
+      background: var(--primary); color: white; padding: 12px; text-align: center; font-size: 1.1em;
+      margin-top: 20px;
+    }
+    .subject-btn {
+      background: #006400; /* dark green */
+      color: white;
+      font-size: 1.4em;
+      font-weight: bold;
+      padding: 25px 15px;
+      text-align: center;
+      border-radius: 10px;
+      text-decoration: none;
+      display: block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .subject-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+
+    footer .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer img {
+      height: 60px;
+      width: auto;
+      border: 2px solid white;
+      border-radius: 8px;
+      padding: 4px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* ────────────── MEDIA QUERIES ────────────── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      header {
+        padding: 15px;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      .role-btn {
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 15px;
+      }
+
+      h2 {
+        font-size: 1.6em;
+    }
+  </style>
+</head>
+<body>
+
+<header style="background-image: url('logo.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 30px; text-align: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.6);">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;"></div>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <input type="checkbox" id="menu-toggle">
+    
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <!-- Desktop horizontal links (hidden on mobile) -->
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+
+    <!-- Mobile dropdown – now part of normal flow -->
+    <div class="dropdown-menu">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="section">
+    <h2>INTERACTIVE LEARNING MATERIALS</h2>
+    <h2>(NOT AVAILABLE AS OF THIS TIME)</h2>
+    <p>Interactive learning materials are designed to enrich instruction through dynamic and engaging digital resources. These materials offer interactive lessons, quizzes, simulations, and multimedia content across various subjects, catering to diverse learning styles and enhancing both student engagement and teacher effectiveness.</p>
+  </div>
+
+  <div class="section">
+    <div class="subjects-grid">
+      <a href="math-interactive.html" class="subject-btn">MATHEMATICS</a>
+      <a href="edukasyon-interactive.html" class="subject-btn">EDUKASYON SA PAGPAPAKATAO</a>
+      
+      <a href="science-interactive.html" class="subject-btn">SCIENCE</a>
+      <a href="araling-interactive.html" class="subject-btn">ARALING PANLIPUNAN</a>
+      
+      <a href="english-interactive.html" class="subject-btn">ENGLISH</a>
+      <a href="mapeh-interactive.html" class="subject-btn">MAPEH</a>
+      
+      <a href="filipino-interactive.html" class="subject-btn">FILIPINO</a>
+      <a href="tle-interactive.html" class="subject-btn">TLE/TVL</a>
+    </div>
+  </div>
+</div>
+
+<footer style="
+  background: #003087;
+  color: white;
+  padding: 20px 30px;
+  text-align: center;
+  font-size: 0.95em;
+">
+  <div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  ">
+    <!-- Left side - text -->
+    <div style="text-align: left; line-height: 1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    
+<!-- Right side - 3 logos -->
+<div style="display: flex; gap: 25px; align-items: center;">
+  <img src="pinas.png"   alt="Philippines Logo" 
+       style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+  
+  <img src="seal.png"    alt="DepEd Seal" 
+       style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+  
+  <img src="school.png"  alt="School Logo" 
+       style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+</div>
+
+<!-- LIVE VISITOR COUNTER -->
+<div class="visitor-count" id="visitor-footer">
+  Teachers: <span id="teacher-count">0</span>  |   
+  Learners: <span id="learner-count">0</span>
+</div>
+
+<script>
+// (copy the exact same <script> block from above, starting from const TEACHER_KEY = ... to the end)
+const TEACHER_KEY = "sanha-teachers-2026";
+const LEARNER_KEY = "sanha-learners-2026";
+const BASE = "https://countapi.mileshilliard.com/api/v1";
+
+async function updateVisitorCounts() {
+  try {
+    const tRes = await fetch(`${BASE}/get/${TEACHER_KEY}`);
+    const tData = await tRes.json();
+    document.getElementById("teacher-count").textContent = tData.value || 0;
+
+    const lRes = await fetch(`${BASE}/get/${LEARNER_KEY}`);
+    const lData = await lRes.json();
+    document.getElementById("learner-count").textContent = lData.value || 0;
+  } catch(e) {}
+}
+window.onload = updateVisitorCounts;
+</script>
+
+</body>
+</html>

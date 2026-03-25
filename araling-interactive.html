@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARALING PANLIPUNAN INTERACTIVE | Sta. Ana NHS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin:0; 
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color:#333; 
+      min-height: 100vh;
+    }
+    .container { 
+      max-width: 1100px; 
+      margin: 40px auto; 
+      padding: 0 20px; 
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 12px;
+      padding: 35px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    h1 { 
+      text-align: center; 
+      color: #003087; 
+      margin-bottom: 30px; 
+      font-size: 2.4em; 
+      border-bottom: 3px solid #006400;
+      padding-bottom: 12px;
+    }
+    .grades-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      text-align: center;
+    }
+    .grade-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .grade-btn {
+      background: #006400;
+      color: white;
+      font-size: 1.35em;
+      font-weight: bold;
+      padding: 14px 30px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      width: fit-content;
+      min-width: 140px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    .grade-btn:hover {
+      transform: translateY(-3px);
+    }
+    .quarters {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .quarters a {
+      color: #003087;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .quarters a:hover {
+      color: #006400;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1.15em;
+    }
+    .back-link a {
+      color: #003087;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      .grades-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 500px) {
+      .grades-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>ARALING PANLIPUNAN INTERACTIVE | JHS</h1>
+
+  <div class="grades-grid">
+    <!-- GRADE 7 -->
+    <div class="grade-column">
+      <div class="grade-btn">GRADE 7</div>
+      <div class="quarters">
+        <a href="YOUR_G7_Q1_LINK_HERE" target="_blank">QUARTER 1</a>
+        <a href="YOUR_G7_Q2_LINK_HERE" target="_blank">QUARTER 2</a>
+        <a href="YOUR_G7_Q3_LINK_HERE" target="_blank">QUARTER 3</a>
+        <a href="YOUR_G7_Q4_LINK_HERE" target="_blank">QUARTER 4</a>
+      </div>
+    </div>
+
+    <!-- GRADE 8 -->
+    <div class="grade-column">
+      <div class="grade-btn">GRADE 8</div>
+      <div class="quarters">
+        <a href="YOUR_G8_Q1_LINK_HERE" target="_blank">QUARTER 1</a>
+        <a href="YOUR_G8_Q2_LINK_HERE" target="_blank">QUARTER 2</a>
+        <a href="YOUR_G8_Q3_LINK_HERE" target="_blank">QUARTER 3</a>
+        <a href="YOUR_G8_Q4_LINK_HERE" target="_blank">QUARTER 4</a>
+      </div>
+    </div>
+
+    <!-- GRADE 9 -->
+    <div class="grade-column">
+      <div class="grade-btn">GRADE 9</div>
+      <div class="quarters">
+        <a href="YOUR_G9_Q1_LINK_HERE" target="_blank">QUARTER 1</a>
+        <a href="YOUR_G9_Q2_LINK_HERE" target="_blank">QUARTER 2</a>
+        <a href="YOUR_G9_Q3_LINK_HERE" target="_blank">QUARTER 3</a>
+        <a href="YOUR_G9_Q4_LINK_HERE" target="_blank">QUARTER 4</a>
+      </div>
+    </div>
+
+    <!-- GRADE 10 -->
+    <div class="grade-column">
+      <div class="grade-btn">GRADE 10</div>
+      <div class="quarters">
+        <a href="YOUR_G10_Q1_LINK_HERE" target="_blank">QUARTER 1</a>
+        <a href="YOUR_G10_Q2_LINK_HERE" target="_blank">QUARTER 2</a>
+        <a href="YOUR_G10_Q3_LINK_HERE" target="_blank">QUARTER 3</a>
+        <a href="YOUR_G10_Q4_LINK_HERE" target="_blank">QUARTER 4</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-link">
+    ← <a href="interactive-lms.html">Back to Interactive Learning Materials</a>
+  </div>
+</div>
+
+<footer style="
+  background: #003087;
+  color: white;
+  padding: 20px 30px;
+  text-align: center;
+  font-size: 0.95em;
+  margin-top: 40px;
+">
+  <div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  ">
+    <div style="text-align: left; line-height: 1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    <div style="display: flex; gap: 25px; align-items: center;">
+      <img src="pinas.png" alt="Philippines Logo" style="height: 60px; width: auto; filter: drop-shadow(0 0 0 3px white);">
+      <img src="seal.png" alt="DepEd Seal" style="height: 60px; width: auto; filter: drop-shadow(0 0 0 3px white);">
+      <img src="school.png" alt="School Logo" style="height: 60px; width: auto; filter: drop-shadow(0 0 0 3px white);">
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
