@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sta. Ana National High School - Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta property="og:title" content="SANHS LR Hub" />
+  <meta property="og:description" content="The official learning resource hub of SANHS" />
+  <meta property="og:image" content="https://sanhs-lrhub.pages.dev/seal.png" />
+  <meta property="og:url" content="https://sanhs-lrhub.pages.dev" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
   <style>
     :root {
       --primary: #003087;
@@ -378,6 +385,7 @@ const BASE = "https://countapi.mileshilliard.com/api/v1";
 async function selectRole(role) {
   const key = (role === "teacher") ? TEACHER_KEY : LEARNER_KEY;
   await fetch(`${BASE}/hit/${key}`);
+  localStorage.setItem("roleChosen", "yes");
   document.getElementById("role-splash").style.display = "none";
   updateVisitorCounts();
 }
@@ -399,10 +407,10 @@ async function updateVisitorCounts() {
 window.onload = function() {
   if (localStorage.getItem("roleChosen") === "yes") {
     document.getElementById("role-splash").style.display = "none";
-  } else {
-    localStorage.setItem("roleChosen", "yes");
+    updateVisitorCounts();
+
   }
-  updateVisitorCounts();
+
 };
 </script>
 </body>
