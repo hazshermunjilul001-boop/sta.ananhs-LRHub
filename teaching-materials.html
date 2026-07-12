@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teaching Materials - Sta. Ana National High School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #003087;
+      --light: #e6f0ff;
+      --text: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    /* ────────────── RESPONSIVE NAV ────────────── */
+    nav {
+      background: var(--primary);
+      padding: 1rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 30px;
+      height: 4px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-menu {
+      display: none;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      flex-direction: column;
+      padding: 1rem 0;
+      z-index: 100;
+    }
+
+    .dropdown-menu a {
+      padding: 1rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    #menu-toggle {
+      display: none;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle:checked ~ .hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    #menu-toggle:checked ~ .dropdown-menu {
+      display: flex;
+    }
+
+    /* ────────────── MAIN CONTENT ────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 25px;
+      margin: 25px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
+    }
+
+    h1, h2, h3 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    .section > p {
+      text-align: justify;
+      text-indent: 2em;
+      margin: 1em 0;
+      hyphens: auto;
+    }
+
+    .section h2 {
+      text-indent: 0;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      font-size: 1em;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* ────────────── FOLDER TREE ────────────── */
+    .tree {
+      padding: 5px;
+    }
+
+    .folder {
+      margin: 4px 0;
+    }
+
+    .folder-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--light);
+      border-radius: 8px;
+      margin: 6px 0;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--primary);
+      transition: background 0.2s ease;
+    }
+
+    .folder-header:hover {
+      background: #d0e2ff;
+    }
+
+    .folder-header .caret {
+      margin-right: 10px;
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+
+    .folder-header.open .caret {
+      transform: rotate(90deg);
+    }
+
+    .folder-content {
+      display: none;
+      padding-left: 30px;
+      margin-top: 4px;
+      border-left: 2px solid var(--light);
+      margin-left: 14px;
+    }
+
+    .folder-content.open {
+      display: block;
+    }
+
+    .file {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      margin: 4px 0;
+      background: rgba(255,255,255,0.85);
+      border-radius: 6px;
+      text-decoration: none;
+      color: #333;
+      cursor: pointer;
+      border: 1px solid #e0e0e0;
+      font-size: 0.95em;
+    }
+
+    .file:hover {
+      background: #eaf2ff;
+      border-color: var(--primary);
+    }
+
+    .file .icon, .folder-header .icon {
+      margin-right: 12px;
+      font-size: 1.2em;
+    }
+
+    .file-note {
+      padding: 8px 16px;
+      margin: 4px 0;
+      color: #666;
+      font-style: italic;
+      font-size: 0.9em;
+    }
+
+    /* ────────────── PDF MODAL ────────────── */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      z-index: 9998;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      overflow: auto;
+    }
+    .pdf-modal-content {
+      margin: 4% auto;
+      padding: 20px;
+      width: 94%;
+      max-width: 1100px;
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .pdf-close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      color: #333;
+      font-size: 42px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .pdf-close:hover {
+      color: var(--primary);
+    }
+    .pdf-wrapper {
+      width: 100%;
+      height: 75vh;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+    .pdf-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .pdf-download {
+      display: block;
+      margin: 15px auto 0;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .pdf-download:hover {
+      background: #0056d2;
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+
+    footer .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer img {
+      height: 60px;
+      width: auto;
+      border: 2px solid white;
+      border-radius: 8px;
+      padding: 4px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .visitor-count {
+      background: var(--primary);
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-size: 1.1em;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      header { padding: 15px; }
+      .section { padding: 20px; }
+      .pdf-modal-content { margin: 8% auto; padding: 12px; width: 96%; }
+      .pdf-close { font-size: 36px; right: 15px; }
+      .pdf-wrapper { height: 65vh; }
+      .folder-content { padding-left: 16px; margin-left: 8px; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 15px; }
+      h2 { font-size: 1.6em; }
+    }
+  </style>
+</head>
+<body>
+
+<header style="background-image: url('logo.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 30px; text-align: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.6);">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;"></div>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <input type="checkbox" id="menu-toggle">
+
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="teaching-materials.html">Teaching Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+
+    <div class="dropdown-menu">
+      <a href="index.html">Home</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="teaching-materials.html">Teaching Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="section">
+    <h2>Teaching Materials</h2>
+    <p>This page serves as a centralized, organized repository of instructional resources developed and curated for use across grade levels and learning areas. Materials are arranged by grade level, subject, and instructional week, allowing teachers to quickly locate lesson plans, presentations, summative tests, and supplementary resources needed for daily classroom delivery.</p>
+    <p>Each file listed below links directly to its corresponding document stored on Google Drive. Click any file to preview it instantly within this page, with an option to download a copy for offline use.</p>
+  </div>
+
+  <div class="section">
+    <h3>Browse Materials</h3>
+    <input type="text" id="searchInput" placeholder="🔍 Search files or folders..." onkeyup="filterTree()">
+    <div class="tree" id="treeContainer">
+
+      <div class="folder">
+        <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> TEACHING MATERIALS</div>
+        <div class="folder-content">
+
+          <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1N3-HGUCD9qV3HxWYxoy3nG3czksQctAx/preview', 'https://drive.usercontent.google.com/download?id=1N3-HGUCD9qV3HxWYxoy3nG3czksQctAx&export=download&confirm=t'); return false;"><span class="icon">🖼️</span> CONTACT ME FOR COMMENTS AND SUGGESTIONS.png</a>
+          <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/10qtgsYawg0SsOGM77pFUX8cvJMBsH_O5/preview', 'https://drive.usercontent.google.com/download?id=10qtgsYawg0SsOGM77pFUX8cvJMBsH_O5&export=download&confirm=t'); return false;"><span class="icon">📊</span> MAPEH WAYS FORWARD.pptx</a>
+
+          <!-- ══════════════ 4-10 MAPEH SUMMATIVE TEST ══════════════ -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> 4-10 MAPEH SUMMATIVE TEST</div>
+            <div class="folder-content">
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> 1ST TERM 1ST ST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1BdHgDPISUH5zX9Hg49mZzHbqK9TnEKTk/preview', 'https://drive.usercontent.google.com/download?id=1BdHgDPISUH5zX9Hg49mZzHbqK9TnEKTk&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH_4-10_First_Term_ST1_DO15s2026.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ByLhdu8Ldw1nL2eer4oU8qE2Hq_Cng8c/preview', 'https://drive.usercontent.google.com/download?id=1ByLhdu8Ldw1nL2eer4oU8qE2Hq_Cng8c&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH_4_First_Term_ST1_DO15s2026.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1jo8TPwZ_Yolz6DBTu_YTiraZAmVL3M9e/preview', 'https://drive.usercontent.google.com/download?id=1jo8TPwZ_Yolz6DBTu_YTiraZAmVL3M9e&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH_5_First_Term_ST1_DO15s2026.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16lIkCl5aYM5VYVstdKUdQXO9uN9fVbvZ/preview', 'https://drive.usercontent.google.com/download?id=16lIkCl5aYM5VYVstdKUdQXO9uN9fVbvZ&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH_6_First_Term_ST1_DO15s2026.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1VMsCuute5oKItQoZVWSpIF1o3Rx0P54N/preview', 'https://drive.usercontent.google.com/download?id=1VMsCuute5oKItQoZVWSpIF1o3Rx0P54N&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH_7_First_Term_ST1_DO15s2026.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1O3arLAsghZfRlb9ZuG-fgjbvk-5zIod4/preview', 'https://drive.usercontent.google.com/download?id=1O3arLAsghZfRlb9ZuG-fgjbvk-5zIod4&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH_8_First_Term_ST1_DO15s2026.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/17yspWR8qmvr-XUXY8vx21K_fG2NgcDZd/preview', 'https://drive.usercontent.google.com/download?id=17yspWR8qmvr-XUXY8vx21K_fG2NgcDZd&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH_9_First_Term_ST1_DO15s2026.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1vnoJkBnwgi8H-HVPLOe8fKLLMw5Y5tEs/preview', 'https://drive.usercontent.google.com/download?id=1vnoJkBnwgi8H-HVPLOe8fKLLMw5Y5tEs&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH_10_First_Term_ST1_DO15s2026.docx</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══════════════ GRADE 2 ALL SUBJECTS ══════════════ -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GRADE 2 ALL SUBJECTS</div>
+            <div class="folder-content">
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Budget of Work</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1I_o7ttHipiBr6HkRsctm2vkm1eLTPvQe/preview', 'https://drive.usercontent.google.com/download?id=1I_o7ttHipiBr6HkRsctm2vkm1eLTPvQe&export=download&confirm=t'); return false;"><span class="icon">📄</span> [G2] English.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1PhtWEKadgKB5n3assUMY2MT-YAm-A_M8/preview', 'https://drive.usercontent.google.com/download?id=1PhtWEKadgKB5n3assUMY2MT-YAm-A_M8&export=download&confirm=t'); return false;"><span class="icon">📄</span> [G2] Filipino.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1gJUM9EG9RqFntpOw-LpYuq7qAdeeu8r2/preview', 'https://drive.usercontent.google.com/download?id=1gJUM9EG9RqFntpOw-LpYuq7qAdeeu8r2&export=download&confirm=t'); return false;"><span class="icon">📄</span> [G2] Mathematics.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1hnRaNOUQpwzKDQdgPQWYwjTae_nCCxOi/preview', 'https://drive.usercontent.google.com/download?id=1hnRaNOUQpwzKDQdgPQWYwjTae_nCCxOi&export=download&confirm=t'); return false;"><span class="icon">📄</span> [G2] MAKABANSA.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1m3RVFzMmakbe_vMoDUmu7NA7FcBpF44l/preview', 'https://drive.usercontent.google.com/download?id=1m3RVFzMmakbe_vMoDUmu7NA7FcBpF44l&export=download&confirm=t'); return false;"><span class="icon">📄</span> [G2] GMRC.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1s5fYdNiqMRCLlJW4CGKcck7kL_qFm8xO/preview', 'https://drive.usercontent.google.com/download?id=1s5fYdNiqMRCLlJW4CGKcck7kL_qFm8xO&export=download&confirm=t'); return false;"><span class="icon">📄</span> Lesson Planning Brief.pdf</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Class Program</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1c2M8hrEXz74UvKA4LQ0FY9gbXbhRs82r/preview', 'https://drive.usercontent.google.com/download?id=1c2M8hrEXz74UvKA4LQ0FY9gbXbhRs82r&export=download&confirm=t'); return false;"><span class="icon">📝</span> Class-Program-2026-2027 - MORNING SHIFT.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1vClS7PVDGnLsQZ2TLbtLZzPEBaoswbTZ/preview', 'https://drive.usercontent.google.com/download?id=1vClS7PVDGnLsQZ2TLbtLZzPEBaoswbTZ&export=download&confirm=t'); return false;"><span class="icon">📝</span> Class-Program-2026-2027 - AFTERNOON SHIFT.docx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Classroom Labels</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1uWFXwPU9YrxXz6GNK4NOODf1BMhjFGOQ/preview', 'https://drive.usercontent.google.com/download?id=1uWFXwPU9YrxXz6GNK4NOODf1BMhjFGOQ&export=download&confirm=t'); return false;"><span class="icon">🖼️</span> How to turn on the Electric Fan.png.png</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1pT-mPHeYz782izQu3Q2CExxkj6f3yJhX/preview', 'https://drive.usercontent.google.com/download?id=1pT-mPHeYz782izQu3Q2CExxkj6f3yJhX&export=download&confirm=t'); return false;"><span class="icon">🖼️</span> Welcome Sign.png</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1vmAPjQTmWWj7uLfc5AQq2WAgK0WXuQwS/preview', 'https://drive.usercontent.google.com/download?id=1vmAPjQTmWWj7uLfc5AQq2WAgK0WXuQwS&export=download&confirm=t'); return false;"><span class="icon">🖼️</span> Label 1.png</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1rEsnrqPcUPzTVvO5xGl_rhfvhrCe8zcN/preview', 'https://drive.usercontent.google.com/download?id=1rEsnrqPcUPzTVvO5xGl_rhfvhrCe8zcN&export=download&confirm=t'); return false;"><span class="icon">🖼️</span> Label 2.png</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HkO8RZOuUZCrAJVUOZP4qDqfT0ZX-abE/preview', 'https://drive.usercontent.google.com/download?id=1HkO8RZOuUZCrAJVUOZP4qDqfT0ZX-abE&export=download&confirm=t'); return false;"><span class="icon">🖼️</span> Trashcan Label</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Daily Routines</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1rg7qgPCkZ8LEbmDrFsdiu5IvR5jQyHD0/preview', 'https://drive.usercontent.google.com/download?id=1rg7qgPCkZ8LEbmDrFsdiu5IvR5jQyHD0&export=download&confirm=t'); return false;"><span class="icon">📊</span> Male Icon Interactive Classroom Routine.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1erqV7_iN3tRQmPqYdMU9QmnqPgdqpyaG/preview', 'https://drive.usercontent.google.com/download?id=1erqV7_iN3tRQmPqYdMU9QmnqPgdqpyaG&export=download&confirm=t'); return false;"><span class="icon">📊</span> Female Icon Teacher Interactive Classroom Routine.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HuCYcT_Yphu4Ei0dHayq8PVu9A9zNDjU/preview', 'https://drive.usercontent.google.com/download?id=1HuCYcT_Yphu4Ei0dHayq8PVu9A9zNDjU&export=download&confirm=t'); return false;"><span class="icon">📊</span> Classroom Routine.pptx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Curriculum Analysis</div>
+                <div class="folder-content">
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> English  Curriculum Analysis (DIP, Competency Unpacking, BOW Analysis)</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/10MtgmL8w0LrElpZmbnngOMBsfxrANsr0/preview', 'https://drive.usercontent.google.com/download?id=10MtgmL8w0LrElpZmbnngOMBsfxrANsr0&export=download&confirm=t'); return false;"><span class="icon">📈</span> G2_English_Detailed_Instructional_Plan_FirstTerm_DATED.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1GlPzhy18Hw_AnLnYJ_t-0aXlbD8BK8yV/preview', 'https://drive.usercontent.google.com/download?id=1GlPzhy18Hw_AnLnYJ_t-0aXlbD8BK8yV&export=download&confirm=t'); return false;"><span class="icon">📈</span> BOW_Analysis_FirstTerm_SY2026-2027_G2_English.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1KH7DKYVwVduA-ObjwadySD7hAPfmtb-E/preview', 'https://drive.usercontent.google.com/download?id=1KH7DKYVwVduA-ObjwadySD7hAPfmtb-E&export=download&confirm=t'); return false;"><span class="icon">📈</span> G2_English_Competency_Unpacking_FirstTerm_IDF.xlsx</a>
+                  </div>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Filipino Curriculum Analysis (DIP, Competency Unpacking, BOW Analysis)</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16u7OeM-QDdcbN3JArG8U4v4aGrZcKmYq/preview', 'https://drive.usercontent.google.com/download?id=16u7OeM-QDdcbN3JArG8U4v4aGrZcKmYq&export=download&confirm=t'); return false;"><span class="icon">📈</span> BOW_Analysis_FirstTerm_SY2026-2027_G2_Filipino.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1nDUotp2R1TlWT4dpi8xuVK_2A8pT1Jfb/preview', 'https://drive.usercontent.google.com/download?id=1nDUotp2R1TlWT4dpi8xuVK_2A8pT1Jfb&export=download&confirm=t'); return false;"><span class="icon">📈</span> G2_Filipino_Detailed_Instructional_Plan_FirstTerm_IDF_v3_DATED.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1w2yUeXJ3Ym3nHbMejupjhKbKiK3L5kRW/preview', 'https://drive.usercontent.google.com/download?id=1w2yUeXJ3Ym3nHbMejupjhKbKiK3L5kRW&export=download&confirm=t'); return false;"><span class="icon">📈</span> G2_Filipino_Competency_Unpacking_FirstTerm_IDF.xlsx</a>
+                  </div>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GMRC Curriculum Analysis (DIP, Competency Unpacking, BOW Analysis)</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/113hziyJunw31BwCXKt7jk48Q-rV5SKJO/preview', 'https://drive.usercontent.google.com/download?id=113hziyJunw31BwCXKt7jk48Q-rV5SKJO&export=download&confirm=t'); return false;"><span class="icon">📈</span> G2_GMRC_Competency_Unpacking_v1_IDF (1).xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1IiKMpmqS5aupV13rWx3RA26MxUOiAWn4/preview', 'https://drive.usercontent.google.com/download?id=1IiKMpmqS5aupV13rWx3RA26MxUOiAWn4&export=download&confirm=t'); return false;"><span class="icon">📈</span> G2_GMRC_Detailed_Instructional_Plan_v1_IDF.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1lEuHZtygoiJ5JQ6107yD_Xho9y8AyfbL/preview', 'https://drive.usercontent.google.com/download?id=1lEuHZtygoiJ5JQ6107yD_Xho9y8AyfbL&export=download&confirm=t'); return false;"><span class="icon">📈</span> BOW_Analysis_FirstTerm_SY2026-2027_G2_GMRC.xlsx</a>
+                  </div>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MAKABANSA Curriculum Analysis (DIP, Competency Unpacking, BOW Analysis)</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1fgM2PEwVsO5JDKegJzawimwxL6r7dQPx/preview', 'https://drive.usercontent.google.com/download?id=1fgM2PEwVsO5JDKegJzawimwxL6r7dQPx&export=download&confirm=t'); return false;"><span class="icon">📈</span> BOW_Analysis_FirstTerm_SY2026-2027_G2_Makabansa.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1labEhgP3Aw3nATBUeVnNocwtMudnlwu6/preview', 'https://drive.usercontent.google.com/download?id=1labEhgP3Aw3nATBUeVnNocwtMudnlwu6&export=download&confirm=t'); return false;"><span class="icon">📈</span> Competency_Unpacking_FirstTerm_SY2026-2027_G2_Makabansa.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1wcOY2yBCwEdt1h2_A9q7wPnc7NThWJEJ/preview', 'https://drive.usercontent.google.com/download?id=1wcOY2yBCwEdt1h2_A9q7wPnc7NThWJEJ&export=download&confirm=t'); return false;"><span class="icon">📈</span> DIP_FirstTerm_SY2026-2027_G2_Makabansa_DATED.xlsx</a>
+                  </div>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Math Curriculum Analysis (DIP, Competency Unpacking, BOW Analysis)</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/19roH0a0kRNLDkKvcFV864fGbsU-yAAXE/preview', 'https://drive.usercontent.google.com/download?id=19roH0a0kRNLDkKvcFV864fGbsU-yAAXE&export=download&confirm=t'); return false;"><span class="icon">📈</span> G2_Mathematics_Detailed_Instructional_Plan_v1_IDF_1.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1aeojSL9wd2VJOsnam6e7_742DYvr5Vqd/preview', 'https://drive.usercontent.google.com/download?id=1aeojSL9wd2VJOsnam6e7_742DYvr5Vqd&export=download&confirm=t'); return false;"><span class="icon">📈</span> G2_Mathematics_Competency_Unpacking_v1_IDF.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1qV6TP9yes1o6dsf1jkcEqtzHN1wCTAiK/preview', 'https://drive.usercontent.google.com/download?id=1qV6TP9yes1o6dsf1jkcEqtzHN1wCTAiK&export=download&confirm=t'); return false;"><span class="icon">📈</span> BOW_Analysis_FirstTerm_SY2026-2027_G2_Mathematics.xlsx</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Summative Test</div>
+                <div class="folder-content">
+                  <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> 1st Summative Test</div>
+                    <div class="folder-content">
+                      <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/12qRsHc1wn8k2zytMcDLAscJ6bBcObiZ5/preview', 'https://drive.usercontent.google.com/download?id=12qRsHc1wn8k2zytMcDLAscJ6bBcObiZ5&export=download&confirm=t'); return false;"><span class="icon">📝</span> G2_ST1_Makabansa.docx</a>
+                      <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1C4G5ocCbHk10zp301JY0Cj6WmG0vE69a/preview', 'https://drive.usercontent.google.com/download?id=1C4G5ocCbHk10zp301JY0Cj6WmG0vE69a&export=download&confirm=t'); return false;"><span class="icon">📝</span> G2_ST1_Mathematics.docx</a>
+                      <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1KsDpZ8LeL4cHnvuVUPZel4W5snLtC4-4/preview', 'https://drive.usercontent.google.com/download?id=1KsDpZ8LeL4cHnvuVUPZel4W5snLtC4-4&export=download&confirm=t'); return false;"><span class="icon">📝</span> G2_ST1_Filipino.docx</a>
+                      <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1eU8381E9acfpZpLM6U67WqCz9girf7DI/preview', 'https://drive.usercontent.google.com/download?id=1eU8381E9acfpZpLM6U67WqCz9girf7DI&export=download&confirm=t'); return false;"><span class="icon">📝</span> G2_ST1_GMRC.docx</a>
+                      <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1obeYwmf_od_ZD-k58ziug_AK3ZHIN3ge/preview', 'https://drive.usercontent.google.com/download?id=1obeYwmf_od_ZD-k58ziug_AK3ZHIN3ge&export=download&confirm=t'); return false;"><span class="icon">📝</span> G2_ST1_English.docx</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> June 8-11 Opening Block</div>
+                <div class="folder-content">
+                  <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Modified Assessment Tools</div>
+                    <div class="folder-content">
+                      <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1kki7ni03_rsV7vD7PGThHaBi_PkxJdR1/preview', 'https://drive.usercontent.google.com/download?id=1kki7ni03_rsV7vD7PGThHaBi_PkxJdR1&export=download&confirm=t'); return false;"><span class="icon">📄</span> CRLA STORYBOOK MODIFIED BY LARRY B. SALIGA.pdf</a>
+                      <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1L7hAOrRmPraZKZmPkSDK3aL5vdr4tfJ5/preview', 'https://drive.usercontent.google.com/download?id=1L7hAOrRmPraZKZmPkSDK3aL5vdr4tfJ5&export=download&confirm=t'); return false;"><span class="icon">📄</span> RMA GRADE 2 ANSWER SHEET MODIFIED by Larry Saliga.pdf</a>
+                      <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1g4xTXUocv_tKeRtTne1PAEi0099bNmoS/preview', 'https://drive.usercontent.google.com/download?id=1g4xTXUocv_tKeRtTne1PAEi0099bNmoS&export=download&confirm=t'); return false;"><span class="icon">📊</span> RMA Assessment Modified by Larry Saliga.pptx</a>
+                    </div>
+                  </div>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16dfTXYsP3nW2xxteZU1Pz35dZ4stMj73/preview', 'https://drive.usercontent.google.com/download?id=16dfTXYsP3nW2xxteZU1Pz35dZ4stMj73&export=download&confirm=t'); return false;"><span class="icon">📊</span> Grade2_OpeningBlock_Games.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1LhLmlDCy4sI1574Vr8fA8rKH-CyKDTzB/preview', 'https://drive.usercontent.google.com/download?id=1LhLmlDCy4sI1574Vr8fA8rKH-CyKDTzB&export=download&confirm=t'); return false;"><span class="icon">📊</span> Grade2_GameBased_Block.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1pxO3yyx5Ccu0tDZDMhCfWwht8Arit8Rv/preview', 'https://drive.usercontent.google.com/download?id=1pxO3yyx5Ccu0tDZDMhCfWwht8Arit8Rv&export=download&confirm=t'); return false;"><span class="icon">📊</span> Week-1-Day-1.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Q_zPRlOjcU8qMHta-zKY_wBjB6CCKeRq/preview', 'https://drive.usercontent.google.com/download?id=1Q_zPRlOjcU8qMHta-zKY_wBjB6CCKeRq&export=download&confirm=t'); return false;"><span class="icon">📊</span> Week-1-Day-2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1YMvTTguemMW4i8QsgaYiGgfavKwx5KOW/preview', 'https://drive.usercontent.google.com/download?id=1YMvTTguemMW4i8QsgaYiGgfavKwx5KOW&export=download&confirm=t'); return false;"><span class="icon">📊</span> Week-1-Day-3.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1QEBFVDdnSU8w8ewEV7EQpiBQG7z8BRA4/preview', 'https://drive.usercontent.google.com/download?id=1QEBFVDdnSU8w8ewEV7EQpiBQG7z8BRA4&export=download&confirm=t'); return false;"><span class="icon">📊</span> Week-1-Day-4.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1cuZTSZGI78nYrN60HxosK2xF--FUuVn4/preview', 'https://drive.usercontent.google.com/download?id=1cuZTSZGI78nYrN60HxosK2xF--FUuVn4&export=download&confirm=t'); return false;"><span class="icon">📊</span> DepEd_Opening_Block_Lesson_Plan.docx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> Term 1 LP June 15-September 1</div>
+                <div class="folder-content">
+                  <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 15-18 LP, PPT, MCT</div>
+                    <div class="folder-content">
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MATH</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Ez0DJytViJpvZTE4ZdW14fgwrcNmZtJP/preview', 'https://drive.usercontent.google.com/download?id=1Ez0DJytViJpvZTE4ZdW14fgwrcNmZtJP&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_T1_W2_ILAW_DailyLessonPlans.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1UBiiSRJOJUidnyDlHcgF9ijlP6SkXM4V/preview', 'https://drive.usercontent.google.com/download?id=1UBiiSRJOJUidnyDlHcgF9ijlP6SkXM4V&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_D1_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1gwUaN1kM345_y4ItuXnV-gyH7V0NldbO/preview', 'https://drive.usercontent.google.com/download?id=1gwUaN1kM345_y4ItuXnV-gyH7V0NldbO&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_D2_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1hkRwTvfpVZpDr61brGFEQjo1K2MywHto/preview', 'https://drive.usercontent.google.com/download?id=1hkRwTvfpVZpDr61brGFEQjo1K2MywHto&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_D3_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1BbrpJWsLrckGXwSFpnk_wLpxPNSRAqAW/preview', 'https://drive.usercontent.google.com/download?id=1BbrpJWsLrckGXwSFpnk_wLpxPNSRAqAW&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_D4_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1kqcNGGL8vHCPBlwoM8WUGjsGQv8DenNC/preview', 'https://drive.usercontent.google.com/download?id=1kqcNGGL8vHCPBlwoM8WUGjsGQv8DenNC&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_FormativeTest.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> ENGLISH</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16WDoANJzMrpPLTqBgzRvDCyaFzK2kS57/preview', 'https://drive.usercontent.google.com/download?id=16WDoANJzMrpPLTqBgzRvDCyaFzK2kS57&export=download&confirm=t'); return false;"><span class="icon">📄</span> G2_English_W2_C1_ILAW_LessonPlans.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1dr5EkWvVZ09EipalrhjMlf6rb6n4BrOG/preview', 'https://drive.usercontent.google.com/download?id=1dr5EkWvVZ09EipalrhjMlf6rb6n4BrOG&export=download&confirm=t'); return false;"><span class="icon">📄</span> Grade2_English_Week1_MCQ_Test.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> FILIPINO</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1BfimQr_PYMQeqR5voxgCZW9GVte9_lGC/preview', 'https://drive.usercontent.google.com/download?id=1BfimQr_PYMQeqR5voxgCZW9GVte9_lGC&export=download&confirm=t'); return false;"><span class="icon">📄</span> Filipino2_Linggo2_ILAW_4DailyPlans.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/18y7EDIFPQLicHe5P5ldvI46-GrGb6vsy/preview', 'https://drive.usercontent.google.com/download?id=18y7EDIFPQLicHe5P5ldvI46-GrGb6vsy&export=download&confirm=t'); return false;"><span class="icon">📄</span> Filipino2_Linggo2_Summative_Test.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GMRC</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1GyeNCrUsyNOLTICCXLz6xY0DNL5r7TGO/preview', 'https://drive.usercontent.google.com/download?id=1GyeNCrUsyNOLTICCXLz6xY0DNL5r7TGO&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_K01_S4_LEARNER_v3.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1RVPM86sx6QajEDZB-UlEuuCSvSsnqa3m/preview', 'https://drive.usercontent.google.com/download?id=1RVPM86sx6QajEDZB-UlEuuCSvSsnqa3m&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_K01_S3_LEARNER_v3.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Ruq_8V6R1btiIC1NGIo7A4hveQQdOAcp/preview', 'https://drive.usercontent.google.com/download?id=1Ruq_8V6R1btiIC1NGIo7A4hveQQdOAcp&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_K01_Linggo1_ILAW_4DailyPlans.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1agOBRFRcLl2rn7oDQah5C4kAMV0V2ohQ/preview', 'https://drive.usercontent.google.com/download?id=1agOBRFRcLl2rn7oDQah5C4kAMV0V2ohQ&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_K01_MCTest.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1nTcJskS2gX5S0XeJYiK8w0_H5oUyO7qN/preview', 'https://drive.usercontent.google.com/download?id=1nTcJskS2gX5S0XeJYiK8w0_H5oUyO7qN&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_K01_S1_LEARNER_v3.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1vLpRDmvHskbjruYWUJhQOkU03-GwKv6k/preview', 'https://drive.usercontent.google.com/download?id=1vLpRDmvHskbjruYWUJhQOkU03-GwKv6k&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_K01_S2_LEARNER_v3.pptx</a>                                            
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MAKABANSA</div>
+                      <div class="folder-content">
+                        <div class="folder">
+                          <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MAKABANSA Curriculum Analysis</div>
+                          <div class="folder-content">
+                            <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Dcg6td0JRXyCAxcKRYtZRPsnBFKzg33J/preview', 'https://drive.usercontent.google.com/download?id=1Dcg6td0JRXyCAxcKRYtZRPsnBFKzg33J&export=download&confirm=t'); return false;"><span class="icon">📊</span> Competency_Unpacking_FirstTerm_SY2026-2027_G2_Makabansa.xlsx</a>
+                            <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1fYuVYz0XcoVmrGqnS-2tu-rY8h0XXPXt/preview', 'https://drive.usercontent.google.com/download?id=1fYuVYz0XcoVmrGqnS-2tu-rY8h0XXPXt&export=download&confirm=t'); return false;"><span class="icon">📊</span> BOW_Analysis_FirstTerm_SY2026-2027_G2_Makabansa.xlsx</a>
+                            <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1xqBH_DqTkb6zJvsYSjnerHrIRcIjX4nK/preview', 'https://drive.usercontent.google.com/download?id=1xqBH_DqTkb6zJvsYSjnerHrIRcIjX4nK&export=download&confirm=t'); return false;"><span class="icon">📊</span> DIP_FirstTerm_SY2026-2027_G2_Makabansa.xlsx</a>
+                          </div>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/13_kNX7QBGOE1r04IDRNJoTG21_WBjtCf/preview', 'https://drive.usercontent.google.com/download?id=13_kNX7QBGOE1r04IDRNJoTG21_WBjtCf&export=download&confirm=t'); return false;"><span class="icon">📊</span> PPT_G2_Makabansa_Session4_Week1_C01_REBUILT.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/13c-iW44GhaEU-l59U9o_k0W8pmCA3_YT/preview', 'https://drive.usercontent.google.com/download?id=13c-iW44GhaEU-l59U9o_k0W8pmCA3_YT&export=download&confirm=t'); return false;"><span class="icon">📊</span> LP_G2_Makabansa_FirstTerm_Week2_C02_ILAW.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1EzFISWKmShc3ty6h3qjrCurPp9Hbn-5y/preview', 'https://drive.usercontent.google.com/download?id=1EzFISWKmShc3ty6h3qjrCurPp9Hbn-5y&export=download&confirm=t'); return false;"><span class="icon">📊</span> MCT_G2_Makabansa_Week1_FirstTerm_SY2026-2027_CORRECTED.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1I45GRYk2oI409uQfsRe8Lecfgta9C5x-/preview', 'https://drive.usercontent.google.com/download?id=1I45GRYk2oI409uQfsRe8Lecfgta9C5x-&export=download&confirm=t'); return false;"><span class="icon">📊</span> PPT_G2_Makabansa_Session3_Week1_C01_REBUILT.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1lnafjWKxr497BlyXnCFgGUfR1xlCatgk/preview', 'https://drive.usercontent.google.com/download?id=1lnafjWKxr497BlyXnCFgGUfR1xlCatgk&export=download&confirm=t'); return false;"><span class="icon">📊</span> PPT_G2_Makabansa_Session2_Week1_C01.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1rqWTpsyedaGY3T_iPqBMYdzZfQx-9Pz2/preview', 'https://drive.usercontent.google.com/download?id=1rqWTpsyedaGY3T_iPqBMYdzZfQx-9Pz2&export=download&confirm=t'); return false;"><span class="icon">📊</span> PPT_G2_Makabansa_Session1_Week1_C01.pptx</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 22-25 LP, PPT, MCT</div>
+                    <div class="folder-content">
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MATH</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1YcFqaPz7rVJ6PR5Dby_PimOTu8Ta32mX/preview', 'https://drive.usercontent.google.com/download?id=1YcFqaPz7rVJ6PR5Dby_PimOTu8Ta32mX&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_Day1_Shapes_That_Move.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1fxczBhnH3J8uTM2ujdZok94_27M4zlLh/preview', 'https://drive.usercontent.google.com/download?id=1fxczBhnH3J8uTM2ujdZok94_27M4zlLh&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_Day4_Showing_My_Slide.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1klQQr1BCt0gZwsVFqPUFoV0jGRWzDtq4/preview', 'https://drive.usercontent.google.com/download?id=1klQQr1BCt0gZwsVFqPUFoV0jGRWzDtq4&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_Day2_What_Is_A_Slide.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1rWFNvb903to8cuc2-QQzXnrhS8xmVF7X/preview', 'https://drive.usercontent.google.com/download?id=1rWFNvb903to8cuc2-QQzXnrhS8xmVF7X&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W2_Day3_Sliding_Step_By_Step.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1vVwF7vJ8UNkZgvxdAFKR4OMTMEZTjk_0/preview', 'https://drive.usercontent.google.com/download?id=1vVwF7vJ8UNkZgvxdAFKR4OMTMEZTjk_0&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_ILAW_DLP_Week2_Jun22-25.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1wv0_zqbbz0knx8oDTwYaOCVa2xSU48xS/preview', 'https://drive.usercontent.google.com/download?id=1wv0_zqbbz0knx8oDTwYaOCVa2xSU48xS&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_Summative_Assessment_Package.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MAKABANSA</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/14O4z8mMJg_CYuyTy90GlVcnM_qf3UStm/preview', 'https://drive.usercontent.google.com/download?id=14O4z8mMJg_CYuyTy90GlVcnM_qf3UStm&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week2_Day4_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Cqbt9tUkhGH7ZPr9HHF6lYJW7ZSW-4i2/preview', 'https://drive.usercontent.google.com/download?id=1Cqbt9tUkhGH7ZPr9HHF6lYJW7ZSW-4i2&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week2_Day3_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HO5Ong6UPCw0poGDRY62Mmo_t0bQyGb1/preview', 'https://drive.usercontent.google.com/download?id=1HO5Ong6UPCw0poGDRY62Mmo_t0bQyGb1&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week2_Day1_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HdaOTadECnFyWOkCfBs4pE2tYaHto1BJ/preview', 'https://drive.usercontent.google.com/download?id=1HdaOTadECnFyWOkCfBs4pE2tYaHto1BJ&export=download&confirm=t'); return false;"><span class="icon">📊</span> LP_Makabansa_2_Q1_Week2_ILAW_Jun22-25.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1USMMNN5NGgNrdjW5TdeQx0FZJaDrRJ5f/preview', 'https://drive.usercontent.google.com/download?id=1USMMNN5NGgNrdjW5TdeQx0FZJaDrRJ5f&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week2_Day2_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1_1OGDzv8lpDEARyzcg5ua4xACbF0KhgC/preview', 'https://drive.usercontent.google.com/download?id=1_1OGDzv8lpDEARyzcg5ua4xACbF0KhgC&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_C02_Summative_Assessment_Package_DO015.docx</a>
+                      </div>
+                        <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GMRC</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/123FqkUdv4Fkw0v308B-BQWpoBYq3jkSv/preview', 'https://drive.usercontent.google.com/download?id=123FqkUdv4Fkw0v308B-BQWpoBYq3jkSv&export=download&confirm=t'); return false;"><span class="icon">📊</span> GMRC2_Summative_Assessment_Package.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/164nzJ-FD8JXQbEUvRxWvS1YNiArNI5vE/preview', 'https://drive.usercontent.google.com/download?id=164nzJ-FD8JXQbEUvRxWvS1YNiArNI5vE&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_Summative_Assessment_Package.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16yyDoC4MF19OD_jsAIkcGMp2kKE2U4dr/preview', 'https://drive.usercontent.google.com/download?id=16yyDoC4MF19OD_jsAIkcGMp2kKE2U4dr&export=download&confirm=t'); return false;"><span class="icon">📊</span> GMRC2_Day1_Aking_Pamilya.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1f77DBrMAek5icsaw5hLtgAMgkvcqh-Wt/preview', 'https://drive.usercontent.google.com/download?id=1f77DBrMAek5icsaw5hLtgAMgkvcqh-Wt&export=download&confirm=t'); return false;"><span class="icon">📊</span> GMRC2_Day2_Sino_Sino_sa_Pamilya.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1hMACjQsU1vwHG1-Aj4qyK94vp-am7isG/preview', 'https://drive.usercontent.google.com/download?id=1hMACjQsU1vwHG1-Aj4qyK94vp-am7isG&export=download&confirm=t'); return false;"><span class="icon">📊</span> GMRC2_Day4_Pagkukwento_ng_Pamilya.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1nMeFoYrRAYK6LQB1u5NkbLVFY5z-Udjh/preview', 'https://drive.usercontent.google.com/download?id=1nMeFoYrRAYK6LQB1u5NkbLVFY5z-Udjh&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_ILAW_DailyLessonPlans_Jun22-25.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> FILIPINO</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/12MnDf3oHiolKE6LBQkemzWv1kW-sjJuw/preview', 'https://drive.usercontent.google.com/download?id=12MnDf3oHiolKE6LBQkemzWv1kW-sjJuw&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_Summative_Assessment_Package_C01_DO015_SY2026-2027.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1L9YEAPudH2R98FhSR26W9cAiD3k4OKOI/preview', 'https://drive.usercontent.google.com/download?id=1L9YEAPudH2R98FhSR26W9cAiD3k4OKOI&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_Linggo2_Araw3_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1WWmHNgeCh5FHjB2g_oMBLVSFvD4TRdms/preview', 'https://drive.usercontent.google.com/download?id=1WWmHNgeCh5FHjB2g_oMBLVSFvD4TRdms&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_Linggo2_Araw4_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1oeSqgzN2E9ziaCijOmYFDudC3GXUeahP/preview', 'https://drive.usercontent.google.com/download?id=1oeSqgzN2E9ziaCijOmYFDudC3GXUeahP&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_ILAW_DailyLessonPlans_Q1_Week2_Jun22-25.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> ENGLISH</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1CCnxO-e3uAOYrQDOeV3rvwrnOa1aVW65/preview', 'https://drive.usercontent.google.com/download?id=1CCnxO-e3uAOYrQDOeV3rvwrnOa1aVW65&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Summative_Assessment_Package.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1E2TklITYdXHGVr4gjKgzdyulObk-I-sp/preview', 'https://drive.usercontent.google.com/download?id=1E2TklITYdXHGVr4gjKgzdyulObk-I-sp&export=download&confirm=t'); return false;"><span class="icon">📊</span> Screenshot 2026-06-17 120046.png</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Ny9-_EGbKqN36dz_ZWCxnCU9ZZ_dtJy_/preview', 'https://drive.usercontent.google.com/download?id=1Ny9-_EGbKqN36dz_ZWCxnCU9ZZ_dtJy_&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week2_ILAW_DailyLessonPlans.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1TUq1DgqEgCX2DImOpD-MgxQb-pWr7aDD/preview', 'https://drive.usercontent.google.com/download?id=1TUq1DgqEgCX2DImOpD-MgxQb-pWr7aDD&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week2_Day3_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1VgM1lGYASYv6QbodND_8Irx9uBGQZpRd/preview', 'https://drive.usercontent.google.com/download?id=1VgM1lGYASYv6QbodND_8Irx9uBGQZpRd&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week2_Day2_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1jxm7K34lrC5mWTxfSJWRSnTWxIupLdg_/preview', 'https://drive.usercontent.google.com/download?id=1jxm7K34lrC5mWTxfSJWRSnTWxIupLdg_&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week2_Day4_Deck.pptx</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 29-30 JULY 1-2 LP, PPT, TEST</div>
+                    <div class="folder-content">
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MATH</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1GVgo-NG7M9XFDHXvtJ6q_DJbne2FwI10/preview', 'https://drive.usercontent.google.com/download?id=1GVgo-NG7M9XFDHXvtJ6q_DJbne2FwI10&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W3_ILAW_DailyPlans_1.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1J3MsynRD1pGgy-tLOranTW0Ynh5Mlkfc/preview', 'https://drive.usercontent.google.com/download?id=1J3MsynRD1pGgy-tLOranTW0Ynh5Mlkfc&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W3_Day1_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1btwEc54aK45JKo0QyozxtLFF2mQYDuP_/preview', 'https://drive.usercontent.google.com/download?id=1btwEc54aK45JKo0QyozxtLFF2mQYDuP_&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W3_Summative_Assessment_Package.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1hpaelfgCtXpiruNj0e3dm7SDbUpeKve_/preview', 'https://drive.usercontent.google.com/download?id=1hpaelfgCtXpiruNj0e3dm7SDbUpeKve_&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W3_Day3_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1i79ED8jhzuOnxqd7AGQAHqz86p49INf7/preview', 'https://drive.usercontent.google.com/download?id=1i79ED8jhzuOnxqd7AGQAHqz86p49INf7&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W3_Day4_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1rcx1LmTwMynhHwkjuDlQp5Ih_3KFBv3M/preview', 'https://drive.usercontent.google.com/download?id=1rcx1LmTwMynhHwkjuDlQp5Ih_3KFBv3M&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_W3_Day2_Deck.pptx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MAKABANSA</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/17u1Cxu3xxJU_OU_3pwfIKnOq_b8KKxvS/preview', 'https://drive.usercontent.google.com/download?id=17u1Cxu3xxJU_OU_3pwfIKnOq_b8KKxvS&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Week3_Day1.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1XGhX5uxtEiIW-cEGvFaoUXlvE-9s393G/preview', 'https://drive.usercontent.google.com/download?id=1XGhX5uxtEiIW-cEGvFaoUXlvE-9s393G&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Week3_Day2.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1YiDbYT0seK3U-lsm5hBmVZKSO4SONvwd/preview', 'https://drive.usercontent.google.com/download?id=1YiDbYT0seK3U-lsm5hBmVZKSO4SONvwd&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Week3_Day4.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1cD4flKdwJ4sUK7C1UZPVK1MnZNgBeaep/preview', 'https://drive.usercontent.google.com/download?id=1cD4flKdwJ4sUK7C1UZPVK1MnZNgBeaep&export=download&confirm=t'); return false;"><span class="icon">📊</span> ILAW_Makabansa_G2_Week3_Day1-4.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1wb_fJTuwHTOJvOkAKCRC9JLMFBYjjeQ_/preview', 'https://drive.usercontent.google.com/download?id=1wb_fJTuwHTOJvOkAKCRC9JLMFBYjjeQ_&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Week3_Summative_Assessment.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1zckqU8FtZCbXWSdom7CmimI1wHElxWj4/preview', 'https://drive.usercontent.google.com/download?id=1zckqU8FtZCbXWSdom7CmimI1wHElxWj4&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Week3_Day3.pptx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GMRC</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1CdCRu-ksdnb19iOw2bcwUZihVdezoZbW/preview', 'https://drive.usercontent.google.com/download?id=1CdCRu-ksdnb19iOw2bcwUZihVdezoZbW&export=download&confirm=t'); return false;"><span class="icon">📊</span> GMRC_G2_Linggo3_Day4_Learner_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1UqIaGyOoc1dNtKVFAYH4dFx1cRh_e9cT/preview', 'https://drive.usercontent.google.com/download?id=1UqIaGyOoc1dNtKVFAYH4dFx1cRh_e9cT&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_ILAW_Linggo3_K02_Day1-4.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1XQ3FjrFMFBuZMhqYSQ6d_zPj6JQVkHVZ/preview', 'https://drive.usercontent.google.com/download?id=1XQ3FjrFMFBuZMhqYSQ6d_zPj6JQVkHVZ&export=download&confirm=t'); return false;"><span class="icon">📊</span> GMRC_G2_Linggo3_Day1_Learner_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Y6h2EajBQJSAZcX5aR5oGbgpcdKrs5XN/preview', 'https://drive.usercontent.google.com/download?id=1Y6h2EajBQJSAZcX5aR5oGbgpcdKrs5XN&export=download&confirm=t'); return false;"><span class="icon">📊</span> GMRC_G2_Linggo3_Day2_Learner_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1eX94ZDbHgIVVzwFWIuHhftHGP9er2EOU/preview', 'https://drive.usercontent.google.com/download?id=1eX94ZDbHgIVVzwFWIuHhftHGP9er2EOU&export=download&confirm=t'); return false;"><span class="icon">📊</span> GMRC_G2_Linggo3_Day3_Learner_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ohH7BjI8EWO_8tGv_ApcCLteyQPRIWOl/preview', 'https://drive.usercontent.google.com/download?id=1ohH7BjI8EWO_8tGv_ApcCLteyQPRIWOl&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_Summative_Assessment_Package_DO015.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> FILIPINO</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/12_SsJUtq4kalQCDho6j8xhrWwbgnL7ey/preview', 'https://drive.usercontent.google.com/download?id=12_SsJUtq4kalQCDho6j8xhrWwbgnL7ey&export=download&confirm=t'); return false;"><span class="icon">📊</span> Filipino2_Linggo3_Araw2_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Eiyc5luvb8JxN0HFoQoSGGSD7mhgsQ4i/preview', 'https://drive.usercontent.google.com/download?id=1Eiyc5luvb8JxN0HFoQoSGGSD7mhgsQ4i&export=download&confirm=t'); return false;"><span class="icon">📊</span> Filipino2_Linggo3_Araw4_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ey_-7L_bZFTH1mC4jOS3j4dNepbK0OF8/preview', 'https://drive.usercontent.google.com/download?id=1ey_-7L_bZFTH1mC4jOS3j4dNepbK0OF8&export=download&confirm=t'); return false;"><span class="icon">📊</span> Filipino2_Linggo3_Araw3_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1y18E-SM85j1OZYU-l751MAaXW4cWbX_s/preview', 'https://drive.usercontent.google.com/download?id=1y18E-SM85j1OZYU-l751MAaXW4cWbX_s&export=download&confirm=t'); return false;"><span class="icon">📊</span> ILAW_Filipino2_Linggo3_Araw1-4.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1zahW7xMNjVIeFO04dPvtHskmpJGpoZLc/preview', 'https://drive.usercontent.google.com/download?id=1zahW7xMNjVIeFO04dPvtHskmpJGpoZLc&export=download&confirm=t'); return false;"><span class="icon">📊</span> Filipino2_Linggo3_Araw1_Deck_1.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1zs2IBD7J5Jno7DTDykkCZINURLXm5DN6/preview', 'https://drive.usercontent.google.com/download?id=1zs2IBD7J5Jno7DTDykkCZINURLXm5DN6&export=download&confirm=t'); return false;"><span class="icon">📊</span> Filipino2_Linggo3_Summative_Assessment_Package.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> ENGLISH</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1F-J1Uzy31g_6tg9mNerFAEqm3dQmoRm_/preview', 'https://drive.usercontent.google.com/download?id=1F-J1Uzy31g_6tg9mNerFAEqm3dQmoRm_&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week3_Day4_Learner_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ZpDO7B-nUGGZpoQ4Q6nm6_VW-nzs9owu/preview', 'https://drive.usercontent.google.com/download?id=1ZpDO7B-nUGGZpoQ4Q6nm6_VW-nzs9owu&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week3_Summative_Assessment_Package_DO015.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1bMyNIauFS8JSFepNufDlVx4HyJhGKwAh/preview', 'https://drive.usercontent.google.com/download?id=1bMyNIauFS8JSFepNufDlVx4HyJhGKwAh&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week3_Day3_Learner_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1cg5vDpuhUQDqmB9CWrTNb5pim6Bcmj04/preview', 'https://drive.usercontent.google.com/download?id=1cg5vDpuhUQDqmB9CWrTNb5pim6Bcmj04&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week3_ILAW_Daily_Lesson_Plans_Jun29-Jul2.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1lGEiZrtGPFxvUw43WM2bMTMdAS13OV84/preview', 'https://drive.usercontent.google.com/download?id=1lGEiZrtGPFxvUw43WM2bMTMdAS13OV84&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week3_Day2_Learner_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1xZidDx2fr5vyrwyNMIKuGCGnEj-gNhJV/preview', 'https://drive.usercontent.google.com/download?id=1xZidDx2fr5vyrwyNMIKuGCGnEj-gNhJV&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week3_Day1_Learner_Deck.pptx</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 6-9 LP, PPT, TEST</div>
+                    <div class="folder-content">
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MATH</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1KOPziiWvC8rYOyAaxfNac1mRjGVdQRsZ/preview', 'https://drive.usercontent.google.com/download?id=1KOPziiWvC8rYOyAaxfNac1mRjGVdQRsZ&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_Week4_Day4_ILAW_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1MRDIG1HVTzqA4RvTCD5ySPXcp1RMe_4O/preview', 'https://drive.usercontent.google.com/download?id=1MRDIG1HVTzqA4RvTCD5ySPXcp1RMe_4O&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_Week4_C04_Summative_Assessment_Package.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1p9WpjXAZHyQiYpzJWYFecFZZXqZde6lr/preview', 'https://drive.usercontent.google.com/download?id=1p9WpjXAZHyQiYpzJWYFecFZZXqZde6lr&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_Week4_Jul6-9_C04_ILAW_LessonPlans.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tcCwlNdEYgiDhEDd_LJ8oPOf2NJ8PfoR/preview', 'https://drive.usercontent.google.com/download?id=1tcCwlNdEYgiDhEDd_LJ8oPOf2NJ8PfoR&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_Week4_Day2_ILAW_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1w8bQyIHVgm_UDfBv5kbSG53BMIYsaj6m/preview', 'https://drive.usercontent.google.com/download?id=1w8bQyIHVgm_UDfBv5kbSG53BMIYsaj6m&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_Week4_Day1_ILAW_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1xniAIWxasZkVBEGgsBL7QJokRstsaI43/preview', 'https://drive.usercontent.google.com/download?id=1xniAIWxasZkVBEGgsBL7QJokRstsaI43&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Math_Week4_Day3_ILAW_Deck.pptx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MAKABANSA</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1BppUn84mQpsT01BFRn76D2lDja5MP2v6/preview', 'https://drive.usercontent.google.com/download?id=1BppUn84mQpsT01BFRn76D2lDja5MP2v6&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week4_Summative_Assessment_Package.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1IZUqlu2G7tA1Ci5DiSPC2AIt7WJtNsto/preview', 'https://drive.usercontent.google.com/download?id=1IZUqlu2G7tA1Ci5DiSPC2AIt7WJtNsto&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week4_ILAW_LessonPlans.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ZopaggKiwFYiSzVDmrc--6DNDOpQHBVK/preview', 'https://drive.usercontent.google.com/download?id=1ZopaggKiwFYiSzVDmrc--6DNDOpQHBVK&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week4_Day1_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1fYNL8Ft_rvEmz2kvUBGQ-Z-lwwL037zH/preview', 'https://drive.usercontent.google.com/download?id=1fYNL8Ft_rvEmz2kvUBGQ-Z-lwwL037zH&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week4_Day3_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1kQRh--MgV6nWXgJIE9Fhix6LvgXxJr8F/preview', 'https://drive.usercontent.google.com/download?id=1kQRh--MgV6nWXgJIE9Fhix6LvgXxJr8F&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week4_Day2_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1u7o0ssGneFjkd282rlllVDSAx6mi7Snu/preview', 'https://drive.usercontent.google.com/download?id=1u7o0ssGneFjkd282rlllVDSAx6mi7Snu&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa2_Q1_Week4_Day4_LearnerDeck.pptx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GMRC</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/10_aMEcUeq-uNDrjJB4Rl11nIAluAKNh_/preview', 'https://drive.usercontent.google.com/download?id=10_aMEcUeq-uNDrjJB4Rl11nIAluAKNh_&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_T1_K04_Madasalin_ILAW_LP_Jul6-9.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/19lPXOCOt2RzxKhDbjW0f43FXfdMMJw0_/preview', 'https://drive.usercontent.google.com/download?id=19lPXOCOt2RzxKhDbjW0f43FXfdMMJw0_&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_T1_Day2_PansarilingPanalangin_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1CidPZjrj0vXkZi5n8-cMM4xIFS9Fx-SL/preview', 'https://drive.usercontent.google.com/download?id=1CidPZjrj0vXkZi5n8-cMM4xIFS9Fx-SL&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_K04_Summative_Assessment_Package_DO015.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HO7hz8lms7jk_5N7KXLrJtloJiRFFZdV/preview', 'https://drive.usercontent.google.com/download?id=1HO7hz8lms7jk_5N7KXLrJtloJiRFFZdV&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_T1_Day3_PansarilingPanalangin_LearnerDeck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HYRCiSmokC5ibYD6PU_f9VIGaVOcM7tT/preview', 'https://drive.usercontent.google.com/download?id=1HYRCiSmokC5ibYD6PU_f9VIGaVOcM7tT&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_GMRC_T1_Day4_PansarilingPanalangin_LearnerDeck.pptx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> FILIPINO</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/173y17xryJiK0fagNMSeBm8mK9CvmyNU2/preview', 'https://drive.usercontent.google.com/download?id=173y17xryJiK0fagNMSeBm8mK9CvmyNU2&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_Q1_Linggo4_Araw2_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1M0ZNie6kdM_feFTBWLEMAzFTjVFsCwXh/preview', 'https://drive.usercontent.google.com/download?id=1M0ZNie6kdM_feFTBWLEMAzFTjVFsCwXh&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_Q1_Linggo4_Summative_Assessment_Package.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1S3QfwqDGQpTtGEMtsxlIBqNF9SIWNE5p/preview', 'https://drive.usercontent.google.com/download?id=1S3QfwqDGQpTtGEMtsxlIBqNF9SIWNE5p&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_Q1_Linggo4_Araw4_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Zu_v7LdEicAA0MA7OROiT3CfIWQnzzeb/preview', 'https://drive.usercontent.google.com/download?id=1Zu_v7LdEicAA0MA7OROiT3CfIWQnzzeb&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_Q1_Linggo4_Araw3_Deck.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1dDsWi3CKFF-0HiQGsz1A1CUTwyhDXsux/preview', 'https://drive.usercontent.google.com/download?id=1dDsWi3CKFF-0HiQGsz1A1CUTwyhDXsux&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_Filipino_Q1_Linggo4_ILAW_LessonPlans.docx</a>
+                      </div>
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> ENGLISH</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1GeGn4JGp-7SAVvZn1PTzXtz_NjeooAnH/preview', 'https://drive.usercontent.google.com/download?id=1GeGn4JGp-7SAVvZn1PTzXtz_NjeooAnH&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week4_Day1_PPT.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1R4nbvK9piZZKhIss76SC4JJODpT_x6tJ/preview', 'https://drive.usercontent.google.com/download?id=1R4nbvK9piZZKhIss76SC4JJODpT_x6tJ&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week4_Day4_PPT.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1aGs9R2-972Q_FicaYzvPJaHQnWUxId-L/preview', 'https://drive.usercontent.google.com/download?id=1aGs9R2-972Q_FicaYzvPJaHQnWUxId-L&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week4_Day3_PPT.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1avao1hZJQUbFX8zRbbaarrtc_ECN9qR_/preview', 'https://drive.usercontent.google.com/download?id=1avao1hZJQUbFX8zRbbaarrtc_ECN9qR_&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week4_Summative_Assessment_DO015.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1cg63OVuTiu6uBtnmWAhaXjImDUCr9UIn/preview', 'https://drive.usercontent.google.com/download?id=1cg63OVuTiu6uBtnmWAhaXjImDUCr9UIn&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week4_Day2_PPT.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1kQFBufxibewBh-HcXYKHydTbJBVsn3-N/preview', 'https://drive.usercontent.google.com/download?id=1kQFBufxibewBh-HcXYKHydTbJBVsn3-N&export=download&confirm=t'); return false;"><span class="icon">📊</span> G2_English_Q1_Week4_ILAW_LessonPlans_Jul6-9_2026_2.docx</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 13-16 LP, PPT, TEST</div>
+                    <div class="folder-content">
+                      <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> MAKABANSA</div>
+                      <div class="folder-content">
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1K9m1dWo3l0VmV_937ie3KYOM1Vz6dRsQ/preview', 'https://drive.usercontent.google.com/download?id=1K9m1dWo3l0VmV_937ie3KYOM1Vz6dRsQ&export=download&confirm=t'); return false;"><span class="icon">📊</span> ILAW_G2_Makabansa_Q1_W5.docx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1WCd1pqK-q775n1sBl0eCMyZPS311wwmg/preview', 'https://drive.usercontent.google.com/download?id=1WCd1pqK-q775n1sBl0eCMyZPS311wwmg&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Day2.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1WlwHfhNUyD7EUVU83ToB9btRoKGMAgtu/preview', 'https://drive.usercontent.google.com/download?id=1WlwHfhNUyD7EUVU83ToB9btRoKGMAgtu&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Day1.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ePSnpWiF6xv1exNH6usEaCprWyXB009h/preview', 'https://drive.usercontent.google.com/download?id=1ePSnpWiF6xv1exNH6usEaCprWyXB009h&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Day3.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tfSy6ckjGEbvfE-frtq-qOj3116jnw_i/preview', 'https://drive.usercontent.google.com/download?id=1tfSy6ckjGEbvfE-frtq-qOj3116jnw_i&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_Day4.pptx</a>
+                        <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1xf9iRjIsP19EO3tdHDprYxheW7wugzLu/preview', 'https://drive.usercontent.google.com/download?id=1xf9iRjIsP19EO3tdHDprYxheW7wugzLu&export=download&confirm=t'); return false;"><span class="icon">📊</span> Makabansa_G2_W5_Assessment.docx</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ══════════════ GRADE 6 EPP ══════════════ -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GRADE 6 EPP</div>
+            <div class="folder-content">
+              <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1-fFcMF9Hz5owr1nIh8pwDqv9oyAw1JUr/preview', 'https://drive.usercontent.google.com/download?id=1-fFcMF9Hz5owr1nIh8pwDqv9oyAw1JUr&export=download&confirm=t'); return false;"><span class="icon">📊</span> G6_TLE_DIP_LE_Alignment_Analysis.xlsx</a>
+              <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/13hHyFZK4Czn4-7mBdxD_K1aYU_mdxFGA/preview', 'https://drive.usercontent.google.com/download?id=13hHyFZK4Czn4-7mBdxD_K1aYU_mdxFGA&export=download&confirm=t'); return false;"><span class="icon">📊</span> G6_TLE_EPP_Competency_Unpacking.xlsx</a>
+              <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1VK7zBrA1qGs8gM54mCkxpEe-ziAcYRjd/preview', 'https://drive.usercontent.google.com/download?id=1VK7zBrA1qGs8gM54mCkxpEe-ziAcYRjd&export=download&confirm=t'); return false;"><span class="icon">📊</span> G6_EPP_ICT_DIP_IDF_2Session.xlsx</a>
+              <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1gRXnhVNxF2xGJ9l1rafT2NdAhPTy31O6/preview', 'https://drive.usercontent.google.com/download?id=1gRXnhVNxF2xGJ9l1rafT2NdAhPTy31O6&export=download&confirm=t'); return false;"><span class="icon">📊</span> DIP VS LE REFERENCE LIST.jpg</a>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> 1STQ LE & LAS</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/118zjxOrQRrpqKFItrtOUWXk6e-bsUwfM/preview', 'https://drive.usercontent.google.com/download?id=118zjxOrQRrpqKFItrtOUWXk6e-bsUwfM&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LE_TLE 6_Lesson 1_Week 1.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1sPteQ9yANGoqXx7prj54bO5p576dvRwJ/preview', 'https://drive.usercontent.google.com/download?id=1sPteQ9yANGoqXx7prj54bO5p576dvRwJ&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LE_TLE 6_Lesson 2_Week 2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1k4pPjXFB6xpJsz4khNhxEglmglq8--Dy/preview', 'https://drive.usercontent.google.com/download?id=1k4pPjXFB6xpJsz4khNhxEglmglq8--Dy&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LE_TLE 6_Lesson 3_Week 3.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ON_3hKBM0JZdXWyOTIVCATfHYpIKRBb_/preview', 'https://drive.usercontent.google.com/download?id=1ON_3hKBM0JZdXWyOTIVCATfHYpIKRBb_&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LE_TLE 6_Lesson 4_Week 4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1yNSafNROZMGbxuZHdq9YaVoYbgP2s9SJ/preview', 'https://drive.usercontent.google.com/download?id=1yNSafNROZMGbxuZHdq9YaVoYbgP2s9SJ&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LE_TLE 6_Lesson 5_Week 5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1MZED4C_CbsPJdWeBXzEiV2ptBqObsyGR/preview', 'https://drive.usercontent.google.com/download?id=1MZED4C_CbsPJdWeBXzEiV2ptBqObsyGR&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LE_TLE 6_Lesson 6_Week 6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1YQABtNO8rG6knsaAtEwVvRELM0kNOu_u/preview', 'https://drive.usercontent.google.com/download?id=1YQABtNO8rG6knsaAtEwVvRELM0kNOu_u&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LE_TLE 6_Lesson 7_Week 7.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1AxZPOZHC4crfNUTQyjz_s8r-SnEu7RLJ/preview', 'https://drive.usercontent.google.com/download?id=1AxZPOZHC4crfNUTQyjz_s8r-SnEu7RLJ&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LE_TLE 6_Lesson 8_Week 8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1paUFW-UN_d-Jm4yslsco9cTRvLA2oryK/preview', 'https://drive.usercontent.google.com/download?id=1paUFW-UN_d-Jm4yslsco9cTRvLA2oryK&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LAS_TLE 6_Lesson 1_Week 1.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1mGvpKF2WWiTCziakvQ3TS3Hz17bD0uPN/preview', 'https://drive.usercontent.google.com/download?id=1mGvpKF2WWiTCziakvQ3TS3Hz17bD0uPN&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LAS_TLE 6_Lesson 2_Week 2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1XYCcD8Eh775_tEdQu2Xa1KI0wKJzZY79/preview', 'https://drive.usercontent.google.com/download?id=1XYCcD8Eh775_tEdQu2Xa1KI0wKJzZY79&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LAS_TLE 6_Lesson 3_Week 3.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ejVbp5XPPGLHR73wHns7WuGgx77D6xdt/preview', 'https://drive.usercontent.google.com/download?id=1ejVbp5XPPGLHR73wHns7WuGgx77D6xdt&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LAS_TLE 6_Lesson 4_Week 4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1INvMg3XKFXcrcvm9xRG-nBYVkQ2h7kCy/preview', 'https://drive.usercontent.google.com/download?id=1INvMg3XKFXcrcvm9xRG-nBYVkQ2h7kCy&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LAS_TLE 6_Lesson 5_Week 5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tLji1l4URoXG7O5lZY6I32fQ7aRTSNTV/preview', 'https://drive.usercontent.google.com/download?id=1tLji1l4URoXG7O5lZY6I32fQ7aRTSNTV&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LAS_TLE 6_Lesson 6_Week 6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1lYyO7iK6WsG8N9ChBf_EuNC3C93icakZ/preview', 'https://drive.usercontent.google.com/download?id=1lYyO7iK6WsG8N9ChBf_EuNC3C93icakZ&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LAS_TLE 6_Lesson 7_Week 7.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1M1fkgsn5F-SSjOb7tkKbDqVKBwlPOfuA/preview', 'https://drive.usercontent.google.com/download?id=1M1fkgsn5F-SSjOb7tkKbDqVKBwlPOfuA&export=download&confirm=t'); return false;"><span class="icon">📊</span> Q1_LAS_TLE 6_Lesson 8_Week 8.pdf</a>   
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 15-18 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Nj7Kab_77TdYzb1clghUgulUBemvFPR_/preview', 'https://drive.usercontent.google.com/download?id=1Nj7Kab_77TdYzb1clghUgulUBemvFPR_&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_Q1_Week2_DailyLessonPlans_ILAW.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1inXqkEVKrqI4KWlfkxBtzxljQ8hneLtg/preview', 'https://drive.usercontent.google.com/download?id=1inXqkEVKrqI4KWlfkxBtzxljQ8hneLtg&export=download&confirm=t'); return false;"><span class="icon">📝</span> EPP6_TLE_Week2_Day4_Jun18.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1iU_A6d0JC4cPK-1Ppq-_wEIQzogTUl51/preview', 'https://drive.usercontent.google.com/download?id=1iU_A6d0JC4cPK-1Ppq-_wEIQzogTUl51&export=download&confirm=t'); return false;"><span class="icon">📝</span> EPP6_TLE_Week2_Day3_Jun17.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16tn5RQdVue_IWv0jWfKbhzNrvokcY8cx/preview', 'https://drive.usercontent.google.com/download?id=16tn5RQdVue_IWv0jWfKbhzNrvokcY8cx&export=download&confirm=t'); return false;"><span class="icon">📝</span> EPP6_TLE_Week2_Day2_Jun16.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1m_SpzmWpxMHPoumH5sPEkpA78qKCAgML/preview', 'https://drive.usercontent.google.com/download?id=1m_SpzmWpxMHPoumH5sPEkpA78qKCAgML&export=download&confirm=t'); return false;"><span class="icon">📝</span> EPP6_TLE_Week2_Day1_Jun15.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1gnSFSqD4gTp9g8tgsic6EE5ph1hUY-Wm/preview', 'https://drive.usercontent.google.com/download?id=1gnSFSqD4gTp9g8tgsic6EE5ph1hUY-Wm&export=download&confirm=t'); return false;"><span class="icon">📝</span> EPP6_Q1_Week2_WebConferencing_WrittenTest.docx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 22-25 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1622NVlmH_xwCSYlQfp8RA87oYgYX-Opp/preview', 'https://drive.usercontent.google.com/download?id=1622NVlmH_xwCSYlQfp8RA87oYgYX-Opp&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_Netiquette_Summative_Test.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1TvM_9_y5atCIQ-LX4baqKDgLd6V98lno/preview', 'https://drive.usercontent.google.com/download?id=1TvM_9_y5atCIQ-LX4baqKDgLd6V98lno&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_Week3_DailyLessonPlans_ILAW.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Wswl2G0FWON174xoVwuH8us92xP9YlYg/preview', 'https://drive.usercontent.google.com/download?id=1Wswl2G0FWON174xoVwuH8us92xP9YlYg&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_Wk2_Day4_Netiquette_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Z9seEIM5fnZLt00BUF4kE145lRcXPKd-/preview', 'https://drive.usercontent.google.com/download?id=1Z9seEIM5fnZLt00BUF4kE145lRcXPKd-&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_Wk2_Day1_Netiquette_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1irkE9rjdi52kX621R_vDUp3pd5XpLQnZ/preview', 'https://drive.usercontent.google.com/download?id=1irkE9rjdi52kX621R_vDUp3pd5XpLQnZ&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_Wk2_Day2_Netiquette_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1r_2bm-BR5wiiEmCxsi5QUcjy04KBXkDO/preview', 'https://drive.usercontent.google.com/download?id=1r_2bm-BR5wiiEmCxsi5QUcjy04KBXkDO&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_Wk2_Day3_Netiquette_Deck.pptx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 29-30 JUL 1-2 LP, PPT, TEST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/11KIRvJVje3lxcwWZ8UcrVl2XJHMo0KLG/preview', 'https://drive.usercontent.google.com/download?id=11KIRvJVje3lxcwWZ8UcrVl2XJHMo0KLG&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_AFA_SummativeTest_15item.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1eIpMniyK5dVvsvjOw_UsxBY30KpyM9NI/preview', 'https://drive.usercontent.google.com/download?id=1eIpMniyK5dVvsvjOw_UsxBY30KpyM9NI&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_AFA_Day4_FisheryArts_Community.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1fdl0gPxLqnTxqxV5Vw4NqO4kbSDl0F7c/preview', 'https://drive.usercontent.google.com/download?id=1fdl0gPxLqnTxqxV5Vw4NqO4kbSDl0F7c&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_ICT_Day2_WebConf_Performance.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1hd-tfUUV3_qWDBbTikqmpA-b0d-mrnu8/preview', 'https://drive.usercontent.google.com/download?id=1hd-tfUUV3_qWDBbTikqmpA-b0d-mrnu8&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_ICT_Day1_WebConf_Factors.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1j7x7ScShBVr9nvlECFTVc6FKo66HzUfg/preview', 'https://drive.usercontent.google.com/download?id=1j7x7ScShBVr9nvlECFTVc6FKo66HzUfg&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_AFA_Day3_FisheryArtsV2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1m10ujp-ZwXozYLSJFfcK7rag0HkxCLHW/preview', 'https://drive.usercontent.google.com/download?id=1m10ujp-ZwXozYLSJFfcK7rag0HkxCLHW&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_ILAW_DLP_Jun29-Jul2.docx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 6-10 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/11CtENS1BoshNo7cR8XiYgZBEW-Jd3Fku/preview', 'https://drive.usercontent.google.com/download?id=11CtENS1BoshNo7cR8XiYgZBEW-Jd3Fku&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_TLE_DIP_5Day_Term1.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1IOO0T-h16gWC3NcP1B7nhMfsaQufI7JY/preview', 'https://drive.usercontent.google.com/download?id=1IOO0T-h16gWC3NcP1B7nhMfsaQufI7JY&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_Day1_CloudStorage.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1IoeGIl0bhUNab-GTCE2TKDXAE4IQ1QkR/preview', 'https://drive.usercontent.google.com/download?id=1IoeGIl0bhUNab-GTCE2TKDXAE4IQ1QkR&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_CloudStorage_SummativeTest_20item.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1J6DNOeKi3dEEfxAncPpHEH1Rxrxkne8F/preview', 'https://drive.usercontent.google.com/download?id=1J6DNOeKi3dEEfxAncPpHEH1Rxrxkne8F&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_Day4_CloudStorage.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1KP_X9q2YiWRV55thbS9rMWNSDqwmHbCS/preview', 'https://drive.usercontent.google.com/download?id=1KP_X9q2YiWRV55thbS9rMWNSDqwmHbCS&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_CloudStorage_5Day_ILAW_Jul6-10.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1aOEzwHW-HdDhlUiwHXG9its1iDbgn2kD/preview', 'https://drive.usercontent.google.com/download?id=1aOEzwHW-HdDhlUiwHXG9its1iDbgn2kD&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_Day2_CloudStorage.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1oOVDC4n77OxtuMgq0q0bL25fV78BpWDn/preview', 'https://drive.usercontent.google.com/download?id=1oOVDC4n77OxtuMgq0q0bL25fV78BpWDn&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_Day5_CloudStorage.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1vjy7LTjsLA1lyKICaqbjzkHoO7-Dgde2/preview', 'https://drive.usercontent.google.com/download?id=1vjy7LTjsLA1lyKICaqbjzkHoO7-Dgde2&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_EPP_ICT_Day3_CloudStorage.pptx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 13-17 LP, PPT, TEST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/18hb04BnOCnKBcihufnCxinSugJKqNCV8/preview', 'https://drive.usercontent.google.com/download?id=18hb04BnOCnKBcihufnCxinSugJKqNCV8&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_ICT_Day2_OnlineFormBuilder.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1RNLv43MPWESiX_JTeHZpQRIs0WCkcZPi/preview', 'https://drive.usercontent.google.com/download?id=1RNLv43MPWESiX_JTeHZpQRIs0WCkcZPi&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_ICT_SummativeTest_OnlineFormBuilder.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1SltvtbmDNd0WkBunwPas79oiAU85Qxco/preview', 'https://drive.usercontent.google.com/download?id=1SltvtbmDNd0WkBunwPas79oiAU85Qxco&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_ICT_Day3_OnlineFormBuilder.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1c-QeWfqUU-YcXH7OKzkRg9eDgO-UoMlp/preview', 'https://drive.usercontent.google.com/download?id=1c-QeWfqUU-YcXH7OKzkRg9eDgO-UoMlp&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_ICT_Day5_OnlineFormBuilder.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1i4GmkCP0zXnqsPQ4r0LSyGWRKyeiLNX-/preview', 'https://drive.usercontent.google.com/download?id=1i4GmkCP0zXnqsPQ4r0LSyGWRKyeiLNX-&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_ICT_Day4_OnlineFormBuilder.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1z3XcPgOKw49ZbCQ4EEWkqX981qP_a_gt/preview', 'https://drive.usercontent.google.com/download?id=1z3XcPgOKw49ZbCQ4EEWkqX981qP_a_gt&export=download&confirm=t'); return false;"><span class="icon">📝</span> ILAW_G6_ICT_OnlineFormBuilder_Jul13-17.docx</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══════════════ GRADE 6 GMRC ══════════════ -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GRADE 6 GMRC</div>
+            <div class="folder-content">
+              <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Su15jWw6cm4eYQKO9x8leM17hWXw1jei/preview', 'https://drive.usercontent.google.com/download?id=1Su15jWw6cm4eYQKO9x8leM17hWXw1jei&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Competency_Unpacking_All3Terms.xlsx</a>
+              <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1bR-YsK8UjS2x2IJn484w29JPQKE_VSLQ/preview', 'https://drive.usercontent.google.com/download?id=1bR-YsK8UjS2x2IJn484w29JPQKE_VSLQ&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_DIP_LE_Alignment_Analysis.xlsx</a>
+              <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1qlIYteJY37BMZNVPd_9ZpzuW38cLW01I/preview', 'https://drive.usercontent.google.com/download?id=1qlIYteJY37BMZNVPd_9ZpzuW38cLW01I&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Detailed_Instructional_Plan_IDF_REVISED_1.xlsx</a>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> 1STQ LE & LAS</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/15QVseWdmQzBH1BX9VlRVHvEDecQFdhMt/preview', 'https://drive.usercontent.google.com/download?id=15QVseWdmQzBH1BX9VlRVHvEDecQFdhMt&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_GMRC 6_Lesson 1_Week 1.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/19eTNgSx_RdXi02gNXI-pZhXrnZTiLZ5G/preview', 'https://drive.usercontent.google.com/download?id=19eTNgSx_RdXi02gNXI-pZhXrnZTiLZ5G&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_GMRC 6_Lesson 2_Week 2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1FqMygNd43f8rhAwG7PAm6p0z-umhd7LJ/preview', 'https://drive.usercontent.google.com/download?id=1FqMygNd43f8rhAwG7PAm6p0z-umhd7LJ&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_GMRC 6_Lesson 3_Week 3.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1_8UwQUoxDWlhygHfM84kVYLptIhphWUl/preview', 'https://drive.usercontent.google.com/download?id=1_8UwQUoxDWlhygHfM84kVYLptIhphWUl&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_GMRC 6_Lesson 4_Week 4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1S_4SgfTuz8nr4ORfJo9AHRrFoXsB_oKz/preview', 'https://drive.usercontent.google.com/download?id=1S_4SgfTuz8nr4ORfJo9AHRrFoXsB_oKz&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_GMRC 6_Lesson 5_Week 5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/11aSyweFPyie6FHsN9q5rg-3EJkLqTObR/preview', 'https://drive.usercontent.google.com/download?id=11aSyweFPyie6FHsN9q5rg-3EJkLqTObR&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_GMRC 6_Lesson 5_Week 6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ZbW05FUQ27z6CX2yu-0ENs_SHMRYmLjz/preview', 'https://drive.usercontent.google.com/download?id=1ZbW05FUQ27z6CX2yu-0ENs_SHMRYmLjz&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_GMRC 6_Lesson 6_Week 6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1qh-2jiv1JL15ABg4L1aOswI5Giof2i-b/preview', 'https://drive.usercontent.google.com/download?id=1qh-2jiv1JL15ABg4L1aOswI5Giof2i-b&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_GMRC 6_Lesson 7_Week 8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/11N8K4mmDxc3sVg-zedvRYGH_TlJcNukl/preview', 'https://drive.usercontent.google.com/download?id=11N8K4mmDxc3sVg-zedvRYGH_TlJcNukl&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_GMRC 6_Lesson 1_Week 1.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1mUZpFzTH7wplx2VuYP0GyOEvhBn0ko-z/preview', 'https://drive.usercontent.google.com/download?id=1mUZpFzTH7wplx2VuYP0GyOEvhBn0ko-z&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_GMRC 6_Lesson 1_Week 1.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1d6n5T8XAdFwrNe5XY7JhA2KN0g_n-XqM/preview', 'https://drive.usercontent.google.com/download?id=1d6n5T8XAdFwrNe5XY7JhA2KN0g_n-XqM&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_GMRC 6_Lesson 2_Week 2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1_A6U_RrKAn--99IZm8s-9uDUHCTXTdNp/preview', 'https://drive.usercontent.google.com/download?id=1_A6U_RrKAn--99IZm8s-9uDUHCTXTdNp&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_GMRC 6_Lesson 4_Week 4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Y2oC8CFNaZwZzU2zy2K43_GEI8snWcko/preview', 'https://drive.usercontent.google.com/download?id=1Y2oC8CFNaZwZzU2zy2K43_GEI8snWcko&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_GMRC 6_Lesson 5_Week 5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1U1504ubjrDPeObdorLCiZA-h-UXChPEe/preview', 'https://drive.usercontent.google.com/download?id=1U1504ubjrDPeObdorLCiZA-h-UXChPEe&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_GMRC 6_Lesson 5_Week 6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1RsE8kZd4DSW76fvWFwbDUK1JB2lHDAle/preview', 'https://drive.usercontent.google.com/download?id=1RsE8kZd4DSW76fvWFwbDUK1JB2lHDAle&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_GMRC 6_Lesson 6_Week 6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/19CwDfd3s1Hn6rvchYIjHgePnQdiAlWWb/preview', 'https://drive.usercontent.google.com/download?id=19CwDfd3s1Hn6rvchYIjHgePnQdiAlWWb&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_GMRC 6_Lesson 7_Week 7.pdf</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 15-18 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1E70vKxuJt1dCZnal6fNYIixIm4KzgtFk/preview', 'https://drive.usercontent.google.com/download?id=1E70vKxuJt1dCZnal6fNYIixIm4KzgtFk&export=download&confirm=t'); return false;"><span class="icon">📝</span> GMRC6_Linggo2_Araw1.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/10gZsfzVQuhgJWCj7GT1CWms9lKQvdbro/preview', 'https://drive.usercontent.google.com/download?id=10gZsfzVQuhgJWCj7GT1CWms9lKQvdbro&export=download&confirm=t'); return false;"><span class="icon">📝</span> GMRC6_Linggo2_Araw2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1wgVNr08EL1QvyMsxAAsnUzCxm-c21MLJ/preview', 'https://drive.usercontent.google.com/download?id=1wgVNr08EL1QvyMsxAAsnUzCxm-c21MLJ&export=download&confirm=t'); return false;"><span class="icon">📝</span> GMRC6_Linggo2_Araw3.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/17KZYcFrDNad8-G4_4vV6O0cgFfJ4QDyO/preview', 'https://drive.usercontent.google.com/download?id=17KZYcFrDNad8-G4_4vV6O0cgFfJ4QDyO&export=download&confirm=t'); return false;"><span class="icon">📝</span> GMRC6_Linggo2_Araw4.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1hkvNKdP_6olWoQtjtJoMQil10xCB76pl/preview', 'https://drive.usercontent.google.com/download?id=1hkvNKdP_6olWoQtjtJoMQil10xCB76pl&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Q1_Week2_DailyLessonPlans_ILAW.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1NrFjw5V7dBB-SlrvZkKzWPWNh_XcfxZh/preview', 'https://drive.usercontent.google.com/download?id=1NrFjw5V7dBB-SlrvZkKzWPWNh_XcfxZh&export=download&confirm=t'); return false;"><span class="icon">📝</span> EPP6_Q1_Week2_WebConferencing_WrittenTest.docx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 22-25 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/19E59m-l32YrsGu-Ix-M-ZlUfvTGXWtWj/preview', 'https://drive.usercontent.google.com/download?id=19E59m-l32YrsGu-Ix-M-ZlUfvTGXWtWj&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Araw1_Hunyo22_Filipino.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1xl6joNjmsJTFYW-ZOnoWLsl24dEFRz9q/preview', 'https://drive.usercontent.google.com/download?id=1xl6joNjmsJTFYW-ZOnoWLsl24dEFRz9q&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Araw2_Hunyo23_Filipino.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/124lHMHhf3ZubL8_JU1lwotpSQFtC-zAS/preview', 'https://drive.usercontent.google.com/download?id=124lHMHhf3ZubL8_JU1lwotpSQFtC-zAS&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Araw3_Hunyo24_Filipino.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1fqgsV64XEWZV8hKfliizAvT6CJgbTZXV/preview', 'https://drive.usercontent.google.com/download?id=1fqgsV64XEWZV8hKfliizAvT6CJgbTZXV&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Araw4_Hunyo25_Filipino.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ELRm48KwPGwarmyIdn7huJ-UmlVcTytu/preview', 'https://drive.usercontent.google.com/download?id=1ELRm48KwPGwarmyIdn7huJ-UmlVcTytu&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Q1_Week2_June22-25_ILAW.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1a_Vm8F9WYBldLNg0s8maKbt7O9LzNJNC/preview', 'https://drive.usercontent.google.com/download?id=1a_Vm8F9WYBldLNg0s8maKbt7O9LzNJNC&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Q1_Wk2_MCQ_Test.docx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 29-30 JUL 1-2</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/18scZFcOD7Jiv4-I9FWxuK4W4-3hpVut3/preview', 'https://drive.usercontent.google.com/download?id=18scZFcOD7Jiv4-I9FWxuK4W4-3hpVut3&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_MCT_Aralin3_20items.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1RuahmVpww3EIaywtB-U7RgXEkDcOas4Q/preview', 'https://drive.usercontent.google.com/download?id=1RuahmVpww3EIaywtB-U7RgXEkDcOas4Q&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_DLP_ILAW_Aralin3_Jun29-Jul2.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1YWUhbnxT8w4WTyUDPTtNH5BTHB8Xlf-X/preview', 'https://drive.usercontent.google.com/download?id=1YWUhbnxT8w4WTyUDPTtNH5BTHB8Xlf-X&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_PPT_Aralin3_Araw1.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1KWp4cA2pjv8CDERt8FEZPJz5zPUTQvFG/preview', 'https://drive.usercontent.google.com/download?id=1KWp4cA2pjv8CDERt8FEZPJz5zPUTQvFG&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_PPT_Aralin3_Araw2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ZoGklVkcr17mN87V0TJPYys9X_co2YlO/preview', 'https://drive.usercontent.google.com/download?id=1ZoGklVkcr17mN87V0TJPYys9X_co2YlO&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_PPT_Aralin3_Araw3.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1jsdZkC51OVu4qJ0lXu9Btn5vCvb0yHXe/preview', 'https://drive.usercontent.google.com/download?id=1jsdZkC51OVu4qJ0lXu9Btn5vCvb0yHXe&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_PPT_Aralin3_Araw4.pptx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 6-9 LP, PPT, TEST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1lVCO3hf9O49AVc4P_8-vIliJLrXPUuBP/preview', 'https://drive.usercontent.google.com/download?id=1lVCO3hf9O49AVc4P_8-vIliJLrXPUuBP&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Day1_C03_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tNSfubAdV08hF3WeOwhkE7EzvWAdgkuW/preview', 'https://drive.usercontent.google.com/download?id=1tNSfubAdV08hF3WeOwhkE7EzvWAdgkuW&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Day2_C03_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HLdYj3ZK1c9g91VO198tF62WxjfbA1TH/preview', 'https://drive.usercontent.google.com/download?id=1HLdYj3ZK1c9g91VO198tF62WxjfbA1TH&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Day3_C03_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1M1ca1HS4ct4mYvZDNcuGoiIIXys2W9hC/preview', 'https://drive.usercontent.google.com/download?id=1M1ca1HS4ct4mYvZDNcuGoiIIXys2W9hC&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_Day4_C03_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1NhqrspF4OysCVMAjqbIIp82g4FisSqGO/preview', 'https://drive.usercontent.google.com/download?id=1NhqrspF4OysCVMAjqbIIp82g4FisSqGO&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_T1_C03_ILAW_LP_Jul6-9.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1lamEPD2g-52Xy9VrJC76M25u58j1s2AU/preview', 'https://drive.usercontent.google.com/download?id=1lamEPD2g-52Xy9VrJC76M25u58j1s2AU&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_C03_Summative_Test_20item.docx</a>
+                </div>
+              </div>
+
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 13-17 LP, PPT, TEST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1yVyqPtc1R-TmC5HubUqrJezES1idK5Cu/preview', 'https://drive.usercontent.google.com/download?id=1yVyqPtc1R-TmC5HubUqrJezES1idK5Cu&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_T1_C05_Day1_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1gFfko24-6pft8918LzfLWn02K5MvqWOa/preview', 'https://drive.usercontent.google.com/download?id=1gFfko24-6pft8918LzfLWn02K5MvqWOa&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_T1_C05_Day2_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1pZNsMuQyOPy1eJBYHPHjPLjmdytHEAB5/preview', 'https://drive.usercontent.google.com/download?id=1pZNsMuQyOPy1eJBYHPHjPLjmdytHEAB5&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_T1_C05_Day3_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1GSKvredPbBiy2igcA6NWv2sUiIGLh286/preview', 'https://drive.usercontent.google.com/download?id=1GSKvredPbBiy2igcA6NWv2sUiIGLh286&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_T1_C05_Day4_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1XANpBxU77ZcxhIWjBH1a60qpn6U3_C7b/preview', 'https://drive.usercontent.google.com/download?id=1XANpBxU77ZcxhIWjBH1a60qpn6U3_C7b&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_T1_C05_Day5_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Nz-eHu3Ln4d8ULCirD6a3MbxSGAzQcyo/preview', 'https://drive.usercontent.google.com/download?id=1Nz-eHu3Ln4d8ULCirD6a3MbxSGAzQcyo&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_T1_C05_ILAW_LP_1.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1cNL9aGQ48NW9orS7FwJyMKmD_lhjCkSl/preview', 'https://drive.usercontent.google.com/download?id=1cNL9aGQ48NW9orS7FwJyMKmD_lhjCkSl&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_GMRC_T1_C05_MCT.docx</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ══════════════ GRADE 6 MAPEH ══════════════ -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GRADE 6 MAPEH</div>
+            <div class="folder-content">
+              <div class="folder">
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> LE & LAS 1ST Q</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Id9b45z7vvyA4d4zGCAJR__75R8He-Tb/preview', 'https://drive.usercontent.google.com/download?id=1Id9b45z7vvyA4d4zGCAJR__75R8He-Tb&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 6_Lesson 1_Weeks 1-2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Fahjgz20oLk-HE6IH90O_pucqh2chKKZ/preview', 'https://drive.usercontent.google.com/download?id=1Fahjgz20oLk-HE6IH90O_pucqh2chKKZ&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 6_Lesson 2_Week 3-4.5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1pKoKLcmo06r7s60fbxjQAPHAEQ_Clwpu/preview', 'https://drive.usercontent.google.com/download?id=1pKoKLcmo06r7s60fbxjQAPHAEQ_Clwpu&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 6_Lesson 3_Week 4.5-5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Dew837iStG0FM8vkAFhp2y3U6IUWoEKi/preview', 'https://drive.usercontent.google.com/download?id=1Dew837iStG0FM8vkAFhp2y3U6IUWoEKi&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 6_Lesson 4_Week 6-8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HM69v4mdqO1MnFScrrP8HZ7BIBPfv0XG/preview', 'https://drive.usercontent.google.com/download?id=1HM69v4mdqO1MnFScrrP8HZ7BIBPfv0XG&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PE and Health 6_Lesson 1_Week 1-2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Ck8BkBDHzs566hv7QfHndhnZ2hxhHyVe/preview', 'https://drive.usercontent.google.com/download?id=1Ck8BkBDHzs566hv7QfHndhnZ2hxhHyVe&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PE and Health 6_Lesson 2_Week 3-4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1VfmWYHG-zt7fKGSC2FYOuwR736N5g7Jd/preview', 'https://drive.usercontent.google.com/download?id=1VfmWYHG-zt7fKGSC2FYOuwR736N5g7Jd&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PE and Health 6_Lesson 3_Week 5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1E7ko-HMPzZJzlVowvxEEqiNvf8gZFTnW/preview', 'https://drive.usercontent.google.com/download?id=1E7ko-HMPzZJzlVowvxEEqiNvf8gZFTnW&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PE and Health 6_Lesson 4_Week 6-8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1g4jj-l-K8hHX4zlF0hNeLqUHZcmd22Sf/preview', 'https://drive.usercontent.google.com/download?id=1g4jj-l-K8hHX4zlF0hNeLqUHZcmd22Sf&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and Arts 6_Lesson1_Week 1-2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1X1l_LqlK7OyIXzaO22GsRgGMFVV-GVn1/preview', 'https://drive.usercontent.google.com/download?id=1X1l_LqlK7OyIXzaO22GsRgGMFVV-GVn1&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and Arts 6_ Lesson 2_Week 3-4.5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1PTjBjaZ42sc4ubwpmVfUWr0y5Gnh2Wyx/preview', 'https://drive.usercontent.google.com/download?id=1PTjBjaZ42sc4ubwpmVfUWr0y5Gnh2Wyx&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and Arts 6_Lesson 3_Week 4.5-5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/13s46R4vnkAyMr5wPpoZetD27XvmngDYv/preview', 'https://drive.usercontent.google.com/download?id=13s46R4vnkAyMr5wPpoZetD27XvmngDYv&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and Arts 6_Lesson 4_Week 6-8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/13gSlIRiW0Gcb1Pa66r5_FSeqtqhHJGQK/preview', 'https://drive.usercontent.google.com/download?id=13gSlIRiW0Gcb1Pa66r5_FSeqtqhHJGQK&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PE and Health 6_Lesson 1_Week 1-2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Tzgyc3WHfBgYrKRTywTwZqkA7nM3SFZ7/preview', 'https://drive.usercontent.google.com/download?id=1Tzgyc3WHfBgYrKRTywTwZqkA7nM3SFZ7&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PE and Health 6_Lesson 2_Weeks 3-4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1o5DymrL_ehuPRjEqX2udzDqU1shEGdPX/preview', 'https://drive.usercontent.google.com/download?id=1o5DymrL_ehuPRjEqX2udzDqU1shEGdPX&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PE and Health 6_Lesson 3_Week 5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1z4pqGksLG5Oe5ErzUpO1qS97X_Q4zTxZ/preview', 'https://drive.usercontent.google.com/download?id=1z4pqGksLG5Oe5ErzUpO1qS97X_Q4zTxZ&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PE and Health 6_Lesson 4_Week 6 - 8.pdf</a>
+                </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> BOW_UNPACKING_INSTRUCTIONAL PLAN</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1-eQGy5pzrMD1QcQJTw45NKwJTvrZl3e6/preview', 'https://drive.usercontent.google.com/download?id=1-eQGy5pzrMD1QcQJTw45NKwJTvrZl3e6&export=download&confirm=t'); return false;"><span class="icon">📝</span> MAPEH6_Term1_Assessment_Schedule.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/15TsgVxtPQ46rNO08kcVrFPrygjR9KNkc/preview', 'https://drive.usercontent.google.com/download?id=15TsgVxtPQ46rNO08kcVrFPrygjR9KNkc&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_DIP_v4_AlternationCorrected.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1NtkMmv7es2BGuPuIptXJCsw7NNLqIJG-/preview', 'https://drive.usercontent.google.com/download?id=1NtkMmv7es2BGuPuIptXJCsw7NNLqIJG-&export=download&confirm=t'); return false;"><span class="icon">📝</span> 2_BOW_Analysis_FirstTerm_REVISED_SY2026-2027.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1RU4xH-QULe2Qfn4iyMm5fGIx6AvOPl8V/preview', 'https://drive.usercontent.google.com/download?id=1RU4xH-QULe2Qfn4iyMm5fGIx6AvOPl8V&export=download&confirm=t'); return false;"><span class="icon">📝</span> 3_G6_MAPEH_Competency_Unpacking.xlsx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tWFh0csyYf5jG3WE6hHI36TSmjgTP19Z/preview', 'https://drive.usercontent.google.com/download?id=1tWFh0csyYf5jG3WE6hHI36TSmjgTP19Z&export=download&confirm=t'); return false;"><span class="icon">📝</span> [G6] MAPEH.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1uqUO6Ij0TaUmxvxXSDJ7cc2gCxd80szs/preview', 'https://drive.usercontent.google.com/download?id=1uqUO6Ij0TaUmxvxXSDJ7cc2gCxd80szs&export=download&confirm=t'); return false;"><span class="icon">📝</span> 1_G6_MAPEH_OLD_4Q_VS_3TERM.xlsx</a>
+                </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> ILAW MAPEH LESSON PLAN</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/15EL2gtD7JvjlkFfctdymY1dxF8cu-gWs/preview', 'https://drive.usercontent.google.com/download?id=15EL2gtD7JvjlkFfctdymY1dxF8cu-gWs&export=download&confirm=t'); return false;"><span class="icon">📈</span> ILAW_Lesson_Planning_Template.docx</a>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 15-18 LP,PPT, MCT</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1PkV_dr4KJy4xKKsToE7evIOrpWLuJNpJ/preview', 'https://drive.usercontent.google.com/download?id=1PkV_dr4KJy4xKKsToE7evIOrpWLuJNpJ&export=download&confirm=t'); return false;"><span class="icon">📝</span> Week_2_Lesson_Plan_Music_and_Arts_6_ILAW June 15-18.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1UXXAJTUW07XDMG_I_LbT7Aii7sf90E3b/preview', 'https://drive.usercontent.google.com/download?id=1UXXAJTUW07XDMG_I_LbT7Aii7sf90E3b&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_W1_Session4_DepEd_Compliant.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1XWjRal3krbq-dWA0quLC40FWfpvwj1S_/preview', 'https://drive.usercontent.google.com/download?id=1XWjRal3krbq-dWA0quLC40FWfpvwj1S_&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_W1_Session3_DepEd_Compliant.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1dLvHVczsg_FcA1z3VjZPVX8eTm8AII3L/preview', 'https://drive.usercontent.google.com/download?id=1dLvHVczsg_FcA1z3VjZPVX8eTm8AII3L&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_W1_Session2_DepEd_Compliant.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1wGyuxma72KPIvPMn_Lhuo3IX55wCrCnH/preview', 'https://drive.usercontent.google.com/download?id=1wGyuxma72KPIvPMn_Lhuo3IX55wCrCnH&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_W1_Session1_DepEd_Compliant.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ztCH2smm9sEb3jtg1Rh_rqzBEPTpU_W5/preview', 'https://drive.usercontent.google.com/download?id=1ztCH2smm9sEb3jtg1Rh_rqzBEPTpU_W5&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MA_MCT_Week2_Assessment.docx</a>
+                  </div>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 22-25 LP,PPT, MCT</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1NVu8spNGxSofvyNt52PLs2tGw66rtcIm/preview', 'https://drive.usercontent.google.com/download?id=1NVu8spNGxSofvyNt52PLs2tGw66rtcIm&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_HolisticWellness_Day1.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1sDc2YM_aS4LEuV528fA_zC7z9XGnD-Mi/preview', 'https://drive.usercontent.google.com/download?id=1sDc2YM_aS4LEuV528fA_zC7z9XGnD-Mi&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_HolisticWellness_Day2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1oaflBwWs5p10XTbyZ1Sh0F8PDA9HiNtq/preview', 'https://drive.usercontent.google.com/download?id=1oaflBwWs5p10XTbyZ1Sh0F8PDA9HiNtq&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_HolisticWellness_Day3.pptx</a>                 
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ldnXu75EuChkJuV32IhgmyWyaDILq69T/preview', 'https://drive.usercontent.google.com/download?id=1ldnXu75EuChkJuV32IhgmyWyaDILq69T&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_HolisticWellness_Day4.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1p07hooH4zhvKVbZxLY-fOlyVGBbgysui/preview', 'https://drive.usercontent.google.com/download?id=1p07hooH4zhvKVbZxLY-fOlyVGBbgysui&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_ILAW_LessonPlans_T1Wk2.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1lXWlupGKqfKwXlJk7i9BW363Py5OBQKk/preview', 'https://drive.usercontent.google.com/download?id=1lXWlupGKqfKwXlJk7i9BW363Py5OBQKk&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_HolisticWellness_SummativeTest.docx</a>
+                  </div>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 29-30 JULY 1-2</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Jwwbw2QW49Xvjmj-IFsSKykPsmBCam0V/preview', 'https://drive.usercontent.google.com/download?id=1Jwwbw2QW49Xvjmj-IFsSKykPsmBCam0V&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Day1_Komedya_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Us37Xead5VtRYTOMqi77g2--jxJmYJRK/preview', 'https://drive.usercontent.google.com/download?id=1Us37Xead5VtRYTOMqi77g2--jxJmYJRK&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Day2_Komedya_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1qCB1eh8K4ae_WyFE9RxDstzzgCSOSY5Z/preview', 'https://drive.usercontent.google.com/download?id=1qCB1eh8K4ae_WyFE9RxDstzzgCSOSY5Z&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Day3_Komedya_vs_Sarsuwela_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1_9oDBbTivU_btWsdXptZS3baBaNZnJec/preview', 'https://drive.usercontent.google.com/download?id=1_9oDBbTivU_btWsdXptZS3baBaNZnJec&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Day4_PeriodIdentifier_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1X_CiHkpd1Azl8ol0qLXxMOKM3GwyQyAq/preview', 'https://drive.usercontent.google.com/download?id=1X_CiHkpd1Azl8ol0qLXxMOKM3GwyQyAq&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_Summative_Test_Week3.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1xlgFBoX_zFo-rl2RrCvnkaagDmfhvip2/preview', 'https://drive.usercontent.google.com/download?id=1xlgFBoX_zFo-rl2RrCvnkaagDmfhvip2&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_ILAW_DLP_Week3_Jun29-Jul2.docx</a>
+                  </div>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 6-9 LP,PPT,TEST</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/17optx9KCY3Kn8gRIQ76X59vwhcBY0ypQ/preview', 'https://drive.usercontent.google.com/download?id=17optx9KCY3Kn8gRIQ76X59vwhcBY0ypQ&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_T1_PEH_C02_Wk4_Summative_Test.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1vggT23uzTj2_09ltb-t0Jw1-xX_Q67Dq/preview', 'https://drive.usercontent.google.com/download?id=1vggT23uzTj2_09ltb-t0Jw1-xX_Q67Dq&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_T1_PEH_C02_Wk4_ILAW_LP.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/19_fgWw4_3cUtbUFxuaFwgRRihJ37RQfL/preview', 'https://drive.usercontent.google.com/download?id=19_fgWw4_3cUtbUFxuaFwgRRihJ37RQfL&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_PEH_Wk4_Day1.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1q3Ty5vrC6foRcgTrbFEJafeFlmc5y_sW/preview', 'https://drive.usercontent.google.com/download?id=1q3Ty5vrC6foRcgTrbFEJafeFlmc5y_sW&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_PEH_Wk4_Day2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1t6utyrfeh63aMbeDQqjq8vwUIVUx4AMn/preview', 'https://drive.usercontent.google.com/download?id=1t6utyrfeh63aMbeDQqjq8vwUIVUx4AMn&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_PEH_Wk4_Day3.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1s4rQOlS7DAsuqOgyemdNVQL6mSed5UJp/preview', 'https://drive.usercontent.google.com/download?id=1s4rQOlS7DAsuqOgyemdNVQL6mSed5UJp&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MAPEH_PEH_Wk4_Day4.pptx</a>
+                  </div>
+                  <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 13-17 LP, PPT, TEST</div>
+                  <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1bMEVgToYUnm5MtABBVlAZHkdJvbHACNm/preview', 'https://drive.usercontent.google.com/download?id=1bMEVgToYUnm5MtABBVlAZHkdJvbHACNm&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Week5_SummativeTest.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1kuGtmB4EPrWWSiinc3lRUv06DpM1FqFt/preview', 'https://drive.usercontent.google.com/download?id=1kuGtmB4EPrWWSiinc3lRUv06DpM1FqFt&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Day1_Jul13_2026.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1QyqhiyUfkYTdXnDLozh9Fsle2va-xmYa/preview', 'https://drive.usercontent.google.com/download?id=1QyqhiyUfkYTdXnDLozh9Fsle2va-xmYa&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Day2_Jul14_2026.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1NvpV1TYVo48TgbDjTthE1Y2rBQEazp4b/preview', 'https://drive.usercontent.google.com/download?id=1NvpV1TYVo48TgbDjTthE1Y2rBQEazp4b&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Day3_Jul15_2026.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1plGB5ttPfCeaefWQ-wGgDor1apnGDFXr/preview', 'https://drive.usercontent.google.com/download?id=1plGB5ttPfCeaefWQ-wGgDor1apnGDFXr&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_Day4_Jul16_2026.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1OGxiYM2bayiuY1ebIfBRW17RN2zoC2kL/preview', 'https://drive.usercontent.google.com/download?id=1OGxiYM2bayiuY1ebIfBRW17RN2zoC2kL&export=download&confirm=t'); return false;"><span class="icon">📝</span> G6_MusicArts_ILAW_Week5_Jul13-16_2026.docx</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══════════════ GRADE 9 MAPEH ══════════════ -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GRADE 9 MAPEH</div>
+            <div class="folder-content">
+              <div class="folder">
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1yaOZOJb6ljAIUvrYLORhIUJok7UbDwO2/preview', 'https://drive.usercontent.google.com/download?id=1yaOZOJb6ljAIUvrYLORhIUJok7UbDwO2&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MAPEH_Detailed_Instructional_Plan_IDF.xlsx</a>
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/19B-AymSOltK7Aq1J5QaP57PvNm5h7di6/preview', 'https://drive.usercontent.google.com/download?id=19B-AymSOltK7Aq1J5QaP57PvNm5h7di6&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MAPEH_Competency_Unpacking_All3Terms.xlsx</a>
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1MQ8Lnf6U29b_y7fo3ZZEJqZkwBN87lsB/preview', 'https://drive.usercontent.google.com/download?id=1MQ8Lnf6U29b_y7fo3ZZEJqZkwBN87lsB&export=download&confirm=t'); return false;"><span class="icon">📝</span> Assessment_Schedule_KS3_SY2026-2027.docx</a>
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1V8A_FHCV8SRkyjMwkGsGsSjc53aOSaqv/preview', 'https://drive.usercontent.google.com/download?id=1V8A_FHCV8SRkyjMwkGsGsSjc53aOSaqv&export=download&confirm=t'); return false;"><span class="icon">📝</span> [G9] MAPEH BOW.pdf</a>
+                </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> G9 LE & LAS</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1e2huV7I6ZUW5XYzlizZ5pxn25h8Ua7Pw/preview', 'https://drive.usercontent.google.com/download?id=1e2huV7I6ZUW5XYzlizZ5pxn25h8Ua7Pw&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and Arts _Lesson 1_Week1-3.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1g2Sd3QtolNtTQE4YstFJJlPRrR4fERL5/preview', 'https://drive.usercontent.google.com/download?id=1g2Sd3QtolNtTQE4YstFJJlPRrR4fERL5&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and Arts 9_Lesson2_Week 4-5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1gmeJmDn1Y7q4Yo6cz5xoHR9YvxHVbD5R/preview', 'https://drive.usercontent.google.com/download?id=1gmeJmDn1Y7q4Yo6cz5xoHR9YvxHVbD5R&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and Arts 9_Lesson3_Week 6-7.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ZJctwPAHFh_WitHCOCAJcMMCV4NAzONo/preview', 'https://drive.usercontent.google.com/download?id=1ZJctwPAHFh_WitHCOCAJcMMCV4NAzONo&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and Arts 9_Lesson4_Week8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ispI42sfTZnk17KFkbmGAWFOxvTjRaM1/preview', 'https://drive.usercontent.google.com/download?id=1ispI42sfTZnk17KFkbmGAWFOxvTjRaM1&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 9_Lesson 1_Week 1-3.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1_GZ9zFLvgAUM_xrs63RSvM9O_l1r-_yV/preview', 'https://drive.usercontent.google.com/download?id=1_GZ9zFLvgAUM_xrs63RSvM9O_l1r-_yV&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 9_Lesson 2_Week 4-5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1YASzyr89ikL4yGSy7x2jeB4Iczi_L9N7/preview', 'https://drive.usercontent.google.com/download?id=1YASzyr89ikL4yGSy7x2jeB4Iczi_L9N7&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 9_Lesson 3_Week 6-7.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1DOBNvytbZVb45iZ0SN8PQwyO0tYCRjuP/preview', 'https://drive.usercontent.google.com/download?id=1DOBNvytbZVb45iZ0SN8PQwyO0tYCRjuP&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 9_Lesson 4_Week 8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1bqrxVn9sZZprCnMu0ZevQRA_hBXgbhSr/preview', 'https://drive.usercontent.google.com/download?id=1bqrxVn9sZZprCnMu0ZevQRA_hBXgbhSr&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PEH 9_Lesson 1_Weeks 1 and 2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1W6aapZylX8sSHHJSyadxgDE4p9y2p7T6/preview', 'https://drive.usercontent.google.com/download?id=1W6aapZylX8sSHHJSyadxgDE4p9y2p7T6&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PEH 9_Lesson 2_Weeks 3 and 4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/17Ptz5cSaIp4XwSIb4J6PivePYXbc3t59/preview', 'https://drive.usercontent.google.com/download?id=17Ptz5cSaIp4XwSIb4J6PivePYXbc3t59&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PEH 9_Lesson 3_Weeks 5 and 6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1EE0VaRJhG1e1Rns1_Hi2CHBkSzYDNZDb/preview', 'https://drive.usercontent.google.com/download?id=1EE0VaRJhG1e1Rns1_Hi2CHBkSzYDNZDb&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PEH 9_Lesson 4_Weeks 7 and 8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1XDRm2PuvnMUYlNRCmoIKYPQ8iIjOiRSm/preview', 'https://drive.usercontent.google.com/download?id=1XDRm2PuvnMUYlNRCmoIKYPQ8iIjOiRSm&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PEH 9_Lesson 1_Weeks 1 and 2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/171SaMQUEZrGD-bhNx_3unL3AlMFikHkh/preview', 'https://drive.usercontent.google.com/download?id=171SaMQUEZrGD-bhNx_3unL3AlMFikHkh&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PEH 9_Lesson 2_Weeks 3 and 4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1CBcjAeqidQJJ-3PCITWVoHs_HwWlPRW6/preview', 'https://drive.usercontent.google.com/download?id=1CBcjAeqidQJJ-3PCITWVoHs_HwWlPRW6&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PEH 9_Lesson 3_Weeks 5 and 6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/14jiTaULUmluQpkK_XGxcD02SCZRHE6cA/preview', 'https://drive.usercontent.google.com/download?id=14jiTaULUmluQpkK_XGxcD02SCZRHE6cA&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PEH 9_Lesson 4_Weeks 7 and 8.pdf</a>
+                </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 15-18 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1j0aCZQzmYsRC1uG3kjapyoo8O7bgybls/preview', 'https://drive.usercontent.google.com/download?id=1j0aCZQzmYsRC1uG3kjapyoo8O7bgybls&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_ILAW_Daily_Lesson_Plans_C01_Jun15-19.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/159wn8bBWV_xtZXV20BRHkdgkVTOoedyI/preview', 'https://drive.usercontent.google.com/download?id=159wn8bBWV_xtZXV20BRHkdgkVTOoedyI&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_Q1L1_MCT.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1jeRikRPFQsozDr2ALX_DDA2CGONQZmJg/preview', 'https://drive.usercontent.google.com/download?id=1jeRikRPFQsozDr2ALX_DDA2CGONQZmJg&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_Day1_Beat_Builder.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1160s3mtuHQ3cufXRWyTstF7Qx498j2np/preview', 'https://drive.usercontent.google.com/download?id=1160s3mtuHQ3cufXRWyTstF7Qx498j2np&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_Day2_Bruno_Mars.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1hQXb7I0OzhDpOI-vZLI_7xGl7K4JnJAf/preview', 'https://drive.usercontent.google.com/download?id=1hQXb7I0OzhDpOI-vZLI_7xGl7K4JnJAf&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_Day3_Film_NewMedia.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1XHp2AKhJZ-nXxDwWkRzR1VD7Y5ELzN57/preview', 'https://drive.usercontent.google.com/download?id=1XHp2AKhJZ-nXxDwWkRzR1VD7Y5ELzN57&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_Day4_Dance_Trends.pptx</a>
+                </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 22-25 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1zc9fyAUpDtsxYD933on-9dwrk3QbLduO/preview', 'https://drive.usercontent.google.com/download?id=1zc9fyAUpDtsxYD933on-9dwrk3QbLduO&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_SummativeTest1_DO015.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16dKprTf10gpOWypi2Hxinhc81b9ieghU/preview', 'https://drive.usercontent.google.com/download?id=16dKprTf10gpOWypi2Hxinhc81b9ieghU&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_Day4_Warning_Signs_Seeking_Help_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1WjKS-olh2GO3K7T9mpMZsq9glY9TVNBF/preview', 'https://drive.usercontent.google.com/download?id=1WjKS-olh2GO3K7T9mpMZsq9glY9TVNBF&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_Day3_Coping_ProblemSolving_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1GQ4_y_rixVg2Pgo0vHYvYCrzq68Q-VRm/preview', 'https://drive.usercontent.google.com/download?id=1GQ4_y_rixVg2Pgo0vHYvYCrzq68Q-VRm&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_Day2_Risk_Protective_Factors_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Yewzjdcfz868dk9kWpJTSn_N9sdooR4q/preview', 'https://drive.usercontent.google.com/download?id=1Yewzjdcfz868dk9kWpJTSn_N9sdooR4q&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_Day1_Intentional_Injuries_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1bKTSsuEcf09-kPATuB26KxB7CH60cEFD/preview', 'https://drive.usercontent.google.com/download?id=1bKTSsuEcf09-kPATuB26KxB7CH60cEFD&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MAPEH_PEH_ILAW_DailyLessonPlans_Jun22-25.docx</a>
+                  </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 29-30 JULY 1-2</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1eSl6lwN9lrxJleam1jWzpWT4B43oWF0A/preview', 'https://drive.usercontent.google.com/download?id=1eSl6lwN9lrxJleam1jWzpWT4B43oWF0A&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_ILAW_Daily_LessonPlans_C02_Jun29-Jul2.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/10iOnrLYGIishI4g5R91MvAlCLAycg805/preview', 'https://drive.usercontent.google.com/download?id=10iOnrLYGIishI4g5R91MvAlCLAycg805&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_C02_SummativeTest1_20items.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1kPjnYrth_Ej4yalV9nqRK0lHHl0N6ILp/preview', 'https://drive.usercontent.google.com/download?id=1kPjnYrth_Ej4yalV9nqRK0lHHl0N6ILp&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_C02_Day4_EthicalMedia_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1H8Z5HhSxfcr9PmQAl87bh2iZGWBe8ziB/preview', 'https://drive.usercontent.google.com/download?id=1H8Z5HhSxfcr9PmQAl87bh2iZGWBe8ziB&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_C02_Day3_PhotoVideo_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1OelCjkk5p-KHW-bG8MPTZF78aA5eDnYg/preview', 'https://drive.usercontent.google.com/download?id=1OelCjkk5p-KHW-bG8MPTZF78aA5eDnYg&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_C02_Day2_DAW_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1v1mOcoje8dLn5CWh1L0v5gseclHw_GbJ/preview', 'https://drive.usercontent.google.com/download?id=1v1mOcoje8dLn5CWh1L0v5gseclHw_GbJ&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MA_C02_Day1_DAW_Deck.pptx</a>
+                  </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 6-9 LP,PPT,TEST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1UfhTzXokUqDGi1bXYDE8iWAELKtoDLHt/preview', 'https://drive.usercontent.google.com/download?id=1UfhTzXokUqDGi1bXYDE8iWAELKtoDLHt&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_C01_ST1.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tz2yfbOirV-uR2y4YJiQFNcRMzFykxSg/preview', 'https://drive.usercontent.google.com/download?id=1tz2yfbOirV-uR2y4YJiQFNcRMzFykxSg&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_C01_ILAW_Daily_LessonPlans_Jul6-9.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tHJWkIFvgevjXt1HPBcHJNsr0MliL1Ae/preview', 'https://drive.usercontent.google.com/download?id=1tHJWkIFvgevjXt1HPBcHJNsr0MliL1Ae&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_C01_Day4_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1wQ4WLaD4feRM9krZGEhx2sYxrCNynF6e/preview', 'https://drive.usercontent.google.com/download?id=1wQ4WLaD4feRM9krZGEhx2sYxrCNynF6e&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_C01_Day3_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1kBqwL_vhGkdHLk_NTQrPCSTSopFnzZbd/preview', 'https://drive.usercontent.google.com/download?id=1kBqwL_vhGkdHLk_NTQrPCSTSopFnzZbd&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_C01_Day3_Deck_1.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tZrlzve7HVRcs-vjcyjyQIMuBx3xACPy/preview', 'https://drive.usercontent.google.com/download?id=1tZrlzve7HVRcs-vjcyjyQIMuBx3xACPy&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_C01_Day2_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/13QSVWRITThUr9_3CAejbmbsAKMO5M1fR/preview', 'https://drive.usercontent.google.com/download?id=13QSVWRITThUr9_3CAejbmbsAKMO5M1fR&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_PEH_C01_Day1_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1atUjaCoBJqcIY9-eoamcCAN9Pk2Phy0c/preview', 'https://drive.usercontent.google.com/download?id=1atUjaCoBJqcIY9-eoamcCAN9Pk2Phy0c&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MAPEH_Detailed_Instructional_Plan_IDF.xlsx</a>
+                  </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 13-17 LP, PPT, TEST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1MQJWz9HFiCJEU_SS0h50wP4oicGQoj4b/preview', 'https://drive.usercontent.google.com/download?id=1MQJWz9HFiCJEU_SS0h50wP4oicGQoj4b&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MusicArts_C03_SummativeTest_20items.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1dxI0Yk4PKULAExk81N-y1My6Za3rJlqi/preview', 'https://drive.usercontent.google.com/download?id=1dxI0Yk4PKULAExk81N-y1My6Za3rJlqi&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MusicArts_C03_Day4_Deck_July16_2026.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/11BdU9YPo22XSh7pzk7nONwT1f_qkAE8z/preview', 'https://drive.usercontent.google.com/download?id=11BdU9YPo22XSh7pzk7nONwT1f_qkAE8z&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MusicArts_C03_Day3_Deck_July15_2026.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1zT_M222GNZa-njWrg90NHDQJwQVbl33K/preview', 'https://drive.usercontent.google.com/download?id=1zT_M222GNZa-njWrg90NHDQJwQVbl33K&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MusicArts_C03_Day2_Deck_July14_2026.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1wxptI_ClDucI4epIeV79VMQYsC-6eKdY/preview', 'https://drive.usercontent.google.com/download?id=1wxptI_ClDucI4epIeV79VMQYsC-6eKdY&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MusicArts_C03_Day1_Deck_July13_2026.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1atyfaw3mVpfGLXOx3mKYv3Umru1daYtw/preview', 'https://drive.usercontent.google.com/download?id=1atyfaw3mVpfGLXOx3mKYv3Umru1daYtw&export=download&confirm=t'); return false;"><span class="icon">📝</span> G9_MAPEH_MusicArts_C03_ILAW_LessonPlans_July13-16_2026.docx</a>
+                  </div>
+                </div>
+              </div>
+                      
+          <!-- ══════════════ GRADE 10 MAPEH ══════════════ -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> GRADE 10 MAPEH</div>
+            <div class="folder-content">
+              <div class="folder">
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/15AIdQPqHDfslMoe2h198Apyf9k9YQvG6/preview', 'https://drive.usercontent.google.com/download?id=15AIdQPqHDfslMoe2h198Apyf9k9YQvG6&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_Detailed_Instructional_Plan_IDF_REVISED.xlsx</a>
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1MdMevjeGsAuHPkd4vs3ARCvMeqeFsssU/preview', 'https://drive.usercontent.google.com/download?id=1MdMevjeGsAuHPkd4vs3ARCvMeqeFsssU&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_COMPETENCY_WEEK_LE_REFERENCE.xlsx</a>
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/11hpIqrtty-ps7vBgNNB435dGkKfnWTt4/preview', 'https://drive.usercontent.google.com/download?id=11hpIqrtty-ps7vBgNNB435dGkKfnWTt4&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_Competency_Unpacking_All3Terms.xlsx</a>
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1egyN2y4LHotVXAhO3yQ3OkiqgujQNlUu/preview', 'https://drive.usercontent.google.com/download?id=1egyN2y4LHotVXAhO3yQ3OkiqgujQNlUu&export=download&confirm=t'); return false;"><span class="icon">📝</span> Assessment_Schedule_KS3_SY2026-2027.docx</a>
+                <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1fPD_Q9BekNQRM7t5otTu_hzUn8giMPDt/preview', 'https://drive.usercontent.google.com/download?id=1fPD_Q9BekNQRM7t5otTu_hzUn8giMPDt&export=download&confirm=t'); return false;"><span class="icon">📝</span> [G10] MAPEH BOW.pdf</a>
+                </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> G9 LE & LAS</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HMNl87mmnOWlZ8IQE1efq0yEL1iafyn_/preview', 'https://drive.usercontent.google.com/download?id=1HMNl87mmnOWlZ8IQE1efq0yEL1iafyn_&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and 10_Lesson 1_Weeks 1-2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1qW_YYc-HrSoQj79lqGZXd3wOXOvgE-H8/preview', 'https://drive.usercontent.google.com/download?id=1qW_YYc-HrSoQj79lqGZXd3wOXOvgE-H8&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and 10_Lesson 2_Weeks 3-4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1z5R-pV7FaToOZy9ONtIi5_jXLjuGXlnU/preview', 'https://drive.usercontent.google.com/download?id=1z5R-pV7FaToOZy9ONtIi5_jXLjuGXlnU&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_Music and 10_Lesson 4_Week 6-8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Z3pRFFwdoTMdhwxDmLqBwt290HB0Dq4T/preview', 'https://drive.usercontent.google.com/download?id=1Z3pRFFwdoTMdhwxDmLqBwt290HB0Dq4T&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 10_Lesson 1_Weeks 1-2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/19by_OZBOd07T9Z4RumFRq3UCRUcwa6ZZ/preview', 'https://drive.usercontent.google.com/download?id=19by_OZBOd07T9Z4RumFRq3UCRUcwa6ZZ&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 10_Lesson 2_Weeks 3-4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1ZsnmpAnE1lu5RCPVMSG71HMt1_HsfQX2/preview', 'https://drive.usercontent.google.com/download?id=1ZsnmpAnE1lu5RCPVMSG71HMt1_HsfQX2&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 10_Lesson 3_Week 5.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/17Z7J8fuSIf7f2yDJWdskHdRo5hF9CINV/preview', 'https://drive.usercontent.google.com/download?id=17Z7J8fuSIf7f2yDJWdskHdRo5hF9CINV&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_Music and Arts 10_Lesson 4_Week 6-8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1IMoY3DfRF4bPLNHqZRCeXCOZJcZNB-_-/preview', 'https://drive.usercontent.google.com/download?id=1IMoY3DfRF4bPLNHqZRCeXCOZJcZNB-_-&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PE and Health 10_Lesson 1_Weeks 1-2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1QLH75UOciye8UqUv4kDuzEEPNMg5-_TP/preview', 'https://drive.usercontent.google.com/download?id=1QLH75UOciye8UqUv4kDuzEEPNMg5-_TP&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PE and Health 10_Lesson 2_Weeks_3-4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1s-yy7ixZ_dH8Gv5eruTUnsOVsTJnasiW/preview', 'https://drive.usercontent.google.com/download?id=1s-yy7ixZ_dH8Gv5eruTUnsOVsTJnasiW&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PE and Health 10_Lesson 3_Week 5-6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16utYcfWIyZ7HcQ5KMDe-HRcmNl5TJ0YD/preview', 'https://drive.usercontent.google.com/download?id=16utYcfWIyZ7HcQ5KMDe-HRcmNl5TJ0YD&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LE_PE and Health 10_Lesson 4_Week 7-8.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tUeL1zV07LsZAZqfzeiAzrk2PzcXIE7a/preview', 'https://drive.usercontent.google.com/download?id=1tUeL1zV07LsZAZqfzeiAzrk2PzcXIE7a&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PE and Health 10_Lesson 1_Weeks 1-2.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1KvdydERs7Ai27JPJbwWu04_HZbN8waq-/preview', 'https://drive.usercontent.google.com/download?id=1KvdydERs7Ai27JPJbwWu04_HZbN8waq-&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PE and Health 10_Lesson 2_Weeks 3-4.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/18jY7SxbWH76PJ7kYRT0c4RtB0UYtd599/preview', 'https://drive.usercontent.google.com/download?id=18jY7SxbWH76PJ7kYRT0c4RtB0UYtd599&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PE and Health 10_Lesson 3_Week 5-6.pdf</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Z_tXFwiX42gikDag4d7-LE4xFNDPpzE7/preview', 'https://drive.usercontent.google.com/download?id=1Z_tXFwiX42gikDag4d7-LE4xFNDPpzE7&export=download&confirm=t'); return false;"><span class="icon">📝</span> Q1_LAS_PE and Health 10_Lesson 4_Week 7-8.pdf</a>
+                </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 15-18 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1sgvIkSGx29lfPXtu5Y-7OWBPDHqdeMl_/preview', 'https://drive.usercontent.google.com/download?id=1sgvIkSGx29lfPXtu5Y-7OWBPDHqdeMl_&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_ILAW_Daily_Lesson_Plans_C01_Jun15-19.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1NNx-0frTOviBavgYMdJp_oM8teVfy8WH/preview', 'https://drive.usercontent.google.com/download?id=1NNx-0frTOviBavgYMdJp_oM8teVfy8WH&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MA_Q1L1_MCT.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1mbjG44mtF9BGuk2izzlLMyNavluAMe6C/preview', 'https://drive.usercontent.google.com/download?id=1mbjG44mtF9BGuk2izzlLMyNavluAMe6C&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MA_Day1_Pares_Overload.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1zIU34Zo1EtQx8HPmW72e1D2eeO3lPk8W/preview', 'https://drive.usercontent.google.com/download?id=1zIU34Zo1EtQx8HPmW72e1D2eeO3lPk8W&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MA_Day2_RA11904.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1qsXopQor0I0jfgJ_fDmLbnoZNJ4KL93E/preview', 'https://drive.usercontent.google.com/download?id=1qsXopQor0I0jfgJ_fDmLbnoZNJ4KL93E&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MA_Day3_Creative_Economy.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/17NQHr4_QhS6HEj10-vn1uurtdhjrnOY8/preview', 'https://drive.usercontent.google.com/download?id=17NQHr4_QhS6HEj10-vn1uurtdhjrnOY8&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MA_Day4_Synthesis.pptx</a>
+                </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 22-25 LP, PPT, MCT</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/11FRJzCYj0_mvjaZXaNNq8Pr7QrbXbjP7/preview', 'https://drive.usercontent.google.com/download?id=11FRJzCYj0_mvjaZXaNNq8Pr7QrbXbjP7&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_PEH_SummativeTest_C01_20items.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1mamnzD5hP-j2_UJMhNFdb5H41fCTBY9q/preview', 'https://drive.usercontent.google.com/download?id=1mamnzD5hP-j2_UJMhNFdb5H41fCTBY9q&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_PEH_ILAW_DLP_C01_Jun22-25.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1429oT71-5BVrovi1pI3YrWurO4nrDY90/preview', 'https://drive.usercontent.google.com/download?id=1429oT71-5BVrovi1pI3YrWurO4nrDY90&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_PEH_Day4_SlideDeck_Jun25.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1PnEP7PlnMHVCnPOL0J5ojlajyrO2VX8n/preview', 'https://drive.usercontent.google.com/download?id=1PnEP7PlnMHVCnPOL0J5ojlajyrO2VX8n&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_PEH_Day3_SlideDeck_Jun24.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1tpH-zD32FEB0bWo3PNQ48_ev1zvY7gqr/preview', 'https://drive.usercontent.google.com/download?id=1tpH-zD32FEB0bWo3PNQ48_ev1zvY7gqr&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_PEH_Day2_SlideDeck_Jun23.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1YlG1KxAlhi9Bb_chMJ6rOrNByWRT-UH1/preview', 'https://drive.usercontent.google.com/download?id=1YlG1KxAlhi9Bb_chMJ6rOrNByWRT-UH1&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_PEH_Day1_SlideDeck_Jun22.pptx</a>
+                  </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JUNE 29-30 JULY 1-2</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1c8DcBK63Y0L6WQpWCm4JRmbe-1KcHr-p/preview', 'https://drive.usercontent.google.com/download?id=1c8DcBK63Y0L6WQpWCm4JRmbe-1KcHr-p&export=download&confirm=t'); return false;"><span class="icon">📝</span> ILAW_G10_MAPEH_MusicArts_Week3.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1HQTcc4T1ATUVSS3JHiIFBMSx5AT7aTAs/preview', 'https://drive.usercontent.google.com/download?id=1HQTcc4T1ATUVSS3JHiIFBMSx5AT7aTAs&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_MusicArts_Wk3_Day4v2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1zjdeqPeACjdtsaK3Jm8-Gvj5tzDFcWL3/preview', 'https://drive.usercontent.google.com/download?id=1zjdeqPeACjdtsaK3Jm8-Gvj5tzDFcWL3&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_MusicArts_Wk3_Day3v2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/16Bv-EZtk5I1o-nRkVv9SY6GoRtQVlm8F/preview', 'https://drive.usercontent.google.com/download?id=16Bv-EZtk5I1o-nRkVv9SY6GoRtQVlm8F&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_MusicArts_Wk3_Day2v2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Rr3EW6eFWGjcwjCT7qzQBB0F_njjvb2c/preview', 'https://drive.usercontent.google.com/download?id=1Rr3EW6eFWGjcwjCT7qzQBB0F_njjvb2c&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_MusicArts_Wk3_Day1v2.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1-yS_hQ7wQEpYqs8l4UVo4C9Fw-85NIrU/preview', 'https://drive.usercontent.google.com/download?id=1-yS_hQ7wQEpYqs8l4UVo4C9Fw-85NIrU&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_MusicArts_SummativeTest1_Wk3.docx</a>
+                  </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 6-9 LP,PPT,TEST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/17S7o-RjwpNcdBJLKfcLZUY4rMSty8lQ8/preview', 'https://drive.usercontent.google.com/download?id=17S7o-RjwpNcdBJLKfcLZUY4rMSty8lQ8&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_PEH_T1_Wk4_ILAW_LessonPlans.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1klPbnvIVfttoffs0I5Ibfnzt8St-UDDc/preview', 'https://drive.usercontent.google.com/download?id=1klPbnvIVfttoffs0I5Ibfnzt8St-UDDc&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_PEH_T1_Wk4_Day4_My_Personal_e-Health_Plan.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1-PB6jXcOJW-unYwdlHlLsY4w51dXc20p/preview', 'https://drive.usercontent.google.com/download?id=1-PB6jXcOJW-unYwdlHlLsY4w51dXc20p&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_PEH_T1_Wk4_Day3_Safe_and_Ethical_Digital_Health.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1nPfYSvYOinxl3W6O4nDY1MBJ61Y8pIms/preview', 'https://drive.usercontent.google.com/download?id=1nPfYSvYOinxl3W6O4nDY1MBJ61Y8pIms&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_PEH_T1_Wk4_Day2_Telehealth_Skills_in_Action.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1eb7RgU-BAgZsHBsEkeoPFlwjQmzRbLSt/preview', 'https://drive.usercontent.google.com/download?id=1eb7RgU-BAgZsHBsEkeoPFlwjQmzRbLSt&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_PEH_T1_Wk4_Day1_e-Health_Skills_for_Daily_Wellness.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Yz8pEqdQpGyebs7MTxK7byP1sec60ZjI/preview', 'https://drive.usercontent.google.com/download?id=1Yz8pEqdQpGyebs7MTxK7byP1sec60ZjI&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MAPEH_PEH_T1_Wk4_SummativeTest.docx</a>
+                  </div>
+                <div class="folder-header" onclick="toggleFolder(this)"><span class="caret">▶</span><span class="icon">📁</span> JULY 13-17 LP, PPT, TEST</div>
+                <div class="folder-content">
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1N_Tu04gmipYDajpYppaFwh-Q_Qu6c7OE/preview', 'https://drive.usercontent.google.com/download?id=1N_Tu04gmipYDajpYppaFwh-Q_Qu6c7OE&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MnA_Wk5_C03_SummativeTest2_MCT.docx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1Aj8yVYPlmMQFviagKTKfot6F8obfjga8/preview', 'https://drive.usercontent.google.com/download?id=1Aj8yVYPlmMQFviagKTKfot6F8obfjga8&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MnA_Wk5_C03_Day4_SynthesisAssessment_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/10by25c55uw8IcjX8RhZ-ZlDOhzV7-FWs/preview', 'https://drive.usercontent.google.com/download?id=10by25c55uw8IcjX8RhZ-ZlDOhzV7-FWs&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MnA_Wk5_C03_Day3_DeepenUnderstanding_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1kPZPQbWDDJYNhM7h_gRPrmTnl9Y1Ofxh/preview', 'https://drive.usercontent.google.com/download?id=1kPZPQbWDDJYNhM7h_gRPrmTnl9Y1Ofxh&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MnA_Wk5_C03_Day2_BuildKnowledge_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1cghxDkw7v-WAIqyGfAiAfP1kT6g9Ug3r/preview', 'https://drive.usercontent.google.com/download?id=1cghxDkw7v-WAIqyGfAiAfP1kT6g9Ug3r&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MnA_Wk5_C03_Day1_IntroductionRecall_Deck.pptx</a>
+                  <a class="file" href="#" onclick="openPdf('https://drive.google.com/file/d/1-WyPO9scFeFXhBKHgyXqXCGAISsR3dwi/preview', 'https://drive.usercontent.google.com/download?id=1-WyPO9scFeFXhBKHgyXqXCGAISsR3dwi&export=download&confirm=t'); return false;"><span class="icon">📝</span> G10_MnA_Week5_C03_ILAW_LessonPlans_Jul13-16.docx</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PDF Modal Popup (same as your learning-packets.html / lambo-grade10.html) -->
+<div id="pdfModal" class="pdf-modal">
+  <div class="pdf-modal-content">
+    <span class="pdf-close" onclick="closePdf()">&times;</span>
+    <div class="pdf-wrapper">
+      <iframe id="pdfIframe" src="" frameborder="0"></iframe>
+    </div>
+    <a id="pdfDownloadBtn" href="#" class="pdf-download" target="_blank">Download File</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div style="text-align: left; line-height: 1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+
+    <div style="display: flex; gap: 25px; align-items: center;">
+      <img src="pinas.png" alt="Philippines Logo" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+      <img src="seal.png" alt="DepEd Seal" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+      <img src="school.png" alt="School Logo" style="height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15);">
+    </div>
+  </div>
+
+  <div class="visitor-count" id="visitor-footer">
+    Teachers: <span id="teacher-count">0</span>  |
+    Learners: <span id="learner-count">0</span>
+  </div>
+</footer>
+
+<script>
+// Folder toggle
+function toggleFolder(el) {
+  el.classList.toggle('open');
+  const content = el.nextElementSibling;
+  if (content) content.classList.toggle('open');
+}
+
+// Search filter
+function filterTree() {
+  const term = document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.folder-header, .file').forEach(item => {
+    item.style.display = item.textContent.toLowerCase().includes(term) ? '' : 'none';
+  });
+}
+
+// PDF modal functions (same pattern as learning-packets.html / lambo-grade10.html)
+function openPdf(viewUrl, downloadUrl) {
+  document.getElementById("pdfIframe").src = viewUrl;
+  document.getElementById("pdfDownloadBtn").href = downloadUrl;
+  document.getElementById("pdfModal").style.display = "block";
+}
+
+function closePdf() {
+  document.getElementById("pdfModal").style.display = "none";
+  document.getElementById("pdfIframe").src = "";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("pdfModal");
+  if (event.target === modal) {
+    closePdf();
+  }
+}
+
+// Visitor counter
+const TEACHER_KEY = "sanha-teachers-2026";
+const LEARNER_KEY = "sanha-learners-2026";
+const BASE = "https://countapi.mileshilliard.com/api/v1";
+
+async function updateVisitorCounts() {
+  try {
+    const tRes = await fetch(`${BASE}/get/${TEACHER_KEY}`);
+    const tData = await tRes.json();
+    document.getElementById("teacher-count").textContent = tData.value || 0;
+
+    const lRes = await fetch(`${BASE}/get/${LEARNER_KEY}`);
+    const lData = await lRes.json();
+    document.getElementById("learner-count").textContent = lData.value || 0;
+  } catch(e) {}
+}
+window.onload = updateVisitorCounts;
+</script>
+
+</body>
+</html>
