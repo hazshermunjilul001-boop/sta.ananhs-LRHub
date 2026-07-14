@@ -17,7 +17,7 @@
 (function () {
   // ─────────────────────────────────────────────────────────────
   // ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️
-  const GAS_URL = "https://script.google.com/a/macros/deped.gov.ph/s/AKfycbyFQSV0uMzVhyHDoIe6buMVciTfeygtt-vA-pHMbbamehEyBMcWbJd-lg3dxigWOGujPQ/exec";
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbyEyjM93D8mi1wyMWimBYJUhLafb91lJryUxHb8WUIwgp7C25kIDlBLoPBZVa6HOnBT/exec";
   // ─────────────────────────────────────────────────────────────
 
   const SQD_QUESTIONS = [
