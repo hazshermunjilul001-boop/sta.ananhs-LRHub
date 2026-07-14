@@ -17,7 +17,7 @@
 (function () {
   // ─────────────────────────────────────────────────────────────
   // ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️
-  const GAS_URL = "https://script.google.com/a/macros/deped.gov.ph/s/AKfycbwjr_-aPuE3iMtBARjIGUwdYw1Mae0ARjvmJ7CE4CwE5YKxEDIYK8P5pDjbIzGqneXlNw/exec";
+  const GAS_URL = "https://script.google.com/a/macros/deped.gov.ph/s/AKfycbwjr_-aPuE3iMtBARjIGUwdYw1Mae0ARjvmJ7CE4CwE5YKxEDIYK8P5pDjbIzGqneXlNw/execE";
   // ─────────────────────────────────────────────────────────────
 
   const SQD_QUESTIONS = [
@@ -281,14 +281,16 @@
 
     fetch(GAS_URL, {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload)
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status !== "success") {
-          throw new Error(data.message || "Unknown error from server");
-        }
+      .then(() => {
+        // NOTE: no-cors responses are "opaque" - the browser deliberately
+        // hides the status/body from us, even on success. A resolved
+        // promise here just means the request was sent without a network
+        // error. Actual success (Sheet row + email) should be verified
+        // server-side via the Apps Script Executions log if ever in doubt.
         modal.querySelector("#fbw-form-wrapper").style.display = "none";
         modal.querySelector("#fbw-thankyou").style.display = "block";
         setTimeout(() => {
