@@ -17,19 +17,20 @@
 (function () {
   // ─────────────────────────────────────────────────────────────
   // ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbxmtHk3wboAbqq64coLKX2wfYhXX66thw2_oImZ36u6ukFvFwdy8D-MqUaVWRDc37bqeg/exec";
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbynXaGppV-UVKcSLvJsmdZFCR8YJ4G51CkAcwovFnkje14MzhGuTRIUfa8RBa_PS_HD1g/exec";
   // ─────────────────────────────────────────────────────────────
 
   const SQD_QUESTIONS = [
-    { id: "sqd0", label: "I am satisfied with the service/resources that I availed on this site.", dim: "Overall Satisfaction" },
-    { id: "sqd1", label: "I spent an acceptable amount of time finding what I needed.", dim: "Responsiveness" },
-    { id: "sqd2", label: "The site accurately provided what it said it would provide.", dim: "Reliability" },
-    { id: "sqd3", label: "Using this site (navigation, links, downloads) was simple and convenient.", dim: "Access and Facilities" },
-    { id: "sqd4", label: "I easily found information about the materials I was looking for.", dim: "Communication" },
-    { id: "sqd8", label: "I got what I needed from this website.", dim: "Outcome" }
+    { id: "sqd0", label: "Overall, I'm happy with using this website.", dim: "Overall" },
+    { id: "sqd1", label: "I was able to find what I was looking for quickly.", dim: "Speed" },
+    { id: "sqd2", label: "The materials and information on this site are accurate and correct.", dim: "Accuracy" },
+    { id: "sqd3", label: "This website is easy to use and navigate.", dim: "Ease of Use" },
+    { id: "sqd4", label: "Instructions and labels on the site are clear and easy to understand.", dim: "Clarity" },
+    { id: "sqd8", label: "I got the learning materials or resources I needed.", dim: "Helpfulness" }
   ];
 
-  const SCALE_LABELS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
+  const SCALE_LABELS = ["Strongly Disagree", "Disagree", "Not Sure", "Agree", "Strongly Agree"];
+  const SCALE_EMOJIS = ["😞", "🙁", "😐", "🙂", "😄"];
 
   /* ---------------- INJECT STYLES ---------------- */
   const style = document.createElement("style");
@@ -137,6 +138,11 @@
       height: 18px;
       cursor: pointer;
     }
+    .fbw-emoji {
+      display: block;
+      font-size: 1.3em;
+      margin-bottom: 4px;
+    }
     .fbw-scale-item span {
       font-size: 0.68em;
       color: #666;
@@ -193,6 +199,7 @@
     for (let i = 1; i <= 5; i++) {
       scaleHTML += `
         <label class="fbw-scale-item">
+          <span class="fbw-emoji">${SCALE_EMOJIS[i - 1]}</span>
           <input type="radio" name="${q.id}" value="${i}" required>
           <span>${SCALE_LABELS[i - 1]}</span>
         </label>`;
@@ -211,7 +218,7 @@
   const launcher = document.createElement("button");
   launcher.id = "fbw-launcher";
   launcher.type = "button";
-  launcher.innerHTML = "💬 Give Feedback";
+  launcher.innerHTML = "💬 What do you think?";
   document.body.appendChild(launcher);
 
   const modal = document.createElement("div");
@@ -220,13 +227,13 @@
     <div id="fbw-modal-content">
       <span id="fbw-close">&times;</span>
       <div id="fbw-form-wrapper">
-        <h2>Client Satisfaction Measurement</h2>
-        <p class="fbw-subtitle">Help us serve you better! This short survey (adapted from the ARTA Client Satisfaction Measurement framework) tracks visitor experience on this site. Your answers are anonymous and voluntary.</p>
+        <h2>Tell Us What You Think! 💭</h2>
+        <p class="fbw-subtitle">Whether you're a student or a teacher, your feedback helps us make this site better for everyone. It only takes a minute, and your answers are anonymous.</p>
         <form id="fbw-form">
           ${questionsHTML}
           <div class="fbw-question" style="border-bottom:none;">
-            <label class="fbw-qlabel" for="fbw-remarks">Remarks / Suggestions (optional)</label>
-            <textarea id="fbw-remarks" name="remarks" placeholder="Tell us how we can improve..."></textarea>
+            <label class="fbw-qlabel" for="fbw-remarks">Anything else you'd like to share? (optional)</label>
+            <textarea id="fbw-remarks" name="remarks" placeholder="Suggestions, problems you found, or anything you liked..."></textarea>
           </div>
           <button id="fbw-submit" type="submit">Submit Feedback</button>
           <div id="fbw-status"></div>
