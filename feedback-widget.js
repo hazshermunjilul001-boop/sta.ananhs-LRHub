@@ -17,7 +17,7 @@
 (function () {
   // ─────────────────────────────────────────────────────────────
   // ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbynXaGppV-UVKcSLvJsmdZFCR8YJ4G51CkAcwovFnkje14MzhGuTRIUfa8RBa_PS_HD1g/exec";
+  const GAS_URL = "https://script.google.com/a/macros/deped.gov.ph/s/AKfycbwpZE38d09eweldQMoa8gNX-NuEAi8dwoXaGY6odwFejHMxTOMctFt9HD72Hj1uewMJRw/exec";
   // ─────────────────────────────────────────────────────────────
 
   const SQD_QUESTIONS = [
@@ -285,7 +285,10 @@
       body: JSON.stringify(payload)
     })
       .then(res => res.json())
-      .then(() => {
+      .then(data => {
+        if (data.status !== "success") {
+          throw new Error(data.message || "Unknown error from server");
+        }
         modal.querySelector("#fbw-form-wrapper").style.display = "none";
         modal.querySelector("#fbw-thankyou").style.display = "block";
         setTimeout(() => {
@@ -300,8 +303,8 @@
           }, 400);
         }, 2500);
       })
-      .catch(() => {
-        statusEl.textContent = "Something went wrong sending your feedback. Please try again.";
+      .catch((err) => {
+        statusEl.textContent = "Something went wrong sending your feedback (" + err.message + "). Please try again or tell your teacher.";
         statusEl.className = "fbw-error";
         submitBtn.disabled = false;
         submitBtn.textContent = "Submit Feedback";
