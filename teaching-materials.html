@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teaching Materials - Sta. Ana National High School</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
       --primary: #003087;
@@ -359,9 +360,74 @@
       .container { padding: 0 15px; }
       h2 { font-size: 1.6em; }
     }
+
+    /* ────────────── ACCESS GATE (deped.gov.ph Google Sign-In) ────────────── */
+    #access-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #access-gate .gate-box {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    #access-gate h2 {
+      margin-top: 0;
+      font-size: 1.4em;
+      color: var(--primary);
+    }
+    #access-gate p {
+      color: #555;
+      font-size: 0.9em;
+      margin-bottom: 22px;
+      text-align: center;
+      text-indent: 0;
+      line-height: 1.5;
+    }
+    #gate-signin-btn {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    #access-gate .gate-error {
+      color: #b00020;
+      font-size: 0.85em;
+      margin-top: 12px;
+      min-height: 18px;
+      line-height: 1.4;
+    }
+    #access-gate .gate-loading {
+      color: #555;
+      font-size: 0.85em;
+      margin-top: 12px;
+    }
+    body.gate-locked > *:not(#access-gate) {
+      filter: blur(6px);
+      pointer-events: none;
+      user-select: none;
+    }
   </style>
 </head>
-<body>
+<body class="gate-locked">
+
+<div id="access-gate">
+  <div class="gate-box">
+    <h2>🔒 Teachers Only</h2>
+    <p>This page contains summative tests, answer keys, and lesson plans for teacher use only. Please sign in with your official <strong>@deped.gov.ph</strong> Google account to continue.</p>
+    <div id="gate-signin-btn"></div>
+    <div class="gate-error" id="gate-error"></div>
+  </div>
+</div>
 
 <header style="background-image: url('logo.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 30px; text-align: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.6);">
   <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;"></div>
@@ -1300,8 +1366,81 @@ async function updateVisitorCounts() {
     document.getElementById("learner-count").textContent = lData.value || 0;
   } catch(e) {}
 }
-window.onload = updateVisitorCounts;
+window.addEventListener('load', updateVisitorCounts);
 </script>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+// ACCESS GATE — Google Sign-In restricted to @deped.gov.ph
+// ─────────────────────────────────────────────────────────────
+// ⬇️ PASTE YOUR GOOGLE OAUTH CLIENT ID HERE (see setup guide) ⬇️
+const GOOGLE_CLIENT_ID = "215229995396-j5256uapm7r7p4sck0aontm45q3kfuml.apps.googleusercontent.com";
+const ALLOWED_DOMAIN = "deped.gov.ph";
+const GATE_SESSION_KEY = "sanhs_teacher_gate_email";
+
+function fbwDecodeJwt(token) {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split("")
+      .map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+      .join("")
+  );
+  return JSON.parse(jsonPayload);
+}
+
+function unlockGate(email) {
+  sessionStorage.setItem(GATE_SESSION_KEY, email);
+  document.body.classList.remove("gate-locked");
+  document.getElementById("access-gate").style.display = "none";
+}
+
+function handleCredentialResponse(response) {
+  const errorEl = document.getElementById("gate-error");
+  try {
+    const payload = fbwDecodeJwt(response.credential);
+    const email = (payload.email || "").toLowerCase();
+
+    if (email.endsWith("@" + ALLOWED_DOMAIN) && payload.email_verified) {
+      unlockGate(email);
+    } else {
+      errorEl.textContent = "That account (" + (payload.email || "unknown") + ") is not a @" + ALLOWED_DOMAIN + " account. Please sign in with your official DepEd Google account.";
+      if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.disableAutoSelect();
+      }
+    }
+  } catch (e) {
+    errorEl.textContent = "Something went wrong verifying your sign-in. Please try again.";
+  }
+}
+
+window.addEventListener('load', function () {
+  // If already verified this session, skip straight in
+  const savedEmail = sessionStorage.getItem(GATE_SESSION_KEY);
+  if (savedEmail && savedEmail.toLowerCase().endsWith("@" + ALLOWED_DOMAIN)) {
+    document.body.classList.remove("gate-locked");
+    document.getElementById("access-gate").style.display = "none";
+    return;
+  }
+
+  if (!window.google || !google.accounts || !google.accounts.id) {
+    document.getElementById("gate-error").textContent = "Sign-in is still loading, please wait a moment and refresh.";
+    return;
+  }
+
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: handleCredentialResponse
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById("gate-signin-btn"),
+    { theme: "filled_blue", size: "large", text: "signin_with", shape: "pill" }
+  );
+});
+</script>
+
 <script src="feedback-widget.js"></script>
 </body>
 </html>
