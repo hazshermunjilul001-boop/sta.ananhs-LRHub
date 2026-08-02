@@ -318,11 +318,11 @@ async function trackDownload(id) {
   try { await fetch(`${COUNTAPI_BASE}/hit/sanhs-dl-${id}`); } catch(e) { /* counter temporarily unavailable */ }
 }
 
-async function fetchDownloadCount(id, el) {
+async function fetchDownloadCount(id, el, isExternalMedia) {
   try {
     const res = await fetch(`${COUNTAPI_BASE}/get/sanhs-dl-${id}`);
     const data = await res.json();
-    el.textContent = `⬇ ${data.value || 0} downloads`;
+    el.textContent = isExternalMedia ? `👁 ${data.value || 0} opens` : `⬇ ${data.value || 0} downloads`;
   } catch(e) {
     el.textContent = "";
   }
@@ -501,25 +501,38 @@ function buildCard(r) {
 
   const actions = document.createElement("div");
   actions.className = "rcard-actions";
-  const previewBtn = document.createElement("button");
-  previewBtn.className = "btn-preview";
-  previewBtn.textContent = "👁 Preview";
-  previewBtn.onclick = () => openPdf(r.previewUrl, r.downloadUrl, r.id);
-  const downloadBtn = document.createElement("a");
-  downloadBtn.className = "btn-download";
-  downloadBtn.textContent = "⬇ Download";
-  downloadBtn.href = r.downloadUrl;
-  downloadBtn.target = "_blank";
-  downloadBtn.rel = "noopener";
-  downloadBtn.onclick = () => trackDownload(r.id);
-  actions.appendChild(previewBtn);
-  actions.appendChild(downloadBtn);
+  const isExternalMedia = ["PISA-like Practice Test", "Review Video", "Video Lesson"].includes(r.category);
+
+  if (isExternalMedia) {
+    const openBtn = document.createElement("a");
+    openBtn.className = "btn-download";
+    openBtn.textContent = r.category === "PISA-like Practice Test" ? "📝 Open Practice Test" : "▶ Watch";
+    openBtn.href = r.downloadUrl;
+    openBtn.target = "_blank";
+    openBtn.rel = "noopener";
+    openBtn.onclick = () => trackDownload(r.id);
+    actions.appendChild(openBtn);
+  } else {
+    const previewBtn = document.createElement("button");
+    previewBtn.className = "btn-preview";
+    previewBtn.textContent = "👁 Preview";
+    previewBtn.onclick = () => openPdf(r.previewUrl, r.downloadUrl, r.id);
+    const downloadBtn = document.createElement("a");
+    downloadBtn.className = "btn-download";
+    downloadBtn.textContent = "⬇ Download";
+    downloadBtn.href = r.downloadUrl;
+    downloadBtn.target = "_blank";
+    downloadBtn.rel = "noopener";
+    downloadBtn.onclick = () => trackDownload(r.id);
+    actions.appendChild(previewBtn);
+    actions.appendChild(downloadBtn);
+  }
   card.appendChild(actions);
 
   const dlCount = document.createElement("div");
   dlCount.className = "dl-count";
   card.appendChild(dlCount);
-  fetchDownloadCount(r.id, dlCount);
+  fetchDownloadCount(r.id, dlCount, isExternalMedia);
 
   return card;
 }

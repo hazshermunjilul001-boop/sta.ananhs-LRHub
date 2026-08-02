@@ -34,6 +34,9 @@ FILE_META = {
     "teaching-materials.html":   ("Teaching Materials", "Teaching Materials", None),
     "learning-packets.html":     ("Learning Packet", "Learning Packets", None),
     "aral-materials.html":       ("ARAL Materials", "ARAL Materials", None),
+    "pisa-like-materials.html":  ("PISA-like Practice Test", "PISA-like Materials", None),
+    "review-materials.html":     ("Review Video", "Review Materials", None),
+    "video-lessons.html":        ("Video Lesson", "Video Lessons", None),
 }
 
 LINK_RE = re.compile(
@@ -191,6 +194,72 @@ def extract_card_style(content, filename, category, category_page, default_grade
         })
     return results
 
+def extract_pisa_style(content, filename, category, category_page, default_grade):
+    """PISA-like Materials: <div class="pisa-subject">Domain</div> groups a
+    <ul class="practice-list"> of <a onclick="openQuiz('Title','url')">."""
+    results = []
+    blocks = re.split(r'(?=<div class="pisa-subject">)', content)
+    for block in blocks:
+        subj_m = re.search(r'<div class="pisa-subject">(.*?)</div>', block, re.DOTALL)
+        subject = clean_label(strip_tags(subj_m.group(1))) if subj_m else "General"
+        for m in re.finditer(
+            r'onclick="openQuiz\(\s*\'([^\']*)\'\s*,\s*\'([^\']+)\'\s*\)\s*;\s*return\s+false;"',
+            block
+        ):
+            quiz_title, url = m.groups()
+            quiz_title = clean_label(html.unescape(quiz_title))
+            title = f"{subject} – {quiz_title}" if subject else quiz_title
+            results.append({
+                "title": title,
+                "subject": subject,
+                "grade": default_grade,
+                "quarter": None,
+                "category": category,
+                "categoryPage": category_page,
+                "sourceFile": filename,
+                "previewUrl": url,
+                "downloadUrl": url,
+            })
+    return results
+
+def extract_video_style(content, filename, category, category_page, default_grade):
+    """Video Lessons / Review Materials: <h3>Grade N</h3> groups
+    <div class="card">Label: <a onclick="openVideo('url')">Watch</a></div>."""
+    results = []
+    last_grade = default_grade
+    for m in re.finditer(
+        r'<h3>(.*?)</h3>|<div class="card">(.*?)</div>',
+        content, re.DOTALL
+    ):
+        if m.group(1) is not None:
+            heading = clean_label(strip_tags(html.unescape(m.group(1))))
+            last_grade = find_grade_from_text(heading) or default_grade
+            continue
+        card = m.group(2)
+        link_m = re.search(
+            r'onclick="openVideo\(\s*\'([^\']+)\'\s*\)\s*;\s*return\s+false;"',
+            card
+        )
+        if not link_m:
+            continue
+        url = link_m.group(1)
+        label = clean_label(strip_tags(html.unescape(card.split('<a')[0])))
+        label = label.strip(" :\n\t")
+        if not label:
+            label = "Video Lesson"
+        results.append({
+            "title": label,
+            "subject": None,
+            "grade": last_grade,
+            "quarter": None,
+            "category": category,
+            "categoryPage": category_page,
+            "sourceFile": filename,
+            "previewUrl": url,
+            "downloadUrl": url,
+        })
+    return results
+
 def main():
     all_resources = []
     seen_ids = {}
@@ -205,6 +274,10 @@ def main():
             items = extract_tree_style(content, filename, category, category_page, default_grade)
         elif filename in ("learning-packets.html", "aral-materials.html"):
             items = extract_card_style(content, filename, category, category_page, default_grade)
+        elif filename == "pisa-like-materials.html":
+            items = extract_pisa_style(content, filename, category, category_page, default_grade)
+        elif filename in ("review-materials.html", "video-lessons.html"):
+            items = extract_video_style(content, filename, category, category_page, default_grade)
         else:
             items = extract_grid_style(content, filename, category, category_page, default_grade)
 
