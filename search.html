@@ -168,6 +168,20 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
     }
+    /* Video modal — matches the style used on review-materials.html / video-lessons.html */
+    .video-modal {
+      display: none; position: fixed; z-index: 9998; left: 0; top: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.9); overflow: auto;
+    }
+    .video-modal-content { margin: 5% auto; padding: 20px; width: 90%; max-width: 960px; position: relative; }
+    .video-close {
+      position: absolute; top: 10px; right: 25px; color: #fff; font-size: 40px; font-weight: bold;
+      cursor: pointer; z-index: 9999;
+    }
+    .video-close:hover, .video-close:focus { color: #bbb; }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
   </style>
 </head>
 <body>
@@ -235,6 +249,22 @@
   </div>
 </div>
 
+<!-- VIDEO MODAL (YouTube embed, matches review-materials.html / video-lessons.html) -->
+<div id="videoModal" class="video-modal">
+  <div class="video-modal-content">
+    <span class="video-close" onclick="closeVideo()">&times;</span>
+    <div class="video-wrapper">
+      <iframe
+        id="videoIframe"
+        src=""
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
 <!-- PDF PREVIEW MODAL -->
 <div id="pdfModal" class="pdf-modal">
   <div class="pdf-modal-content">
@@ -313,6 +343,29 @@ function closePdf() {
   document.getElementById("pdfModal").style.display = "none";
   document.getElementById("pdfFrame").src = "";
 }
+
+function openVideo(url, resourceId) {
+  // Same logic as review-materials.html / video-lessons.html:
+  // force youtube-nocookie embed regardless of youtu.be / youtube.com link shape.
+  let videoId = url.split('v=')[1] || url.split('/').pop();
+  if (videoId) {
+    videoId = videoId.split('&')[0];
+  } else {
+    videoId = url.split('/').pop().split('?')[0];
+  }
+  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+  document.getElementById("videoIframe").src = embedUrl;
+  document.getElementById("videoModal").style.display = "block";
+  if (resourceId) trackDownload(resourceId);
+}
+function closeVideo() {
+  document.getElementById("videoModal").style.display = "none";
+  document.getElementById("videoIframe").src = "";
+}
+window.addEventListener("click", (event) => {
+  const modal = document.getElementById("videoModal");
+  if (event.target === modal) closeVideo();
+});
 
 async function trackDownload(id) {
   try { await fetch(`${COUNTAPI_BASE}/hit/sanhs-dl-${id}`); } catch(e) { /* counter temporarily unavailable */ }
@@ -501,12 +554,19 @@ function buildCard(r) {
 
   const actions = document.createElement("div");
   actions.className = "rcard-actions";
-  const isExternalMedia = ["PISA-like Practice Test", "Review Video", "Video Lesson"].includes(r.category);
+  const isVideo = ["Review Video", "Video Lesson"].includes(r.category);
+  const isExternalQuiz = r.category === "PISA-like Practice Test";
 
-  if (isExternalMedia) {
+  if (isVideo) {
+    const watchBtn = document.createElement("button");
+    watchBtn.className = "btn-download";
+    watchBtn.textContent = "▶ Watch";
+    watchBtn.onclick = () => openVideo(r.downloadUrl, r.id);
+    actions.appendChild(watchBtn);
+  } else if (isExternalQuiz) {
     const openBtn = document.createElement("a");
     openBtn.className = "btn-download";
-    openBtn.textContent = r.category === "PISA-like Practice Test" ? "📝 Open Practice Test" : "▶ Watch";
+    openBtn.textContent = "📝 Open Practice Test";
     openBtn.href = r.downloadUrl;
     openBtn.target = "_blank";
     openBtn.rel = "noopener";
@@ -532,7 +592,7 @@ function buildCard(r) {
   const dlCount = document.createElement("div");
   dlCount.className = "dl-count";
   card.appendChild(dlCount);
-  fetchDownloadCount(r.id, dlCount, isExternalMedia);
+  fetchDownloadCount(r.id, dlCount, isVideo || isExternalQuiz);
 
   return card;
 }
