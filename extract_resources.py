@@ -15,7 +15,7 @@ import json
 import os
 import html
 
-SRC_DIR = "StaAnaLMS"
+SRC_DIR = "."  # HTML files sit directly in the repo root — change if yours differ
 
 # category metadata: filename -> (category label, page to link back to, grade or None)
 FILE_META = {
