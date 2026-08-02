@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit a Resource | Sta. Ana National High School</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary: #003087; --green: #006400; --light: #e6f0ff; --text: #333; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif; margin: 0;
+      background-image: url('background.png'); background-size: cover; background-position: center;
+      background-repeat: no-repeat; background-attachment: fixed; color: var(--text); min-height: 100vh;
+    }
+    header { background: var(--primary); color: white; padding: 10px; text-align: center; }
+    .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+    .section {
+      background: rgba(255,255,255,0.9); padding: 30px; border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3); backdrop-filter: blur(4px);
+    }
+    h2 { color: var(--primary); margin-top: 0; }
+    label { display: block; font-weight: bold; margin: 16px 0 6px; color: var(--primary); }
+    input[type=text], input[type=url], select {
+      width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbb; font-family: inherit; font-size: 1em;
+    }
+    .hint { font-size: 0.82em; color: #777; margin-top: 4px; }
+    #submitBtn {
+      margin-top: 24px; width: 100%; background: var(--primary); color: white; border: none; padding: 14px;
+      font-size: 1.05em; font-weight: bold; border-radius: 8px; cursor: pointer;
+    }
+    #submitBtn:hover { background: #0056d2; }
+    #submitBtn:disabled { background: #999; cursor: default; }
+    #statusMsg { margin-top: 14px; font-weight: bold; text-align: center; }
+    #statusMsg.ok { color: var(--green); }
+    #statusMsg.err { color: #b00020; }
+    .signed-in-as { font-size: 0.85em; color: #555; margin-bottom: 10px; }
+    .back { text-align: center; margin-top: 30px; }
+    .back a { color: var(--primary); font-weight: bold; text-decoration: none; }
+
+    /* ─── Access gate (identical pattern to teaching-materials.html) ─── */
+    #access-gate {
+      position: fixed; inset: 0; z-index: 99999; background: var(--primary);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    #access-gate .gate-box {
+      background: white; border-radius: 12px; padding: 40px; max-width: 440px; width: 100%;
+      text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    #access-gate h2 { margin-top: 0; font-size: 1.4em; color: var(--primary); }
+    #access-gate p { color: #555; font-size: 0.9em; margin-bottom: 22px; line-height: 1.5; }
+    #gate-signin-btn { display: flex; justify-content: center; margin-bottom: 14px; }
+    #access-gate .gate-error { color: #b00020; font-size: 0.85em; margin-top: 12px; min-height: 18px; }
+    body.gate-locked > *:not(#access-gate) { filter: blur(6px); pointer-events: none; user-select: none; }
+  </style>
+</head>
+<body class="gate-locked">
+
+<div id="access-gate">
+  <div class="gate-box">
+    <h2>🔒 Teachers Only</h2>
+    <p>Submitting a resource requires your official <strong>@deped.gov.ph</strong> Google account, so the STWG knows who contributed each file.</p>
+    <div id="gate-signin-btn"></div>
+    <div class="gate-error" id="gate-error"></div>
+  </div>
+</div>
+
+<header style="background-image: url('logo.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 30px; text-align: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.6);">
+  <div style="max-width: 1200px; margin: 0 auto;"></div>
+</header>
+
+<div class="container">
+  <div class="section">
+    <h2>📤 Submit a Learning Resource</h2>
+    <p style="color:#555; font-size:0.92em;">
+      Share a Google Drive link to your material and it goes to the School Technical Working Group (STWG) for review.
+      Approved resources are added to the hub and appear in <a href="search.html">Search</a>.
+    </p>
+    <div class="signed-in-as" id="signedInAs"></div>
+
+    <label for="fTitle">Title</label>
+    <input type="text" id="fTitle" placeholder="e.g. Mathematics Q2 Week 5 Activity Sheet">
+
+    <label for="fSubject">Subject</label>
+    <select id="fSubject">
+      <option>Mathematics</option><option>Science</option><option>English</option><option>Filipino</option>
+      <option>Araling Panlipunan</option><option>MAPEH</option><option>TLE</option><option>Val. Ed. / ESP</option>
+      <option>Edukasyon sa Pagpapakatao</option><option>Other</option>
+    </select>
+
+    <label for="fGrade">Grade Level</label>
+    <select id="fGrade">
+      <option value="7">Grade 7</option><option value="8">Grade 8</option>
+      <option value="9">Grade 9</option><option value="10">Grade 10</option>
+      <option value="">Not grade-specific</option>
+    </select>
+
+    <label for="fCategory">Category</label>
+    <select id="fCategory">
+      <option>National K-12 SLM</option><option>Regional/Division SLM</option>
+      <option>LAMBO (Learning Activity Sheet)</option><option>Teaching Materials</option>
+      <option>Learning Packet</option><option>ARAL Materials</option><option>Other</option>
+    </select>
+
+    <label for="fLink">Google Drive Link</label>
+    <input type="url" id="fLink" placeholder="https://drive.google.com/file/d/...">
+    <div class="hint">Make sure sharing is set to "Anyone with the link can view" before submitting.</div>
+
+    <button id="submitBtn">Submit for Review</button>
+    <div id="statusMsg"></div>
+  </div>
+  <div class="back">← <a href="index.html">Back to Home</a></div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+// ACCESS GATE — same pattern as teaching-materials.html
+// ─────────────────────────────────────────────────────────────
+const GOOGLE_CLIENT_ID = "215229995396-j5256uapm7r7p4sck0aontm45q3kfuml.apps.googleusercontent.com";
+const ALLOWED_DOMAIN = "deped.gov.ph";
+const GATE_SESSION_KEY = "sanhs_teacher_gate_email";
+
+// ⬇️ PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE (see setup guide) ⬇️
+const SUBMIT_ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+let signedInEmail = null;
+
+function fbwDecodeJwt(token) {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    atob(base64).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join("")
+  );
+  return JSON.parse(jsonPayload);
+}
+
+function unlockGate(email) {
+  sessionStorage.setItem(GATE_SESSION_KEY, email);
+  signedInEmail = email;
+  document.body.classList.remove("gate-locked");
+  document.getElementById("access-gate").style.display = "none";
+  document.getElementById("signedInAs").textContent = "Signed in as " + email;
+}
+
+function handleCredentialResponse(response) {
+  const errorEl = document.getElementById("gate-error");
+  try {
+    const payload = fbwDecodeJwt(response.credential);
+    const email = (payload.email || "").toLowerCase();
+    if (email.endsWith("@" + ALLOWED_DOMAIN) && payload.email_verified) {
+      unlockGate(email);
+    } else {
+      errorEl.textContent = "That account is not a @" + ALLOWED_DOMAIN + " account. Please sign in with your official DepEd Google account.";
+      if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect();
+    }
+  } catch (e) {
+    errorEl.textContent = "Something went wrong verifying your sign-in. Please try again.";
+  }
+}
+
+window.addEventListener('load', function () {
+  const savedEmail = sessionStorage.getItem(GATE_SESSION_KEY);
+  if (savedEmail && savedEmail.toLowerCase().endsWith("@" + ALLOWED_DOMAIN)) {
+    unlockGate(savedEmail);
+  } else {
+    if (!window.google || !google.accounts || !google.accounts.id) {
+      document.getElementById("gate-error").textContent = "Sign-in is still loading, please wait a moment and refresh.";
+    } else {
+      google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse });
+      google.accounts.id.renderButton(
+        document.getElementById("gate-signin-btn"),
+        { theme: "filled_blue", size: "large", text: "signin_with", shape: "pill" }
+      );
+    }
+  }
+});
+
+document.getElementById("submitBtn").addEventListener("click", async () => {
+  const title = document.getElementById("fTitle").value.trim();
+  const link = document.getElementById("fLink").value.trim();
+  const statusEl = document.getElementById("statusMsg");
+  statusEl.className = "";
+
+  if (!title || !link) {
+    statusEl.textContent = "Please fill in at least the title and the Drive link.";
+    statusEl.className = "err";
+    return;
+  }
+  if (SUBMIT_ENDPOINT.startsWith("PASTE_YOUR")) {
+    statusEl.textContent = "Submission backend isn't configured yet — see the setup guide.";
+    statusEl.className = "err";
+    return;
+  }
+
+  const payload = {
+    submittedBy: signedInEmail,
+    title,
+    subject: document.getElementById("fSubject").value,
+    grade: document.getElementById("fGrade").value,
+    category: document.getElementById("fCategory").value,
+    link,
+    timestamp: new Date().toISOString()
+  };
+
+  document.getElementById("submitBtn").disabled = true;
+  statusEl.textContent = "Submitting...";
+  try {
+    await fetch(SUBMIT_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors", // Apps Script web apps don't return CORS headers by default
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(payload)
+    });
+    statusEl.textContent = "✅ Submitted! The STWG will review it shortly.";
+    statusEl.className = "ok";
+    document.getElementById("fTitle").value = "";
+    document.getElementById("fLink").value = "";
+  } catch (e) {
+    statusEl.textContent = "Something went wrong. Please try again or message the STWG directly.";
+    statusEl.className = "err";
+  } finally {
+    document.getElementById("submitBtn").disabled = false;
+  }
+});
+</script>
+<script src="feedback-widget.js"></script>
+</body>
+</html>

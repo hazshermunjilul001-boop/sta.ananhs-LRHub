@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search All Resources | Sta. Ana National High School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #003087;
+      --green: #006400;
+      --light: #e6f0ff;
+      --text: #333;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    header {
+      background: var(--primary); color: white; padding: 10px; text-align: center;
+    }
+    nav { background: var(--primary); padding: 1rem; }
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .nav-links a { color: white; text-decoration: none; font-weight: bold; font-size: 0.95em; white-space: nowrap; }
+    .nav-links a:hover { text-decoration: underline; }
+    .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 30px; height: 4px; background: white; border-radius: 2px; }
+    .dropdown-menu { display: none; flex-direction: column; padding: 1rem 0; background: var(--primary); }
+    .dropdown-menu a { padding: 1rem 2rem; color: white; text-decoration: none; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    #menu-toggle { display: none; }
+    #menu-toggle:checked ~ .hamburger span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    #menu-toggle:checked ~ .hamburger span:nth-child(2) { opacity: 0; }
+    #menu-toggle:checked ~ .hamburger span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+    #menu-toggle:checked ~ .dropdown-menu { display: flex; }
+
+    .container { max-width: 1300px; margin: 20px auto; padding: 0 20px; }
+
+    .search-panel {
+      background: rgba(255,255,255,0.85);
+      padding: 20px 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      margin: 20px 0;
+      backdrop-filter: blur(4px);
+    }
+    .search-panel h1 { color: var(--primary); margin: 0 0 6px; font-size: 1.7em; }
+    .search-panel .subtitle { color: #555; margin-bottom: 16px; font-size: 0.95em; }
+
+    #searchBox {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1.1em;
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      outline: none;
+    }
+    #searchBox:focus { border-color: var(--green); }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; align-items: center; }
+    .filters select {
+      padding: 10px 14px; border-radius: 8px; border: 1px solid #bbb; font-family: inherit; font-size: 0.95em; background: white;
+    }
+    .fav-toggle {
+      padding: 10px 16px; border-radius: 8px; border: 1px solid var(--primary); background: white; color: var(--primary);
+      cursor: pointer; font-weight: bold; font-size: 0.95em;
+    }
+    .fav-toggle.active { background: var(--primary); color: white; }
+    .clear-btn {
+      padding: 10px 16px; border-radius: 8px; border: 1px solid #999; background: white; color: #555;
+      cursor: pointer; font-size: 0.9em;
+    }
+
+    .result-meta { margin: 14px 0 8px; color: #444; font-size: 0.95em; }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    .rcard {
+      background: rgba(255,255,255,0.92);
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .rcard .badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    .badge {
+      font-size: 0.72em; font-weight: bold; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .badge.grade { background: var(--light); color: var(--primary); }
+    .badge.category { background: #eaf7ea; color: var(--green); }
+    .badge.new { background: #fff3cd; color: #8a6500; }
+
+    .rcard .title { font-weight: bold; color: var(--primary); font-size: 1.02em; margin-bottom: 4px; line-height: 1.35; }
+    .rcard .sub { color: #666; font-size: 0.85em; margin-bottom: 10px; }
+
+    .fav-star {
+      position: absolute; top: 12px; right: 12px; cursor: pointer; font-size: 1.4em; color: #ccc; user-select: none; background: none; border: none;
+    }
+    .fav-star.active { color: #f5a623; }
+
+    .rating-row { display: flex; align-items: center; gap: 4px; margin: 6px 0; }
+    .rating-row .star {
+      cursor: pointer; color: #ccc; font-size: 1.1em; user-select: none;
+    }
+    .rating-row .star.filled { color: #f5a623; }
+    .rating-count { font-size: 0.78em; color: #888; margin-left: 6px; }
+
+    .rcard-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 10px; }
+    .rcard-actions a, .rcard-actions button {
+      flex: 1; text-align: center; padding: 9px 10px; border-radius: 6px; text-decoration: none;
+      font-weight: bold; font-size: 0.88em; border: none; cursor: pointer;
+    }
+    .btn-preview { background: var(--light); color: var(--primary); }
+    .btn-preview:hover { background: #d3e4ff; }
+    .btn-download { background: var(--primary); color: white; }
+    .btn-download:hover { background: #0056d2; }
+
+    .dl-count { font-size: 0.75em; color: #888; text-align: center; margin-top: 4px; }
+
+    .no-results { text-align: center; padding: 60px 20px; color: #666; font-size: 1.1em; }
+
+    .load-more-wrap { text-align: center; margin: 30px 0; }
+    #loadMoreBtn {
+      background: var(--green); color: white; border: none; padding: 12px 30px; border-radius: 30px;
+      font-size: 1em; font-weight: bold; cursor: pointer;
+    }
+    #loadMoreBtn:hover { background: #004d00; }
+    #loadMoreBtn:disabled { background: #aaa; cursor: default; }
+
+    /* PDF modal — matches the style used on the grade/subject listing pages */
+    .pdf-modal {
+      display: none; position: fixed; z-index: 9998; left: 0; top: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85); overflow: auto;
+    }
+    .pdf-modal-content {
+      margin: 4% auto; padding: 20px; width: 94%; max-width: 1100px; position: relative;
+      background: #fff; border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .pdf-close { position: absolute; top: 12px; right: 20px; color: #333; font-size: 42px; font-weight: bold; cursor: pointer; }
+    .pdf-close:hover { color: var(--primary); }
+    .pdf-wrapper { width: 100%; height: 75vh; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; background: #f8f9fa; }
+    .pdf-wrapper iframe { width: 100%; height: 100%; border: none; }
+    .pdf-download {
+      display: block; margin: 15px auto 0; padding: 12px 28px; background: var(--primary); color: white;
+      font-weight: bold; text-align: center; text-decoration: none; border-radius: 6px; width: fit-content;
+    }
+    .pdf-download:hover { background: #0056d2; }
+
+    footer { background: var(--primary); color: white; padding: 20px 30px; text-align: center; font-size: 0.95em; margin-top: 40px; }
+    footer .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    footer img { height: 60px; width: auto; border: 2px solid white; border-radius: 8px; padding: 4px; background: rgba(255,255,255,0.15); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<header style="background-image: url('logo.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 30px; text-align: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.6);">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;"></div>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger"><span></span><span></span><span></span></label>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="search.html"><u>🔍 Search All Resources</u></a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="teaching-materials.html">Teaching Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+    <div class="dropdown-menu">
+      <a href="index.html">Home</a>
+      <a href="search.html">🔍 Search All Resources</a>
+      <a href="pisa-like-materials.html">Pisa-like Materials</a>
+      <a href="interactive-lms.html">Interactive LMs</a>
+      <a href="video-lessons.html">Video Lessons</a>
+      <a href="slms.html">SLMs</a>
+      <a href="review-materials.html">REVIEW Materials</a>
+      <a href="aral-materials.html">ARAL Materials</a>
+      <a href="teaching-materials.html">Teaching Materials</a>
+      <a href="learning-packets.html">Learning Packets</a>
+      <a href="lambo.html">LAMBO</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="search-panel">
+    <h1>🔍 Search All Resources</h1>
+    <div class="subtitle">Search across every SLM, LAMBO sheet, teaching material, and learning packet on the hub — by keyword, subject, or grade level.</div>
+    <input type="text" id="searchBox" placeholder="Try “Math grade 8 quarter 2” or “Filipino week 3”...">
+    <div class="filters">
+      <select id="gradeFilter"><option value="">All Grades</option></select>
+      <select id="subjectFilter"><option value="">All Subjects</option></select>
+      <select id="categoryFilter"><option value="">All Categories</option></select>
+      <select id="sortSelect">
+        <option value="relevance">Sort: Best match</option>
+        <option value="title">Sort: Title A–Z</option>
+      </select>
+      <button class="fav-toggle" id="favToggle">★ My Favorites</button>
+      <button class="clear-btn" id="clearBtn">Clear filters</button>
+    </div>
+  </div>
+
+  <div class="result-meta" id="resultMeta"></div>
+  <div class="results-grid" id="resultsGrid"></div>
+  <div class="no-results" id="noResults" style="display:none;">No resources match your search. Try different keywords or clear a filter.</div>
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+    <button id="loadMoreBtn">Load more results</button>
+  </div>
+</div>
+
+<!-- PDF PREVIEW MODAL -->
+<div id="pdfModal" class="pdf-modal">
+  <div class="pdf-modal-content">
+    <span class="pdf-close" onclick="closePdf()">&times;</span>
+    <div class="pdf-wrapper"><iframe id="pdfFrame" src=""></iframe></div>
+    <a id="pdfDownloadLink" class="pdf-download" href="#" target="_blank" rel="noopener">⬇ Download</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div style="text-align: left; line-height: 1.4;">
+      <div>Sta. Ana National High School © 2026 | Davao City</div>
+      <div>staana.nhs@deped.gov.ph</div>
+      <div>www.facebook.com/StaAnaNHSofficialpage</div>
+    </div>
+    <div style="display: flex; gap: 25px; align-items: center; flex-wrap: wrap; justify-content: center;">
+      <img src="pinas.png" alt="Philippines Logo">
+      <img src="seal.png" alt="DepEd Seal">
+      <img src="school.png" alt="School Logo">
+    </div>
+  </div>
+</footer>
+
+<script src="resources-data.js"></script>
+<script>
+/* ─────────────────────────────────────────────────────────────
+   SANHS RESOURCE SEARCH — search, grade/subject/category filter,
+   favorites (localStorage), ratings + download counts (countapi,
+   the same free counter service the site already uses for the
+   visitor counter).
+   ───────────────────────────────────────────────────────────── */
+
+const COUNTAPI_BASE = "https://countapi.mileshilliard.com/api/v1";
+const FAV_KEY = "sanhs_favorites";
+const RATED_KEY = "sanhs_rated_ids";
+const PAGE_SIZE = 30;
+
+let currentResults = [];
+let renderedCount = 0;
+
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem(FAV_KEY) || "[]"); } catch(e) { return []; }
+}
+function setFavorites(arr) {
+  localStorage.setItem(FAV_KEY, JSON.stringify(arr));
+}
+function isFavorite(id) {
+  return getFavorites().includes(id);
+}
+function toggleFavorite(id) {
+  const favs = getFavorites();
+  const idx = favs.indexOf(id);
+  if (idx === -1) favs.push(id); else favs.splice(idx, 1);
+  setFavorites(favs);
+}
+
+function getRatedIds() {
+  try { return JSON.parse(localStorage.getItem(RATED_KEY) || "[]"); } catch(e) { return []; }
+}
+function markRated(id) {
+  const rated = getRatedIds();
+  if (!rated.includes(id)) {
+    rated.push(id);
+    localStorage.setItem(RATED_KEY, JSON.stringify(rated));
+  }
+}
+
+function openPdf(previewUrl, downloadUrl, resourceId) {
+  document.getElementById("pdfFrame").src = previewUrl;
+  document.getElementById("pdfDownloadLink").href = downloadUrl;
+  document.getElementById("pdfModal").style.display = "block";
+  if (resourceId) trackDownload(resourceId);
+}
+function closePdf() {
+  document.getElementById("pdfModal").style.display = "none";
+  document.getElementById("pdfFrame").src = "";
+}
+
+async function trackDownload(id) {
+  try { await fetch(`${COUNTAPI_BASE}/hit/sanhs-dl-${id}`); } catch(e) { /* counter temporarily unavailable */ }
+}
+
+async function fetchDownloadCount(id, el) {
+  try {
+    const res = await fetch(`${COUNTAPI_BASE}/get/sanhs-dl-${id}`);
+    const data = await res.json();
+    el.textContent = `⬇ ${data.value || 0} downloads`;
+  } catch(e) {
+    el.textContent = "";
+  }
+}
+
+async function fetchRatingSummary(id, starsEl, countEl) {
+  try {
+    const gets = [1,2,3,4,5].map(n => fetch(`${COUNTAPI_BASE}/get/sanhs-rating-${id}-${n}`).then(r => r.json()).catch(() => ({value:0})));
+    const results = await Promise.all(gets);
+    let total = 0, sum = 0;
+    results.forEach((r, i) => { const v = r.value || 0; total += v; sum += v * (i + 1); });
+    const avg = total ? (sum / total) : 0;
+    renderStars(starsEl, avg);
+    countEl.textContent = total ? `(${total} rating${total === 1 ? "" : "s"})` : "(no ratings yet)";
+  } catch(e) {
+    countEl.textContent = "";
+  }
+}
+
+function renderStars(starsEl, avg) {
+  starsEl.innerHTML = "";
+  for (let i = 1; i <= 5; i++) {
+    const span = document.createElement("span");
+    span.className = "star" + (i <= Math.round(avg) ? " filled" : "");
+    span.textContent = "★";
+    starsEl.appendChild(span);
+  }
+}
+
+async function submitRating(id, stars, starsEl, countEl) {
+  if (getRatedIds().includes(id)) return; // one rating per browser
+  markRated(id);
+  try {
+    await fetch(`${COUNTAPI_BASE}/hit/sanhs-rating-${id}-${stars}`);
+  } catch(e) {}
+  fetchRatingSummary(id, starsEl, countEl);
+}
+
+function isNew(r) {
+  if (!r.dateAdded) return false;
+  const added = new Date(r.dateAdded);
+  const days = (Date.now() - added.getTime()) / 86400000;
+  return days >= 0 && days <= 7;
+}
+
+function buildIndexes() {
+  const grades = new Set(), subjects = new Set(), categories = new Set();
+  SANHS_RESOURCES.forEach(r => {
+    if (r.grade) grades.add(r.grade);
+    if (r.subject) subjects.add(r.subject);
+    if (r.category) categories.add(r.category);
+  });
+  const gradeSel = document.getElementById("gradeFilter");
+  [...grades].sort((a,b) => a-b).forEach(g => {
+    const opt = document.createElement("option"); opt.value = g; opt.textContent = "Grade " + g;
+    gradeSel.appendChild(opt);
+  });
+  const subjSel = document.getElementById("subjectFilter");
+  [...subjects].sort().forEach(s => {
+    const opt = document.createElement("option"); opt.value = s; opt.textContent = s;
+    subjSel.appendChild(opt);
+  });
+  const catSel = document.getElementById("categoryFilter");
+  [...categories].sort().forEach(c => {
+    const opt = document.createElement("option"); opt.value = c; opt.textContent = c;
+    catSel.appendChild(opt);
+  });
+
+  // support ?subject=Math or ?grade=8 or ?category=... deep links from other pages
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("subject")) gradeSel && (document.getElementById("subjectFilter").value = params.get("subject"));
+  if (params.get("grade")) document.getElementById("gradeFilter").value = params.get("grade");
+  if (params.get("category")) document.getElementById("categoryFilter").value = params.get("category");
+  if (params.get("q")) document.getElementById("searchBox").value = params.get("q");
+}
+
+function matchesQuery(r, q) {
+  if (!q) return true;
+  const hay = `${r.title} ${r.subject||""} ${r.category||""} ${r.quarter||""} ${r.grade||""}`.toLowerCase();
+  return q.toLowerCase().split(/\s+/).every(term => hay.includes(term));
+}
+
+function runSearch() {
+  const q = document.getElementById("searchBox").value.trim();
+  const grade = document.getElementById("gradeFilter").value;
+  const subject = document.getElementById("subjectFilter").value;
+  const category = document.getElementById("categoryFilter").value;
+  const sort = document.getElementById("sortSelect").value;
+  const favOnly = document.getElementById("favToggle").classList.contains("active");
+  const favs = getFavorites();
+
+  let results = SANHS_RESOURCES.filter(r => {
+    if (grade && String(r.grade) !== grade) return false;
+    if (subject && r.subject !== subject) return false;
+    if (category && r.category !== category) return false;
+    if (favOnly && !favs.includes(r.id)) return false;
+    if (!matchesQuery(r, q)) return false;
+    return true;
+  });
+
+  if (sort === "title") {
+    results.sort((a,b) => a.title.localeCompare(b.title));
+  }
+
+  currentResults = results;
+  renderedCount = 0;
+  document.getElementById("resultsGrid").innerHTML = "";
+  renderNextPage();
+}
+
+function renderNextPage() {
+  const grid = document.getElementById("resultsGrid");
+  const slice = currentResults.slice(renderedCount, renderedCount + PAGE_SIZE);
+  slice.forEach(r => grid.appendChild(buildCard(r)));
+  renderedCount += slice.length;
+
+  document.getElementById("noResults").style.display = currentResults.length === 0 ? "block" : "none";
+  document.getElementById("resultMeta").textContent = currentResults.length
+    ? `Showing ${Math.min(renderedCount, currentResults.length)} of ${currentResults.length} resource${currentResults.length===1?"":"s"}`
+    : "";
+  document.getElementById("loadMoreWrap").style.display = renderedCount < currentResults.length ? "block" : "none";
+}
+
+function buildCard(r) {
+  const card = document.createElement("div");
+  card.className = "rcard";
+
+  const favBtn = document.createElement("button");
+  favBtn.className = "fav-star" + (isFavorite(r.id) ? " active" : "");
+  favBtn.textContent = isFavorite(r.id) ? "★" : "☆";
+  favBtn.title = "Bookmark this resource";
+  favBtn.onclick = () => {
+    toggleFavorite(r.id);
+    favBtn.classList.toggle("active");
+    favBtn.textContent = favBtn.classList.contains("active") ? "★" : "☆";
+    if (document.getElementById("favToggle").classList.contains("active")) runSearch();
+  };
+  card.appendChild(favBtn);
+
+  const badges = document.createElement("div");
+  badges.className = "badges";
+  if (r.grade) badges.innerHTML += `<span class="badge grade">Grade ${r.grade}</span>`;
+  if (r.category) badges.innerHTML += `<span class="badge category">${r.category}</span>`;
+  if (isNew(r)) badges.innerHTML += `<span class="badge new">🆕 New</span>`;
+  card.appendChild(badges);
+
+  const title = document.createElement("div");
+  title.className = "title";
+  title.textContent = r.title;
+  card.appendChild(title);
+
+  if (r.quarter || r.subject) {
+    const sub = document.createElement("div");
+    sub.className = "sub";
+    sub.textContent = [r.subject, r.quarter].filter(Boolean).join(" · ");
+    card.appendChild(sub);
+  }
+
+  // rating row
+  const ratingRow = document.createElement("div");
+  ratingRow.className = "rating-row";
+  const starsEl = document.createElement("span");
+  const countEl = document.createElement("span");
+  countEl.className = "rating-count";
+  ratingRow.appendChild(starsEl);
+  ratingRow.appendChild(countEl);
+  card.appendChild(ratingRow);
+  fetchRatingSummary(r.id, starsEl, countEl);
+
+  starsEl.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("star")) return;
+    if (getRatedIds().includes(r.id)) return;
+    const idx = Array.from(starsEl.children).indexOf(e.target) + 1;
+    submitRating(r.id, idx, starsEl, countEl);
+  });
+
+  const actions = document.createElement("div");
+  actions.className = "rcard-actions";
+  const previewBtn = document.createElement("button");
+  previewBtn.className = "btn-preview";
+  previewBtn.textContent = "👁 Preview";
+  previewBtn.onclick = () => openPdf(r.previewUrl, r.downloadUrl, r.id);
+  const downloadBtn = document.createElement("a");
+  downloadBtn.className = "btn-download";
+  downloadBtn.textContent = "⬇ Download";
+  downloadBtn.href = r.downloadUrl;
+  downloadBtn.target = "_blank";
+  downloadBtn.rel = "noopener";
+  downloadBtn.onclick = () => trackDownload(r.id);
+  actions.appendChild(previewBtn);
+  actions.appendChild(downloadBtn);
+  card.appendChild(actions);
+
+  const dlCount = document.createElement("div");
+  dlCount.className = "dl-count";
+  card.appendChild(dlCount);
+  fetchDownloadCount(r.id, dlCount);
+
+  return card;
+}
+
+document.getElementById("searchBox").addEventListener("input", debounce(runSearch, 200));
+document.getElementById("gradeFilter").addEventListener("change", runSearch);
+document.getElementById("subjectFilter").addEventListener("change", runSearch);
+document.getElementById("categoryFilter").addEventListener("change", runSearch);
+document.getElementById("sortSelect").addEventListener("change", runSearch);
+document.getElementById("favToggle").addEventListener("click", (e) => {
+  e.target.classList.toggle("active");
+  runSearch();
+});
+document.getElementById("clearBtn").addEventListener("click", () => {
+  document.getElementById("searchBox").value = "";
+  document.getElementById("gradeFilter").value = "";
+  document.getElementById("subjectFilter").value = "";
+  document.getElementById("categoryFilter").value = "";
+  document.getElementById("sortSelect").value = "relevance";
+  document.getElementById("favToggle").classList.remove("active");
+  runSearch();
+});
+document.getElementById("loadMoreBtn").addEventListener("click", renderNextPage);
+
+function debounce(fn, ms) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
+
+window.addEventListener("load", () => {
+  buildIndexes();
+  runSearch();
+});
+</script>
+<script src="feedback-widget.js"></script>
+</body>
+</html>
