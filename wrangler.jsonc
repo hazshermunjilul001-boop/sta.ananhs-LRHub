@@ -1,9 +1,7 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sanhs-lrhub",
   "compatibility_date": "2026-08-01",
   "assets": {
-    "directory": "./",
-    "not_found_handling": "404-page"
+    "directory": "./"
   }
 }
