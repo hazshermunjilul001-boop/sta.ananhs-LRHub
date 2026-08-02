@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search All Resources | Sta. Ana National High School</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -182,6 +183,34 @@
     .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
     .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
+    .badge.locked { background: #fde2e2; color: #9c1c1c; }
+    .locked-notice {
+      background: var(--light); border: 1px dashed var(--primary); border-radius: 8px;
+      padding: 10px 12px; font-size: 0.82em; color: var(--primary); margin-top: auto; text-align: center;
+    }
+    .locked-notice button {
+      display: block; margin: 8px auto 0; background: var(--primary); color: white; border: none;
+      padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.95em;
+    }
+    #teacherSigninOverlay {
+      display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(0,0,0,0.6);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    #teacherSigninOverlay .box {
+      background: white; border-radius: 12px; padding: 34px; max-width: 420px; width: 100%; text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    #teacherSigninOverlay h3 { margin-top: 0; color: var(--primary); }
+    #teacherSigninOverlay p { color: #555; font-size: 0.9em; margin-bottom: 20px; }
+    #teacherSigninOverlay .gbtn { display: flex; justify-content: center; margin-bottom: 10px; }
+    #teacherSigninOverlay .close-x { position: absolute; top: 12px; right: 18px; cursor: pointer; font-size: 1.4em; color: #999; }
+    #teacherSigninOverlay .box { position: relative; }
+    .signed-in-banner {
+      background: #eaf7ea; color: var(--green); border-radius: 8px; padding: 8px 14px; font-size: 0.85em;
+      font-weight: bold; margin-bottom: 10px; display: none; align-items: center; justify-content: space-between;
+    }
+    .signed-in-banner.show { display: flex; }
+
   </style>
 </head>
 <body>
@@ -224,6 +253,10 @@
 </nav>
 
 <div class="container">
+  <div class="signed-in-banner" id="signedInBanner">
+    <span id="signedInText"></span>
+    <button onclick="teacherSignOut()" style="background:none;border:none;color:var(--green);font-weight:bold;cursor:pointer;text-decoration:underline;">Sign out</button>
+  </div>
   <div class="search-panel">
     <h1>🔍 Search All Resources</h1>
     <div class="subtitle">Search across every SLM, LAMBO sheet, teaching material, and learning packet on the hub — by keyword, subject, or grade level.</div>
@@ -246,6 +279,17 @@
   <div class="no-results" id="noResults" style="display:none;">No resources match your search. Try different keywords or clear a filter.</div>
   <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
     <button id="loadMoreBtn">Load more results</button>
+  </div>
+</div>
+
+<!-- TEACHER SIGN-IN OVERLAY (for locked Teaching Materials results) -->
+<div id="teacherSigninOverlay">
+  <div class="box">
+    <span class="close-x" onclick="document.getElementById('teacherSigninOverlay').style.display='none';">&times;</span>
+    <h3>🔒 Teachers Only</h3>
+    <p>Teaching Materials are restricted to Sta. Ana NHS staff. Sign in with your official <strong>@deped.gov.ph</strong> Google account to view them.</p>
+    <div class="gbtn" id="teacherGsiBtn"></div>
+    <div id="teacherGateError" style="color:#b00020; font-size:0.85em; min-height:18px;"></div>
   </div>
 </div>
 
@@ -299,6 +343,76 @@
    ───────────────────────────────────────────────────────────── */
 
 const COUNTAPI_BASE = "https://countapi.mileshilliard.com/api/v1";
+
+/* ─── Teacher-only gate for Teaching Materials results ───
+   Mirrors teaching-materials.html / upload.html exactly: Google Sign-In
+   restricted to @deped.gov.ph. This controls what the SEARCH PAGE shows —
+   it is a UI-consistency measure, not real security. The actual protection
+   has to come from the Google Drive files' own sharing permissions. */
+const GOOGLE_CLIENT_ID = "215229995396-j5256uapm7r7p4sck0aontm45q3kfuml.apps.googleusercontent.com";
+const ALLOWED_DOMAIN = "deped.gov.ph";
+const TEACHER_GATE_KEY = "sanhs_teacher_gate_email";
+const GATED_CATEGORY = "Teaching Materials";
+
+function teacherEmail() {
+  return sessionStorage.getItem(TEACHER_GATE_KEY);
+}
+function isTeacherSignedIn() {
+  const e = teacherEmail();
+  return !!(e && e.toLowerCase().endsWith("@" + ALLOWED_DOMAIN));
+}
+function teacherSignOut() {
+  sessionStorage.removeItem(TEACHER_GATE_KEY);
+  updateSignedInBanner();
+  runSearch();
+}
+function updateSignedInBanner() {
+  const banner = document.getElementById("signedInBanner");
+  if (isTeacherSignedIn()) {
+    document.getElementById("signedInText").textContent = "✅ Signed in as " + teacherEmail() + " — Teaching Materials unlocked";
+    banner.classList.add("show");
+  } else {
+    banner.classList.remove("show");
+  }
+}
+function fbwDecodeJwt(token) {
+  const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+  const json = decodeURIComponent(
+    atob(base64).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join("")
+  );
+  return JSON.parse(json);
+}
+function handleTeacherCredential(response) {
+  const errorEl = document.getElementById("teacherGateError");
+  try {
+    const payload = fbwDecodeJwt(response.credential);
+    const email = (payload.email || "").toLowerCase();
+    if (email.endsWith("@" + ALLOWED_DOMAIN) && payload.email_verified) {
+      sessionStorage.setItem(TEACHER_GATE_KEY, email);
+      document.getElementById("teacherSigninOverlay").style.display = "none";
+      updateSignedInBanner();
+      runSearch();
+    } else {
+      errorEl.textContent = "That account is not a @" + ALLOWED_DOMAIN + " account.";
+    }
+  } catch (e) {
+    errorEl.textContent = "Something went wrong verifying sign-in. Please try again.";
+  }
+}
+function promptTeacherSignIn() {
+  document.getElementById("teacherGateError").textContent = "";
+  document.getElementById("teacherSigninOverlay").style.display = "flex";
+  if (window.google && google.accounts && google.accounts.id) {
+    google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleTeacherCredential });
+    document.getElementById("teacherGsiBtn").innerHTML = "";
+    google.accounts.id.renderButton(
+      document.getElementById("teacherGsiBtn"),
+      { theme: "filled_blue", size: "large", text: "signin_with", shape: "pill" }
+    );
+  } else {
+    document.getElementById("teacherGateError").textContent = "Sign-in is still loading — please wait a moment and try again.";
+  }
+}
 const FAV_KEY = "sanhs_favorites";
 const RATED_KEY = "sanhs_rated_ids";
 const PAGE_SIZE = 30;
@@ -520,6 +634,8 @@ function buildCard(r) {
   if (r.grade) badges.innerHTML += `<span class="badge grade">Grade ${r.grade}</span>`;
   if (r.category) badges.innerHTML += `<span class="badge category">${r.category}</span>`;
   if (isNew(r)) badges.innerHTML += `<span class="badge new">🆕 New</span>`;
+  const isLocked = r.category === GATED_CATEGORY && !isTeacherSignedIn();
+  if (isLocked) badges.innerHTML += `<span class="badge locked">🔒 Teachers Only</span>`;
   card.appendChild(badges);
 
   const title = document.createElement("div");
@@ -557,7 +673,16 @@ function buildCard(r) {
   const isVideo = ["Review Video", "Video Lesson"].includes(r.category);
   const isExternalQuiz = r.category === "PISA-like Practice Test";
 
-  if (isVideo) {
+  if (isLocked) {
+    const notice = document.createElement("div");
+    notice.className = "locked-notice";
+    notice.innerHTML = `Sign in with your @${ALLOWED_DOMAIN} account to view this file.`;
+    const signInBtn = document.createElement("button");
+    signInBtn.textContent = "Sign in";
+    signInBtn.onclick = promptTeacherSignIn;
+    notice.appendChild(signInBtn);
+    card.appendChild(notice);
+  } else if (isVideo) {
     const watchBtn = document.createElement("button");
     watchBtn.className = "btn-download";
     watchBtn.textContent = "▶ Watch";
@@ -624,6 +749,7 @@ function debounce(fn, ms) {
 
 window.addEventListener("load", () => {
   buildIndexes();
+  updateSignedInBanner();
   runSearch();
 });
 </script>
